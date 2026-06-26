@@ -1,154 +1,126 @@
-import { allDevices as legacyDevices } from "./deadzone-devices";
+import { allDevices as sourceDevices } from "./deadzone-devices";
 
-export type RomStyle = "Stable" | "Legend" | "Gaming" | "EPiC";
-export type DeviceStatus = "available" | "coming-soon" | "testing";
-export type DeviceSoc = "MTK" | "Snapdragon";
-export type GalleryCategory = "Interface" | "System" | "Performance" | "Tools" | "Install";
+export type RomStyle = "Lite" | "GamingPlus" | "Legend" | "Ninja";
+export type DeviceStatus = "supported" | "coming-soon";
+export type DeviceCategory =
+    | "Xiaomi Series"
+    | "Xiaomi MIX / Fold / Flip Series"
+    | "Redmi K / Turbo Series"
+    | "Redmi Note Series"
+    | "Redmi Number Series"
+    | "POCO F Series"
+    | "POCO X Series"
+    | "POCO M / C Series"
+    | "Xiaomi Pad / Redmi Pad / POCO Pad";
 
 export type Device = {
     codename: string;
     name: string;
-    brand: "Xiaomi" | "Redmi" | "POCO" | "Pad" | string;
-    soc: DeviceSoc;
+    brand: string;
+    soc: "MTK" | "Snapdragon";
     platform?: string;
     android?: string;
     image?: string;
     imageAlt?: string;
     status: DeviceStatus;
+    category: DeviceCategory;
     styles: RomStyle[];
 };
 
-export type Build = {
-    id?: string;
+export type PublicBuild = {
+    id: string;
+    device: string;
     codename: string;
-    style: RomStyle;
-    version: string;
-    buildDate?: string;
-    base?: string;
-    platform?: string;
+    rom: string;
+    region?: string;
     android?: string;
-    changelog?: string;
-    changelogUrl?: string;
-    checksum?: string;
-    fileSize?: string;
-    links?: {
-        pixeldrain?: string;
-        github?: string;
-        backup?: string;
-    };
+    filename?: string;
+    download?: string;
+    updated_at?: string;
 };
 
-export type GalleryItem = {
-    title: string;
-    category: GalleryCategory;
-    image: string;
-    description?: string;
-};
+export const publicStyle: RomStyle = "Lite";
+export const premiumStyles: RomStyle[] = ["GamingPlus", "Legend", "Ninja"];
+export const romStyles: RomStyle[] = ["Lite", "GamingPlus", "Legend", "Ninja"];
 
-export const romStyles: RomStyle[] = ["Stable", "Legend", "Gaming", "EPiC"];
+export const officialLinks = {
+    contact: "https://t.me/MohamedMezo1",
+    discussion: "https://t.me/DeadZoneDiscussion",
+    updates: "https://t.me/xDeadZone",
+    screenshots: "https://t.me/DeadZoneCloud",
+    supportedDevices: "https://t.me/DeadZoneDiscussion/2851",
+    groupRules: "https://t.me/DeadZoneDiscussion/2849",
+};
 
 export const siteLinks = {
-    telegram: "/community",
+    home: "/",
+    downloads: "/downloads",
+    devices: "/devices",
+    styles: "/styles",
+    premium: "/premium",
     community: "/community",
-    github: "https://github.com/DeadZon/DeadZone_web",
-    pixeldrainArchive: "",
+    contact: "/contact",
 };
 
-function normalizeStyle(value?: string | null): RomStyle {
-    const raw = String(value || "Stable").toLowerCase();
-    if (raw.includes("legend") || raw.includes("vip") || raw.includes("premium")) return "Legend";
-    if (raw.includes("gaming")) return "Gaming";
-    if (raw.includes("epic")) return "EPiC";
-    return "Stable";
+function getCategory(name: string): DeviceCategory {
+    const lower = name.toLowerCase();
+
+    if (lower.includes("pad")) return "Xiaomi Pad / Redmi Pad / POCO Pad";
+    if (lower.includes("mix") || lower.includes("fold") || lower.includes("flip")) return "Xiaomi MIX / Fold / Flip Series";
+    if (lower.includes("poco f")) return "POCO F Series";
+    if (lower.includes("poco x")) return "POCO X Series";
+    if (lower.includes("poco m") || lower.includes("poco c")) return "POCO M / C Series";
+    if (lower.includes("redmi note")) return "Redmi Note Series";
+    if (lower.includes("redmi k") || lower.includes("redmi turbo")) return "Redmi K / Turbo Series";
+    if (lower.includes("redmi ")) return "Redmi Number Series";
+
+    return "Xiaomi Series";
 }
 
-function normalizeStatus(status?: string): DeviceStatus {
-    const raw = String(status || "").toLowerCase();
-    if (raw.includes("test")) return "testing";
-    if (raw.includes("coming") || raw.includes("inactive")) return "coming-soon";
-    return "coming-soon";
-}
-
-export const devices: Device[] = legacyDevices.map((device) => ({
+export const devices: Device[] = sourceDevices.map((device) => ({
     codename: device.codename,
     name: device.name,
     brand: device.brand,
     soc: device.soc,
-    platform: device.platform,
+    platform: "HyperOS",
+    android: "Android 15",
     image: device.image,
     imageAlt: device.imageAlt,
-    status: normalizeStatus(device.status),
-    styles: ["Stable"],
+    status: device.status === "supported" ? "supported" : "coming-soon",
+    category: getCategory(device.name),
+    styles: ["Lite", "GamingPlus", "Legend", "Ninja"],
 }));
 
-export const builds: Build[] = [];
-
-export const galleryItems: GalleryItem[] = [];
+export const publicBuilds: PublicBuild[] = [];
 
 export function deviceCounts(source: Device[] = devices) {
     return {
         mtk: source.filter((device) => device.soc === "MTK").length,
         snapdragon: source.filter((device) => device.soc === "Snapdragon").length,
         total: source.length,
-        legendReady: source.filter((device) => device.styles.includes("Legend") && device.status === "available").length,
+        supported: source.filter((device) => device.status === "supported").length,
     };
 }
 
-export function mergeApiDevice(apiDevice: any): Device {
-    const fallback = devices.find((device) => device.codename === apiDevice?.codename);
-    const roms = Array.isArray(apiDevice?.roms) ? apiDevice.roms : [];
-    const styles = Array.from(new Set(roms.map((rom: any) => normalizeStyle(rom.flavor || rom.type)))) as RomStyle[];
+export function findDevice(codename: string) {
+    return devices.find((device) => device.codename === codename);
+}
 
+export function normalizeBuildRecord(input: any): PublicBuild {
     return {
-        codename: apiDevice?.codename || fallback?.codename || "",
-        name: apiDevice?.name || fallback?.name || "Unknown device",
-        brand: apiDevice?.brand || fallback?.brand || "Xiaomi",
-        soc: fallback?.soc || (String(apiDevice?.chipset || "").toLowerCase().includes("mtk") ? "MTK" : "Snapdragon"),
-        platform: apiDevice?.platform || fallback?.platform || "HyperOS 3 / Global ROM Base / CN features",
-        android: apiDevice?.androidVersion || fallback?.android,
-        image: apiDevice?.image || fallback?.image,
-        imageAlt: fallback?.imageAlt || `${apiDevice?.name || fallback?.name || "DeadZone"} device image`,
-        status: roms.length > 0 ? "available" : normalizeStatus(apiDevice?.status || fallback?.status),
-        styles: styles.length ? styles : fallback?.styles || ["Stable"],
+        id: String(input?.id || input?.codename || input?.device_codename || input?.filename || crypto.randomUUID?.() || Math.random()),
+        device: String(input?.device || input?.device_name || "Unknown device"),
+        codename: String(input?.codename || input?.device_codename || "").toLowerCase(),
+        rom: String(input?.rom || input?.rom_version || "DeadZone Lite"),
+        region: input?.region || undefined,
+        android: input?.android || undefined,
+        filename: input?.filename || input?.final_zip || undefined,
+        download: input?.download || input?.drive_link || undefined,
+        updated_at: input?.updated_at || undefined,
     };
 }
 
-export function mergeApiDevices(apiDevices: any[]): Device[] {
-    const apiByCodename = new Map(apiDevices.map((device) => [device.codename, mergeApiDevice(device)]));
-    const merged = devices.map((device) => apiByCodename.get(device.codename) || device);
-
-    Array.from(apiByCodename.values()).forEach((device) => {
-        if (!merged.some((item) => item.codename === device.codename)) merged.push(device);
-    });
-
-    return merged.sort((a, b) => a.codename.localeCompare(b.codename));
-}
-
-export function normalizeBuild(rom: any, codename: string): Build {
-    const pixeldrain = rom?.pixeldrainUrl || undefined;
-    const github = rom?.githubRunUrl || undefined;
-    const backup = rom?.downloadUrl && rom.downloadUrl !== pixeldrain && rom.downloadUrl !== github ? rom.downloadUrl : undefined;
-
-    return {
-        id: rom?.id,
-        codename,
-        style: normalizeStyle(rom?.flavor || rom?.type),
-        version: rom?.version || "Unversioned",
-        buildDate: rom?.releaseDate,
-        base: rom?.name,
-        platform: rom?.platform,
-        android: rom?.androidVersion,
-        changelog: rom?.changelog,
-        checksum: rom?.sha256,
-        fileSize: rom?.fileSize,
-        links: {
-            pixeldrain,
-            github,
-            backup,
-        },
-    };
-}
-
-export function normalizeBuilds(roms: any[] = [], codename: string): Build[] {
-    return roms.map((rom) => normalizeBuild(rom, codename));
+export function normalizeWorkerBuilds(input: any): PublicBuild[] {
+    if (!Array.isArray(input)) return [];
+    return input.map(normalizeBuildRecord);
 }

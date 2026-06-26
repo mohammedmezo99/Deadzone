@@ -1,84 +1,70 @@
-# DeadZone ROM Website
+# DeadZone Website
 
-Official website foundation for DeadZone ROM, built with Next.js, TypeScript, Tailwind CSS, Prisma, and PostgreSQL.
+Public-facing DeadZone website built with Next.js, TypeScript, and Tailwind CSS.
 
-This repository keeps the imported site architecture intact while aligning the public website and admin data model around DeadZone ROM releases.
+DeadZone is a premium HyperOS ROM project by Mohammed MEZO.
 
-## ROM Flavors
+## Public direction
 
-- DeadZone Base
-- DeadZone Gaming
-- DeadZone EPiC
-- DeadZone Legend
+- Marketing
+- Downloads
+- Supported Devices
+- Styles
+- Premium Membership
+- Community links
+- Contact MEZO
 
-## Platform Support
+## Styles
 
-DeadZone targets Android devices across both Snapdragon and MTK platforms. Device records, ROM metadata, changelogs, screenshots, and download links are managed through the admin dashboard.
+- DeadZone Lite
+- GamingPlus
+- Legend
+- Ninja
 
-## Downloads
+DeadZone Lite is the public build line.
 
-The website supports release downloads through:
+Premium Membership unlocks:
 
-- PixelDrain links
-- GitHub Release or GitHub Actions build links
-- Direct ROM download URLs
-- SHA-256 checksum metadata for release verification
+- GamingPlus
+- Legend
+- Ninja
 
-## Admin Dashboard
+## Build requests
 
-The existing dashboard remains part of the foundation and is intended to manage:
+Fastest and cleanest build process:
 
-- Supported devices
-- ROM links and release metadata
-- Changelogs
-- Screenshots
-- Download tracking
-- Team members
-- FAQs
-- Contact submissions
-- Social links
-- Site configuration
+`/mezo <OTA_ROM_LINK>`
 
-## Tech Stack
+Use a valid Recovery OTA ROM `.zip` link.
 
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- Prisma
-- PostgreSQL
+Existing builds command:
 
-## Local Development
+`/mezo <codename>`
 
-Install dependencies:
+Example:
+
+`/mezo zircon`
+
+## Official links
+
+- Contact MEZO: https://t.me/MohamedMezo1
+- Discussion Group: https://t.me/DeadZoneDiscussion
+- Official Updates: https://t.me/xDeadZone
+- Screenshots Cloud: https://t.me/DeadZoneCloud
+- Supported Devices: https://t.me/DeadZoneDiscussion/2851
+- Group Rules: https://t.me/DeadZoneDiscussion/2849
+
+## Local development
 
 ```bash
 npm install
-```
-
-Generate the Prisma client:
-
-```bash
-npx prisma generate
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Build for production:
+## Production build
 
 ```bash
 npm run build
 ```
 
-## Environment
-
-Create a local `.env` file with a PostgreSQL connection string when database access is required:
-
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/deadzone"
-```
-
-Do not commit secrets or production database credentials.
+The public website build does not require `DATABASE_URL`.

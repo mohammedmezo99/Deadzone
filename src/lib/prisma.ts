@@ -1,13 +1,28 @@
-import { PrismaClient } from "@prisma/client";
+type AnyFn = (...args: any[]) => Promise<any>;
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const disabled: AnyFn = async () => {
+    throw new Error("Database-backed admin features are disabled in the public DeadZone website build.");
+};
 
-export const prisma =
-    globalForPrisma.prisma ||
-    new PrismaClient({
-        log: ["query"],
-    });
+function createModel() {
+    return new Proxy(
+        {},
+        {
+            get() {
+                return disabled;
+            },
+        }
+    );
+}
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+const prisma = new Proxy(
+    {},
+    {
+        get() {
+            return createModel();
+        },
+    }
+) as any;
 
+export { prisma };
 export default prisma;

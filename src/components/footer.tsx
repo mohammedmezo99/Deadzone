@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { CircuitBoard, Github, Send, ShieldCheck } from "lucide-react";
+import { CircuitBoard, MessageCircle, Send, ShieldCheck } from "lucide-react";
+import { officialLinks, siteLinks } from "@/data/deadzone-registry";
 
 export function Footer() {
     return (
@@ -8,45 +9,45 @@ export function Footer() {
             <div className="mx-auto max-w-7xl">
                 <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
                     <div className="md:col-span-2">
-                        <Link href="/" className="mb-6 flex items-center gap-3">
+                        <Link href={siteLinks.home} className="mb-6 flex items-center gap-3">
                             <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-300/25 bg-gradient-to-br from-cyan-400/20 via-blue-500/20 to-fuchsia-500/20">
                                 <CircuitBoard className="h-5 w-5 text-cyan-100" />
                             </div>
                             <div>
                                 <span className="block text-xl font-black uppercase tracking-[0.16em] text-white">DeadZone</span>
-                                <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-200/80">HyperOS Engineering</span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-200/80">Premium HyperOS ROM</span>
                             </div>
                         </Link>
                         <p className="max-w-md text-sm leading-7 text-zinc-400">
-                            DeadZone HyperOS Engineering builds a premium ROM experience for Snapdragon and MTK devices, with real release metadata, changelogs, checksums, and install guidance.
+                            DeadZone is a premium HyperOS ROM project by Mohammed MEZO. DeadZone Lite is the public build line, and Premium Membership unlocks GamingPlus, Legend, and Ninja.
                         </p>
                         <div className="mt-6 flex gap-3">
-                            <Link href="https://github.com/DeadZon/DeadZone_web" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
-                                <Github className="h-4 w-4" />
-                            </Link>
-                            <Link href="/community" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
+                            <a href={officialLinks.updates} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
                                 <Send className="h-4 w-4" />
-                            </Link>
+                            </a>
+                            <a href={officialLinks.discussion} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
+                                <MessageCircle className="h-4 w-4" />
+                            </a>
                         </div>
                     </div>
 
                     <div>
-                        <h4 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-white">DeadZone</h4>
+                        <h4 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-white">Navigate</h4>
                         <ul className="space-y-3 text-sm">
-                            <li><Link href="/download" className="text-zinc-400 transition-colors hover:text-white">Downloads</Link></li>
-                            <li><Link href="/gallery" className="text-zinc-400 transition-colors hover:text-white">Gallery</Link></li>
-                            <li><Link href="/details" className="text-zinc-400 transition-colors hover:text-white">Details</Link></li>
-                            <li><Link href="/devices" className="text-zinc-400 transition-colors hover:text-white">Devices</Link></li>
+                            <li><Link href={siteLinks.downloads} className="text-zinc-400 transition-colors hover:text-white">Downloads</Link></li>
+                            <li><Link href={siteLinks.devices} className="text-zinc-400 transition-colors hover:text-white">Devices</Link></li>
+                            <li><Link href={siteLinks.styles} className="text-zinc-400 transition-colors hover:text-white">Styles</Link></li>
+                            <li><Link href={siteLinks.premium} className="text-zinc-400 transition-colors hover:text-white">Premium</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-white">Community</h4>
+                        <h4 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-white">Official Links</h4>
                         <ul className="space-y-3 text-sm">
-                            <li><Link href="/community" className="text-zinc-400 transition-colors hover:text-white">Community</Link></li>
-                            <li><Link href="https://github.com/DeadZon/DeadZone_web" className="text-zinc-400 transition-colors hover:text-white">GitHub</Link></li>
-                            <li><Link href="/community" className="text-zinc-400 transition-colors hover:text-white">Telegram</Link></li>
-                            <li><Link href="/admin" className="text-zinc-400 transition-colors hover:text-white">Admin</Link></li>
+                            <li><a href={officialLinks.contact} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Contact MEZO</a></li>
+                            <li><a href={officialLinks.discussion} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Discussion Group</a></li>
+                            <li><a href={officialLinks.updates} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Official Updates</a></li>
+                            <li><a href={officialLinks.screenshots} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Screenshots Cloud</a></li>
                         </ul>
                     </div>
                 </div>

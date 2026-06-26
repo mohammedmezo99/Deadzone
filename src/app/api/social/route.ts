@@ -1,17 +1,13 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-
-export const dynamic = "force-dynamic";
+import { officialLinks } from "@/data/deadzone-registry";
 
 export async function GET() {
-    try {
-        const links = await prisma.socialLink.findMany({
-            where: { isActive: true },
-            orderBy: { createdAt: 'asc' }
-        });
-        return NextResponse.json(links);
-    } catch (error) {
-        console.error("Error fetching social links:", error);
-        return NextResponse.json({ error: "Failed to fetch social links" }, { status: 500 });
-    }
+    return NextResponse.json([
+        { id: "contact", platform: "telegram", title: "Contact MEZO", url: officialLinks.contact },
+        { id: "discussion", platform: "telegram", title: "Discussion Group", url: officialLinks.discussion },
+        { id: "updates", platform: "telegram", title: "Official Updates", url: officialLinks.updates },
+        { id: "screenshots", platform: "telegram", title: "Screenshots Cloud", url: officialLinks.screenshots },
+        { id: "devices", platform: "telegram", title: "Supported Devices", url: officialLinks.supportedDevices },
+        { id: "rules", platform: "telegram", title: "Group Rules", url: officialLinks.groupRules },
+    ]);
 }

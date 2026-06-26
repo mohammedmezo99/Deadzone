@@ -1,159 +1,65 @@
 "use client";
 
-import { Navbar } from "@/components/navbar";
+import { MessageCircle, Shield, Sparkles, Users } from "lucide-react";
 import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
-import { motion } from "framer-motion";
-import { Users, Github, Send, Twitter, MessageCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
+import { officialLinks } from "@/data/deadzone-registry";
 
-const iconMap: Record<string, any> = {
-    github: Github,
-    telegram: Send,
-    twitter: Twitter,
-    discord: MessageCircle,
-};
+const communityCards = [
+    { title: "Contact MEZO", href: officialLinks.contact, copy: "Direct contact for premium membership and official DeadZone requests.", accent: "gold" as const },
+    { title: "Discussion Group", href: officialLinks.discussion, copy: "Community chat, support, and general DeadZone discussion.", accent: "cyan" as const },
+    { title: "Official Updates", href: officialLinks.updates, copy: "Announcements, release updates, and official channel posts.", accent: "blue" as const },
+    { title: "Screenshots Cloud", href: officialLinks.screenshots, copy: "Public screenshot drops and visual previews from the project.", accent: "purple" as const },
+    { title: "Supported Devices", href: officialLinks.supportedDevices, copy: "Official supported-device reference shared in the community.", accent: "magenta" as const },
+    { title: "Group Rules", href: officialLinks.groupRules, copy: "Read the rules before posting or requesting support in the group.", accent: "red" as const },
+];
 
 export default function CommunityPage() {
-    const [socialLinks, setSocialLinks] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch("/api/social")
-            .then(res => res.json())
-            .then(data => {
-                setSocialLinks(Array.isArray(data) ? data : []);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, []);
-
     return (
-        <main className="min-h-screen relative">
+        <main className="relative min-h-screen">
             <Starfield />
             <Navbar />
 
-            <section className="pt-40 pb-20 px-6">
-                <div className="max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
-                    >
-                        <Users className="w-3.5 h-3.5" /> Join Us
-                    </motion.div>
+            <section className="px-6 pb-20 pt-36">
+                <div className="mx-auto max-w-7xl">
+                    <SectionHeader
+                        eyebrow="Community"
+                        title="Official DeadZone Telegram channels and public links."
+                        description="Stay inside the official DeadZone network for updates, screenshots, group discussion, supported-device references, and direct contact with MEZO."
+                        align="center"
+                    />
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-white"
-                    >
-                        Our <span className="text-blue-500">Community</span>
-                    </motion.h1>
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                        {communityCards.map((card) => (
+                            <GlassCard key={card.title} accent={card.accent} className="p-6">
+                                <RomBadge accent={card.accent}>Official</RomBadge>
+                                <h2 className="mt-5 text-2xl font-black text-white">{card.title}</h2>
+                                <p className="mt-3 text-sm leading-7 text-zinc-300">{card.copy}</p>
+                                <a href={card.href} target="_blank" rel="noopener noreferrer" className="mt-6 flex min-h-12 items-center justify-center rounded-2xl bg-white/[0.06] px-5 text-xs font-black uppercase tracking-[0.16em] text-white">
+                                    Open Link
+                                </a>
+                            </GlassCard>
+                        ))}
+                    </div>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-zinc-400 text-lg mb-12 leading-relaxed"
-                    >
-                        Connect with fellow DeadZone users, get support, and stay updated with the latest developments.
-                    </motion.p>
-
-                    {/* Social Links */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold text-white mb-8">Join Our Channels</h2>
-                        {loading ? (
-                            <div className="text-center py-10">
-                                <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+                    <GlassCard accent="cyan" className="mt-10 p-7">
+                        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h2 className="text-2xl font-black text-white">Public community only.</h2>
+                                <p className="mt-3 text-sm leading-7 text-zinc-300">
+                                    This public site is for marketing, downloads, devices, styles, premium membership, and official community links.
+                                </p>
                             </div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {socialLinks.map((link, i) => {
-                                    const Icon = iconMap[link.platform.toLowerCase()] || MessageCircle;
-                                    return (
-                                        <motion.a
-                                            key={link.id}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: i * 0.1 }}
-                                            className="group p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/[0.07] hover:border-white/20 transition-all"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                    <Icon className="w-7 h-7 text-blue-500" />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="text-xl font-bold text-white capitalize mb-1">{link.platform}</h3>
-                                                    <p className="text-sm text-zinc-500">{link.url}</p>
-                                                </div>
-                                                <div className="text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all">
-                                                    →
-                                                </div>
-                                            </div>
-                                        </motion.a>
-                                    );
-                                })}
+                            <div className="flex flex-wrap gap-3">
+                                <RomBadge accent="cyan"><Users className="mr-2 h-4 w-4" /> Discussion</RomBadge>
+                                <RomBadge accent="blue"><Sparkles className="mr-2 h-4 w-4" /> Updates</RomBadge>
+                                <RomBadge accent="gold"><MessageCircle className="mr-2 h-4 w-4" /> MEZO</RomBadge>
+                                <RomBadge accent="red"><Shield className="mr-2 h-4 w-4" /> Rules</RomBadge>
                             </div>
-                        )}
-                    </div>
-
-                    {/* Community Guidelines */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold text-white mb-8">Community Guidelines</h2>
-                        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 space-y-6">
-                            {[
-                                {
-                                    title: "Be Respectful",
-                                    desc: "Treat all community members with respect. No harassment, hate speech, or personal attacks."
-                                },
-                                {
-                                    title: "Stay On Topic",
-                                    desc: "Keep discussions relevant to DeadZone and Android development. Off-topic spam will be removed."
-                                },
-                                {
-                                    title: "No Piracy",
-                                    desc: "Do not share or request pirated content, paid apps, or illegal material."
-                                },
-                                {
-                                    title: "Help Each Other",
-                                    desc: "If you can help someone, do it! We're all learning and growing together."
-                                },
-                                {
-                                    title: "Search First",
-                                    desc: "Before asking a question, check the FAQ and search previous discussions. Your question may already be answered."
-                                },
-                                {
-                                    title: "Provide Details",
-                                    desc: "When reporting bugs or asking for help, provide as much detail as possible: device model, DeadZone version, steps to reproduce, logs, etc."
-                                }
-                            ].map((guideline, i) => (
-                                <div key={i}>
-                                    <h3 className="text-lg font-bold text-white mb-2">{guideline.title}</h3>
-                                    <p className="text-zinc-400">{guideline.desc}</p>
-                                </div>
-                            ))}
                         </div>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-3xl p-8 md:p-12 text-center">
-                        <h2 className="text-3xl font-bold text-white mb-4">Ready to Join?</h2>
-                        <p className="text-zinc-400 mb-8 max-w-2xl mx-auto">
-                            Become part of the DeadZone family. Get help, share your experiences, and contribute to making DeadZone even better.
-                        </p>
-                        <div className="flex flex-wrap gap-4 justify-center">
-                            <a href={socialLinks.find(l => l.platform === 'telegram')?.url || '#'} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-violet-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all">
-                                Join Telegram
-                            </a>
-                            <a href={socialLinks.find(l => l.platform === 'github')?.url || '#'} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/5 hover:bg-white/10 rounded-xl font-semibold border border-white/10 transition-all">
-                                View on GitHub
-                            </a>
-                        </div>
-                    </div>
+                    </GlassCard>
                 </div>
             </section>
 
