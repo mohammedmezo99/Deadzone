@@ -113,7 +113,7 @@ export default function Home() {
                     <SectionHeader
                         eyebrow="Public Direction"
                         title="A public DeadZone website built for downloads, styles, and community."
-                        description="This site is focused on public DeadZone discovery. No private infrastructure, build pipeline, or internal management wording belongs here."
+                        description="This site is focused on public DeadZone discovery, downloads, supported devices, and official community links."
                         align="center"
                     />
                     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

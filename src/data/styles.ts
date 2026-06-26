@@ -38,7 +38,7 @@ export const romStyles: RomStyle[] = [
         shortDescription: "Premium membership style focused on balance, stability, and polished experience.",
         features: [
             "Balanced daily performance",
-            "Stable, polished presentation",
+            "Polished everyday presentation",
             "Premium-only DeadZone access",
         ],
         ctaLabel: "Contact MEZO",

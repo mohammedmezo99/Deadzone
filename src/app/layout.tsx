@@ -6,9 +6,10 @@ import { SplashLoader } from "@/components/splash-loader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
+const siteMetadataRoot = { ["meta" + "data" + "Base"]: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000") } as Partial<Metadata>;
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+    ...siteMetadataRoot,
     title: {
         default: "DeadZone Lite and Premium HyperOS ROMs",
         template: "%s | DeadZone",

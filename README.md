@@ -67,4 +67,8 @@ npm run dev
 npm run build
 ```
 
-The public website build does not require `DATABASE_URL`.
+## Deployment note
+
+Set `DEADZONE_WORKER_API_BASE` in Vercel Environment Variables.
+
+No backend storage is required for the public website.

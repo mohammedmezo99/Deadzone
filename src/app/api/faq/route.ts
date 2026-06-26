@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { dataClient } from "@/lib/data-client";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {
-        const faqs = await prisma.faq.findMany({
+        const faqs = await dataClient.faq.findMany({
             orderBy: [
                 { order: 'asc' },
                 { createdAt: 'asc' }

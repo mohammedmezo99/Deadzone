@@ -3,32 +3,44 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Calendar, Download, Search, Smartphone } from "lucide-react";
+import { AlertCircle, Download, Search, Smartphone } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { supportedDevices } from "@/data/devices";
-import { normalizeBuildRecords, publicBuilds } from "@/lib/builds";
+import { type PublicBuildsResponse } from "@/lib/builds";
 import { officialLinks } from "@/lib/links";
+import type { BuildItem } from "@/types";
 
 export default function DownloadsPage() {
     const searchParams = useSearchParams();
     const requestedCodename = searchParams.get("codename")?.toLowerCase() || "";
     const [query, setQuery] = useState(requestedCodename);
-    const [rows, setRows] = useState(publicBuilds);
+    const [rows, setRows] = useState<BuildItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+
+    useEffect(() => {
+        setQuery(requestedCodename);
+    }, [requestedCodename]);
 
     useEffect(() => {
         async function loadBuilds() {
+            setLoading(true);
+            setHasError(false);
+
             try {
                 const endpoint = requestedCodename ? `/api/builds?codename=${encodeURIComponent(requestedCodename)}` : "/api/builds";
-                const response = await fetch(endpoint);
-                const data = await response.json();
-                setRows(normalizeBuildRecords(data));
+                const response = await fetch(endpoint, { cache: "no-store" });
+                const data = await response.json() as PublicBuildsResponse;
+
+                setRows(Array.isArray(data?.builds) ? data.builds : []);
+                setHasError(data?.ok === false);
             } catch (error) {
                 console.error("Public builds fetch failed:", error);
-                setRows(publicBuilds);
+                setRows([]);
+                setHasError(true);
             } finally {
                 setLoading(false);
             }
@@ -58,7 +70,7 @@ export default function DownloadsPage() {
                     <SectionHeader
                         eyebrow="Downloads"
                         title="Latest DeadZone Lite Builds"
-                        description="Prepared for GET /api/builds and GET /api/builds?codename=<codename>. Public downloads use clean build records without exposing private infrastructure."
+                        description="Browse public DeadZone Lite releases, filter by codename, and open clean download links when builds are available."
                         align="center"
                     />
 
@@ -128,25 +140,32 @@ export default function DownloadsPage() {
                                             <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString() : "Not listed"}</p>
                                         </div>
                                     </div>
-                                    <p className="mt-5 text-sm leading-7 text-zinc-400">{build.filename || "Filename will appear here when the Worker API provides one."}</p>
+                                    <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Filename</p>
+                                        <p className="mt-1 break-all text-sm font-bold text-white">{build.filename || "Not listed"}</p>
+                                    </div>
                                     <div className="mt-6">
-                                        {build.downloadUrl ? (
-                                            <a href={build.downloadUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
-                                                <Download className="h-4 w-4" /> Download
-                                            </a>
-                                        ) : (
-                                            <div className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-xs font-black uppercase tracking-[0.16em] text-zinc-500">
-                                                <Calendar className="h-4 w-4" /> Download link pending
-                                            </div>
-                                        )}
+                                        <a href={build.downloadUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+                                            <Download className="h-4 w-4" /> Download
+                                        </a>
                                     </div>
                                 </GlassCard>
                             ))}
                         </div>
+                    ) : hasError ? (
+                        <GlassCard accent="red" className="p-10 text-center">
+                            <AlertCircle className="mx-auto mb-4 h-10 w-10 text-red-200" />
+                            <h3 className="text-xl font-black text-white">Live public builds are temporarily unavailable.</h3>
+                            <p className="mt-2 text-sm text-zinc-300">Try again shortly or request a build through MEZO.</p>
+                        </GlassCard>
                     ) : (
                         <GlassCard accent="slate" className="p-10 text-center">
                             <Smartphone className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
-                            <h3 className="text-xl font-black text-white">No public DeadZone Lite builds are listed yet. Use /mezo &lt;OTA_ROM_LINK&gt; to request one.</h3>
+                            <h3 className="text-xl font-black text-white">
+                                {requestedCodename
+                                    ? "No public DeadZone Lite builds are listed for this codename yet. Use /mezo <OTA_ROM_LINK> to request one."
+                                    : "No public DeadZone Lite builds are listed yet. Use /mezo <OTA_ROM_LINK> to request one."}
+                            </h3>
                         </GlassCard>
                     )}
                 </div>

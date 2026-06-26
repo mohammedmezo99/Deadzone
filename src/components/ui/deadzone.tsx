@@ -98,16 +98,16 @@ export function RomBadge({
 }
 
 export function StatusBadge({
-    stable,
+    ready,
     test,
     comingSoon,
 }: {
-    stable?: boolean;
+    ready?: boolean;
     test?: boolean;
     comingSoon?: boolean;
 }) {
-    const label = comingSoon ? "Coming Soon" : test ? "Test Build" : stable === false ? "Experimental" : "Stable";
-    const accent: Accent = comingSoon ? "slate" : test ? "gold" : stable === false ? "magenta" : "cyan";
+    const label = comingSoon ? "Coming Soon" : test ? "Test Build" : ready === false ? "Experimental" : "Ready";
+    const accent: Accent = comingSoon ? "slate" : test ? "gold" : ready === false ? "magenta" : "cyan";
     return <RomBadge accent={accent}>{label}</RomBadge>;
 }
 

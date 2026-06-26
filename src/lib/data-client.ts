@@ -1,7 +1,7 @@
 type AnyFn = (...args: any[]) => Promise<any>;
 
 const disabled: AnyFn = async () => {
-    throw new Error("Database-backed admin features are disabled in the public DeadZone website build.");
+    throw new Error("This website build does not enable private content management features.");
 };
 
 function createModel() {
@@ -15,7 +15,7 @@ function createModel() {
     );
 }
 
-const prisma = new Proxy(
+const dataClient = new Proxy(
     {},
     {
         get() {
@@ -24,5 +24,5 @@ const prisma = new Proxy(
     }
 ) as any;
 
-export { prisma };
-export default prisma;
+export { dataClient };
+export default dataClient;

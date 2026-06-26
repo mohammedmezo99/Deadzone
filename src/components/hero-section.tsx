@@ -117,8 +117,8 @@ export function HeroSection() {
                             </div>
 
                             <div className="mt-4 grid gap-3">
-                                <PlatformPill accent="cyan"><ShieldCheck className="mr-2 h-4 w-4" /> Stability pipeline</PlatformPill>
-                                <PlatformPill accent="magenta"><Sparkles className="mr-2 h-4 w-4" /> Gaming / EPiC tuning</PlatformPill>
+                                <PlatformPill accent="cyan"><ShieldCheck className="mr-2 h-4 w-4" /> Daily-use polish</PlatformPill>
+                                <PlatformPill accent="magenta"><Sparkles className="mr-2 h-4 w-4" /> Gaming-focused feel</PlatformPill>
                                 <PlatformPill accent="gold">DeadZone Legend gold channel</PlatformPill>
                             </div>
                         </div>

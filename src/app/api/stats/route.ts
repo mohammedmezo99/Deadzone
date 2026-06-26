@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import dataClient from "@/lib/data-client";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {
         const [deviceCount, visitorConfig] = await Promise.all([
-            prisma.device.count(),
-            prisma.siteConfig.findUnique({
+            dataClient.device.count(),
+            dataClient.siteConfig.findUnique({
                 where: { key: "visitor_count" }
             })
         ]);

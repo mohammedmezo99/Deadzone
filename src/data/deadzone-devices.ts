@@ -23,7 +23,7 @@ function withComputedTags<T extends Omit<DeadZoneDevice, "tags" | "bases">>(devi
         tags: [
             ...baseTags,
             device.soc,
-            device.status === "coming_soon" ? "Coming Soon" : "Stable",
+            device.status === "coming_soon" ? "Coming Soon" : "Ready",
         ],
     };
 }
