@@ -1,0 +1,278 @@
+{
+  "agate": {
+    "name": "Xiaomi 11T",
+    "source": "https://i01.appmifile.com/webfile/globalimg/products/pc/xiaomi-11t/header-phone-1.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 11T product image from Xiaomi global product assets; matches codename agate."
+  },
+  "amethyst": {
+    "name": "Redmi Note 14 Pro+ 5G",
+    "source": "https://i02.appmifile.com/638_operatorx_operatorx_opx/10/01/2025/c31d9ca06f0c27a541bcb2754acf770b.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Redmi Note 14 Pro+ 5G product page share image; matches codename amethyst."
+  },
+  "aristotle": {
+    "name": "Xiaomi 13T",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-13t-leica/PC/342ce95b8ea6494eb7679c1ebf4ed654.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13T product image from Xiaomi global product assets; matches codename aristotle."
+  },
+  "aurora": {
+    "name": "Xiaomi 14 Ultra",
+    "source": "https://i02.appmifile.com/334_operator_sg/22/02/2024/d36105f6de5a716a1c0737352c2827be.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 14 Ultra product image from Xiaomi assets; matches codename aurora."
+  },
+  "babylon": {
+    "name": "Xiaomi MIX Fold 3",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-mix-fold-3/PC/30f07d277baee7ddb6d14a21dacce74f.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi MIX Fold 3 product page hero image; matches codename babylon."
+  },
+  "cupid": {
+    "name": "Xiaomi 12",
+    "source": "https://i01.appmifile.com/webfile/globalimg/products/responsive/xiaomi-12-pc/bg.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12 product image from Xiaomi global product assets; matches codename cupid."
+  },
+  "dada": {
+    "name": "Xiaomi 15",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-15/pc/2fb551f068f8de5461069dab5cf84556.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 15 product page hero image; matches codename dada."
+  },
+  "diting": {
+    "name": "Xiaomi 12T Pro / Redmi K50 Ultra",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/pc/xiaomi-12t-pro/f301feb366ffeeedf8dd647226f88978.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12T Pro product image; matches codename diting via the Xiaomi 12T Pro alias."
+  },
+  "dizi": {
+    "name": "Redmi Pad Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-pad-pro/PC/a9d94627833ee5c9e822e324b6097cff.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Pad Pro product page hero image; matches codename dizi."
+  },
+  "fuxi": {
+    "name": "Xiaomi 13",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-13/pc/img01.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13 product image from Xiaomi global product assets; matches codename fuxi."
+  },
+  "garnet": {
+    "name": "Redmi Note 13 Pro 5G / POCO X6 5G",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/pc/pro-5g.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 13 Pro 5G product image; matches codename garnet and is not redwood/ruby."
+  },
+  "houji": {
+    "name": "Xiaomi 14",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-14/PC/headAss2_img.jpeg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 14 product page image; matches codename houji."
+  },
+  "ingres": {
+    "name": "Redmi K50 Gaming / POCO F4 GT",
+    "source": "https://i01.appmifile.com/webfile/globalimg/bai/poco-f4-gt.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi regional POCO F4 GT product image; matches codename ingres, distinct from munch/POCO F4."
+  },
+  "ishtar": {
+    "name": "Xiaomi 13 Ultra",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-13-ultra/pc/4bc309b95c7ea99ad67e0d86954778e1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13 Ultra product image from Xiaomi global product assets; matches codename ishtar."
+  },
+  "lisa": {
+    "name": "Xiaomi 11 Lite 5G NE",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344576.19921284.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 11 Lite 5G NE product image; matches codename lisa."
+  },
+  "marble": {
+    "name": "Redmi Note 12 Turbo / POCO F5",
+    "source": "https://i02.appmifile.com/173_operator_sg/20/04/2023/27b9038f6166371bea81e9b5aad9a66a.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F5 product image; matches codename marble through the POCO F5 alias."
+  },
+  "miro": {
+    "name": "Redmi K80 Pro / POCO F7 Ultra",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f7-ultra/PC/705a27ca864053389f86eb033b19e000.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F7 Ultra product page hero image; matches codename miro through the POCO F7 Ultra alias."
+  },
+  "mondrian": {
+    "name": "Redmi K60 / POCO F5 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f5-pro/pc/img01.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F5 Pro product image; matches codename mondrian through the POCO F5 Pro alias."
+  },
+  "moonstone": {
+    "name": "POCO X5 5G",
+    "source": "https://i02.appmifile.com/511_operatorx_operatorx_xm/02/02/2023/2746f98afd667dc9b90a4bc7595fa8dc.jpg?q=100",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi POCO X5 5G product image; matches codename moonstone."
+  },
+  "munch": {
+    "name": "Redmi K40S / POCO F4",
+    "source": "https://i01.appmifile.com/webfile/globalimg/bai/poco-f4-black.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi regional POCO F4 product image; matches codename munch, distinct from ingres/POCO F4 GT."
+  },
+  "muyu": {
+    "name": "Xiaomi Pad 7 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-pad-7-pro/pc/5484effe86e2b64e1bf9d0235e7bd126.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 7 Pro product page hero image; matches codename muyu."
+  },
+  "nuwa": {
+    "name": "Xiaomi 13 Pro",
+    "source": "https://i02.appmifile.com/706_operator_sg/15/02/2023/75d5a88d3d99386db8b37751a331c87f.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13 Pro product image; matches codename nuwa."
+  },
+  "onyx": {
+    "name": "Redmi Turbo 4 Pro / POCO F7",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f7/pc/837222dcf1c0c4a47659f44e9ac81b2a.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F7 product page hero image; matches codename onyx through the POCO F7 alias."
+  },
+  "peridot": {
+    "name": "Redmi Turbo 3 / POCO F6",
+    "source": "https://i02.appmifile.com/755_operator_sg/07/05/2024/6533de660f0c9a493e343af0dc4285be.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F6 product image; matches codename peridot through the POCO F6 alias."
+  },
+  "pipa": {
+    "name": "Xiaomi Pad 6",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-pad-6/pc/affec6708dec44e55cf37b670bfed5b7.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 6 product page hero image; matches codename pipa."
+  },
+  "pissarro": {
+    "name": "Redmi Note 11 Pro+ 5G / Xiaomi 11i 5G",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666350267.6365923.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 11 Pro+ 5G / Xiaomi 11i 5G product image; matches codename pissarro."
+  },
+  "plato": {
+    "name": "Xiaomi 12T",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-12t/pc/img01l.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12T product image; matches codename plato."
+  },
+  "redwood": {
+    "name": "Redmi Note 12 Pro Speed / POCO X5 Pro 5G",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-x5-pro-5g/pc/414631ca3e1853a7f4fc3870ccb132b9.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X5 Pro 5G product image; matches codename redwood and is not ruby/Redmi Note 12 Pro 5G."
+  },
+  "ruan": {
+    "name": "Redmi Pad Pro 5G / POCO Pad 5G",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-pad-pro-5g/pc/a5e866bcbec1b8449f4126bcf30d6a83.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Pad Pro 5G product page hero image; matches codename ruan."
+  },
+  "sapphire": {
+    "name": "Redmi Note 13 4G",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13/PC/bac9e4d29124ae838486e7f567d14361.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 13 product page hero image; matches codename sapphire."
+  },
+  "sky": {
+    "name": "Redmi 12 5G / Redmi Note 12R / POCO M6 Pro 5G",
+    "source": "https://i02.appmifile.com/274_operatorx_operatorx_opx/01/09/2023/935bb43c65b07d96c13ed1a03e95ad2a.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi 12 5G product image; matches codename sky through the Redmi 12 5G alias."
+  },
+  "star": {
+    "name": "Xiaomi Mi 11 Ultra",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344600.00511020.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Mi 11 Ultra product image; matches codename star."
+  },
+  "sunstone": {
+    "name": "Redmi Note 12 5G / Redmi Note 12R Pro",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1679574085.06263133.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 12 5G product image; matches codename sunstone."
+  },
+  "taoyao": {
+    "name": "Xiaomi 12 Lite 5G",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666343709.42474042.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12 Lite product image; matches codename taoyao."
+  },
+  "tapas": {
+    "name": "Redmi Note 12 4G",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1679574037.40791067.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 12 product image; matches codename tapas."
+  },
+  "thor": {
+    "name": "Xiaomi 12S Ultra",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-12s-ultra/img01.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12S Ultra product page image; matches codename thor."
+  },
+  "uke": {
+    "name": "Xiaomi Pad 7",
+    "source": "https://i02.appmifile.com/542_operatorx_operatorx_opx/02/03/2025/74faca2e3c1cad5a154a3b2aa32923a1.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 7 product image; matches codename uke."
+  },
+  "venus": {
+    "name": "Xiaomi Mi 11",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344667.93946102.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Mi 11 product image; matches codename venus."
+  },
+  "vili": {
+    "name": "Xiaomi 11T Pro",
+    "source": "https://i01.appmifile.com/webfile/globalimg/products/pc/xiaomi-11t-pro/specs-header.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 11T Pro product image; matches codename vili."
+  },
+  "xaga": {
+    "name": "Redmi Note 11T Pro / POCO X4 GT",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/pc/poco-x4-gt/59ffe008535661b741b8e0b77ade2573.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X4 GT product image; matches codename xaga through the POCO X4 GT alias."
+  },
+  "xuanyuan": {
+    "name": "Xiaomi 15 Ultra",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-15-ultra/pc/8d37a7f2e7af06521ae6b5f32924d141.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 15 Ultra product page hero image; matches codename xuanyuan."
+  },
+  "xun": {
+    "name": "Redmi Pad SE",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-pad-SE/PC/a0ff0e9a47d4e864b04b9db96427c880.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Pad SE product page hero image; matches codename xun."
+  },
+  "zeus": {
+    "name": "Xiaomi 12 Pro",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344481.20013313.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 12 Pro product image; matches codename zeus."
+  },
+  "zircon": {
+    "name": "Redmi Note 13 Pro+ 5G",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-plus-5g/pc/38c91037333e6412aebe0954985af359.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 13 Pro+ 5G product image; matches codename zircon."
+  },
+  "ziyi": {
+    "name": "Xiaomi 13 Lite / Xiaomi Civi 2",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1677429532.40596257.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13 Lite product image; matches codename ziyi through the Xiaomi 13 Lite alias."
+  },
+  "zorn": {
+    "name": "Redmi K80 / POCO F7 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f7-pro/pc/1e7c743971c5d34b1d27e82b5c070da1.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F7 Pro product page hero image; matches codename zorn through the POCO F7 Pro alias."
+  }
+}

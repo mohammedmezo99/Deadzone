@@ -1,0 +1,138 @@
+// DeadZone Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id          String     @id @default(cuid())
+  name        String
+  codename    String     @unique
+  brand       String
+  chipset     String
+  status      String     @default("ACTIVE")
+  image       String?
+  description String?
+  roms        Rom[]
+  downloads   Download[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Rom {
+  id                String   @id @default(cuid())
+  deviceId          String
+  device            Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  name              String
+  version           String
+  androidVersion     String
+  flavor            String?
+  soc               String?
+  platform          String?
+  type              String   @default("FREE")
+  downloadUrl       String
+  githubRunUrl      String?
+  pixeldrainUrl     String?
+  sha256            String?
+  fileSize          String?
+  changelog         String?
+  releaseDate       DateTime @default(now())
+  screenshots       String[]
+  installationGuide String?
+  status            String   @default("ACTIVE")
+  isStable          Boolean  @default(true)
+  isTestBuild       Boolean  @default(false)
+  flashType         String?
+  isVipOnly         Boolean  @default(false)
+  downloads         Download[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Download {
+  id           String   @id @default(cuid())
+  romId        String
+  deviceId     String?
+  ipAddress    String?
+  userAgent    String?
+  country      String?
+  city         String?
+  downloadedAt DateTime @default(now())
+
+  rom    Rom     @relation(fields: [romId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([romId])
+  @@index([deviceId])
+  @@index([downloadedAt])
+  @@index([country])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  country   String?
+  image     String?
+  bio       String?
+  github    String?
+  telegram  String?
+  twitter   String?
+  website   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteConfig {
+  key       String   @id
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  category  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactForm {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  type      String   // 'bug', 'feature', 'general'
+  subject   String
+  message   String
+  status    String   @default("new") // 'new', 'read', 'resolved'
+  createdAt DateTime @default(now())
+}
+
+model Screenshot {
+  id          String   @id @default(cuid())
+  title       String
+  imageUrl    String
+  description String?
+  category    String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model SocialLink {
+  id        String   @id @default(cuid())
+  platform  String   // 'github', 'telegram', 'discord', 'twitter'
+  url       String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
