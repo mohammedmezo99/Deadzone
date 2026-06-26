@@ -8,8 +8,9 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { devices, normalizeWorkerBuilds, officialLinks, publicBuilds } from "@/data/deadzone-registry";
-import { cn } from "@/lib/utils";
+import { supportedDevices } from "@/data/devices";
+import { normalizeBuildRecords, publicBuilds } from "@/lib/builds";
+import { officialLinks } from "@/lib/links";
 
 export default function DownloadsPage() {
     const searchParams = useSearchParams();
@@ -24,7 +25,7 @@ export default function DownloadsPage() {
                 const endpoint = requestedCodename ? `/api/builds?codename=${encodeURIComponent(requestedCodename)}` : "/api/builds";
                 const response = await fetch(endpoint);
                 const data = await response.json();
-                setRows(normalizeWorkerBuilds(data));
+                setRows(normalizeBuildRecords(data));
             } catch (error) {
                 console.error("Public builds fetch failed:", error);
                 setRows(publicBuilds);
@@ -41,11 +42,11 @@ export default function DownloadsPage() {
         if (!needle) return rows;
 
         return rows.filter((build) =>
-            [build.device, build.codename, build.rom, build.region || "", build.android || ""].some((field) => field.toLowerCase().includes(needle))
+            [build.deviceName, build.codename, build.romVersion, build.region || "", build.android || ""].some((field) => field.toLowerCase().includes(needle))
         );
     }, [query, rows]);
 
-    const requestedDevice = requestedCodename ? devices.find((device) => device.codename === requestedCodename) : null;
+    const requestedDevice = requestedCodename ? supportedDevices.find((device) => device.codename === requestedCodename) : null;
 
     return (
         <main className="relative min-h-screen">
@@ -67,12 +68,12 @@ export default function DownloadsPage() {
                             <input
                                 value={query}
                                 onChange={(event) => setQuery(event.target.value)}
-                                placeholder="Search device name, codename, ROM, region, or Android version..."
+                                placeholder="Search device name, codename, region, or Android version..."
                                 className="min-h-14 w-full rounded-2xl border border-white/10 bg-white/[0.05] py-4 pl-14 pr-5 text-white outline-none focus:border-cyan-300/40 focus:ring-2 focus:ring-cyan-500/20"
                             />
                         </div>
                         <a
-                            href={officialLinks.contact}
+                            href={officialLinks.contactMezo}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex min-h-14 items-center justify-center rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.14em] text-slate-950"
@@ -107,12 +108,12 @@ export default function DownloadsPage() {
                             {filteredBuilds.map((build) => (
                                 <GlassCard key={build.id} accent="cyan" className="p-6">
                                     <RomBadge accent="cyan">DeadZone Lite</RomBadge>
-                                    <h2 className="mt-5 text-2xl font-black text-white">{build.device}</h2>
+                                    <h2 className="mt-5 text-2xl font-black text-white">{build.deviceName}</h2>
                                     <p className="mt-2 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">{build.codename}</p>
                                     <div className="mt-5 grid grid-cols-2 gap-3">
                                         <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                             <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM</p>
-                                            <p className="mt-1 text-sm font-bold text-white">{build.rom}</p>
+                                            <p className="mt-1 text-sm font-bold text-white">{build.romVersion}</p>
                                         </div>
                                         <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                             <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Android</p>
@@ -124,13 +125,13 @@ export default function DownloadsPage() {
                                         </div>
                                         <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                             <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Updated</p>
-                                            <p className="mt-1 text-sm font-bold text-white">{build.updated_at ? new Date(build.updated_at).toLocaleDateString() : "Not listed"}</p>
+                                            <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString() : "Not listed"}</p>
                                         </div>
                                     </div>
                                     <p className="mt-5 text-sm leading-7 text-zinc-400">{build.filename || "Filename will appear here when the Worker API provides one."}</p>
                                     <div className="mt-6">
-                                        {build.download ? (
-                                            <a href={build.download} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+                                        {build.downloadUrl ? (
+                                            <a href={build.downloadUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
                                                 <Download className="h-4 w-4" /> Download
                                             </a>
                                         ) : (
@@ -145,15 +146,8 @@ export default function DownloadsPage() {
                     ) : (
                         <GlassCard accent="slate" className="p-10 text-center">
                             <Smartphone className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
-                            <h3 className="text-xl font-black text-white">No public DeadZone Lite builds are listed yet.</h3>
-                            <p className="mt-2 text-sm text-zinc-500">Use <span className="font-mono text-white">/mezo &lt;OTA_ROM_LINK&gt;</span> to request one.</p>
+                            <h3 className="text-xl font-black text-white">No public DeadZone Lite builds are listed yet. Use /mezo &lt;OTA_ROM_LINK&gt; to request one.</h3>
                         </GlassCard>
-                    )}
-
-                    {!loading && rows.length === 0 && (
-                        <p className="mt-6 text-center text-xs font-black uppercase tracking-[0.16em] text-zinc-600">
-                            Worker mapper ready for device/device_name, codename/device_codename, rom/rom_version, region, android, filename/final_zip, download/drive_link, and updated_at.
-                        </p>
                     )}
                 </div>
             </section>

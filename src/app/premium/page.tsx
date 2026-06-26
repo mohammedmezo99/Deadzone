@@ -5,7 +5,8 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { officialLinks, premiumStyles } from "@/data/deadzone-registry";
+import { premiumRomStyles, publicRomStyle } from "@/data/styles";
+import { officialLinks } from "@/lib/links";
 
 export default function PremiumPage() {
     return (
@@ -23,11 +24,11 @@ export default function PremiumPage() {
                     />
 
                     <div className="grid gap-5 md:grid-cols-3">
-                        {premiumStyles.map((style) => (
-                            <GlassCard key={style} accent={style === "Legend" ? "gold" : style === "Ninja" ? "purple" : "magenta"} className="p-6">
-                                <RomBadge accent={style === "Legend" ? "gold" : style === "Ninja" ? "purple" : "magenta"}>Premium</RomBadge>
-                                <h2 className="mt-5 text-2xl font-black text-white">{style}</h2>
-                                <p className="mt-3 text-sm leading-7 text-zinc-300">Included with Premium Membership and designed for a more exclusive DeadZone experience.</p>
+                        {premiumRomStyles.map((style) => (
+                            <GlassCard key={style.id} accent={style.accent} className="p-6">
+                                <RomBadge accent={style.accent}>Premium</RomBadge>
+                                <h2 className="mt-5 text-2xl font-black text-white">{style.name}</h2>
+                                <p className="mt-3 text-sm leading-7 text-zinc-300">{style.shortDescription}</p>
                             </GlassCard>
                         ))}
                     </div>
@@ -40,7 +41,7 @@ export default function PremiumPage() {
                                     Contact MEZO to unlock GamingPlus, Legend, and Ninja. Premium membership keeps the public site simple while giving members access to the premium DeadZone lineup.
                                 </p>
                             </div>
-                            <a href={officialLinks.contact} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-6 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+                            <a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-6 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
                                 <MessageCircle className="h-4 w-4" /> Contact MEZO
                             </a>
                         </div>
@@ -49,11 +50,11 @@ export default function PremiumPage() {
                     <div className="mt-8 grid gap-5 md:grid-cols-2">
                         <GlassCard accent="cyan" className="p-6">
                             <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-200"><Sparkles className="h-4 w-4" /> Public Style</p>
-                            <p className="mt-4 text-2xl font-black text-white">DeadZone Lite</p>
+                            <p className="mt-4 text-2xl font-black text-white">{publicRomStyle.name}</p>
                         </GlassCard>
                         <GlassCard accent="purple" className="p-6">
                             <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Crown className="h-4 w-4" /> Premium Unlocks</p>
-                            <p className="mt-4 text-2xl font-black text-white">GamingPlus, Legend, Ninja</p>
+                            <p className="mt-4 text-2xl font-black text-white">{premiumRomStyles.map((style) => style.name).join(", ")}</p>
                         </GlassCard>
                     </div>
                 </div>

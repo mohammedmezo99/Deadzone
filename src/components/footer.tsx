@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { CircuitBoard, MessageCircle, Send, ShieldCheck } from "lucide-react";
-import { officialLinks, siteLinks } from "@/data/deadzone-registry";
+import { officialLinks, siteLinks } from "@/lib/links";
 
 export function Footer() {
     return (
@@ -22,10 +22,10 @@ export function Footer() {
                             DeadZone is a premium HyperOS ROM project by Mohammed MEZO. DeadZone Lite is the public build line, and Premium Membership unlocks GamingPlus, Legend, and Ninja.
                         </p>
                         <div className="mt-6 flex gap-3">
-                            <a href={officialLinks.updates} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
+                            <a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
                                 <Send className="h-4 w-4" />
                             </a>
-                            <a href={officialLinks.discussion} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
+                            <a href={officialLinks.discussionGroup} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:border-cyan-300/30 hover:text-white">
                                 <MessageCircle className="h-4 w-4" />
                             </a>
                         </div>
@@ -44,10 +44,10 @@ export function Footer() {
                     <div>
                         <h4 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-white">Official Links</h4>
                         <ul className="space-y-3 text-sm">
-                            <li><a href={officialLinks.contact} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Contact MEZO</a></li>
-                            <li><a href={officialLinks.discussion} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Discussion Group</a></li>
-                            <li><a href={officialLinks.updates} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Official Updates</a></li>
-                            <li><a href={officialLinks.screenshots} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Screenshots Cloud</a></li>
+                            <li><a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Contact MEZO</a></li>
+                            <li><a href={officialLinks.discussionGroup} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Discussion Group</a></li>
+                            <li><a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Official Updates</a></li>
+                            <li><a href={officialLinks.screenshotsCloud} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition-colors hover:text-white">Screenshots Cloud</a></li>
                         </ul>
                     </div>
                 </div>

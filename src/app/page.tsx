@@ -8,9 +8,15 @@ import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, PlatformPill, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { deviceCounts, officialLinks, premiumStyles, publicStyle, romStyles, siteLinks } from "@/data/deadzone-registry";
+import { supportedDevices } from "@/data/devices";
+import { premiumRomStyles, romStyles } from "@/data/styles";
+import { officialLinks, siteLinks } from "@/lib/links";
 
-const counts = deviceCounts();
+const counts = {
+    devices: supportedDevices.length,
+    styles: romStyles.length,
+    premium: premiumRomStyles.length,
+};
 
 const highlights = [
     {
@@ -96,9 +102,9 @@ export default function Home() {
 
             <section className="px-6 py-10">
                 <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
-                    <GlassCard accent="purple" className="p-6"><p className="text-5xl font-black text-white">{counts.mtk}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-purple-200">MTK Devices</p></GlassCard>
-                    <GlassCard accent="blue" className="p-6"><p className="text-5xl font-black text-white">{counts.snapdragon}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-blue-200">Snapdragon Devices</p></GlassCard>
-                    <GlassCard accent="cyan" className="p-6"><p className="text-5xl font-black text-white">{counts.total}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-200">Supported Devices</p></GlassCard>
+                    <GlassCard accent="purple" className="p-6"><p className="text-5xl font-black text-white">{counts.styles}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-purple-200">ROM Styles</p></GlassCard>
+                    <GlassCard accent="blue" className="p-6"><p className="text-5xl font-black text-white">{counts.premium}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-blue-200">Premium Styles</p></GlassCard>
+                    <GlassCard accent="cyan" className="p-6"><p className="text-5xl font-black text-white">{counts.devices}</p><p className="mt-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-200">Supported Devices</p></GlassCard>
                 </div>
             </section>
 
@@ -139,16 +145,12 @@ export default function Home() {
                     />
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
                         {romStyles.map((style) => (
-                            <GlassCard key={style} accent={style === "Legend" ? "gold" : style === "Ninja" ? "purple" : style === "GamingPlus" ? "magenta" : "cyan"} className="h-full p-6">
-                                <RomBadge accent={style === "Legend" ? "gold" : style === "Ninja" ? "purple" : style === "GamingPlus" ? "magenta" : "cyan"}>
-                                    {style === publicStyle ? "Public" : "Premium"}
+                            <GlassCard key={style.id} accent={style.accent} className="h-full p-6">
+                                <RomBadge accent={style.accent}>
+                                    {style.type === "public" ? "Public" : "Premium"}
                                 </RomBadge>
-                                <h3 className="mt-5 text-2xl font-black text-white">{style === "Lite" ? "DeadZone Lite" : style}</h3>
-                                <p className="mt-3 text-sm leading-7 text-zinc-400">
-                                    {style === "Lite"
-                                        ? "The public DeadZone line for clean, everyday HyperOS builds."
-                                        : `${style} is unlocked through Premium Membership.`}
-                                </p>
+                                <h3 className="mt-5 text-2xl font-black text-white">{style.name}</h3>
+                                <p className="mt-3 text-sm leading-7 text-zinc-400">{style.shortDescription}</p>
                             </GlassCard>
                         ))}
                     </div>
@@ -189,10 +191,10 @@ export default function Home() {
                                 </p>
                             </div>
                             <div className="flex flex-wrap gap-3">
-                                <a href={officialLinks.contact} target="_blank" rel="noopener noreferrer">
+                                <a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer">
                                     <PlatformPill accent="gold"><MessageCircle className="mr-2 h-4 w-4" /> Contact MEZO</PlatformPill>
                                 </a>
-                                <a href={officialLinks.updates} target="_blank" rel="noopener noreferrer">
+                                <a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer">
                                     <PlatformPill accent="cyan"><Sparkles className="mr-2 h-4 w-4" /> Official Updates</PlatformPill>
                                 </a>
                             </div>

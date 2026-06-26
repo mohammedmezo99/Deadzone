@@ -6,7 +6,10 @@ import { ArrowRight, Cpu, Download, RadioTower, Send, ShieldCheck, Smartphone, S
 import { PremiumButton } from "./ui/premium-button";
 import { useRouter } from "next/navigation";
 import { GlassCard, PlatformPill, RomBadge } from "./ui/deadzone";
-import { mtkDevices, snapdragonDevices } from "@/data/deadzone-devices";
+import { supportedDevices } from "@/data/devices";
+
+const xiaomiFamilyCount = supportedDevices.filter((device) => device.category === "Xiaomi Series" || device.category === "Xiaomi MIX / Fold / Flip Series").length;
+const redmiPocoCount = supportedDevices.length - xiaomiFamilyCount;
 
 export function HeroSection() {
     const [heroAlert, setHeroAlert] = useState("Coming Soon / Premium Custom ROM");
@@ -103,13 +106,13 @@ export function HeroSection() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="rounded-2xl border border-purple-300/25 bg-purple-500/10 p-4">
                                     <RadioTower className="mb-4 h-6 w-6 text-purple-200" />
-                                    <p className="text-3xl font-black text-white">{mtkDevices.length}</p>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-200">MTK Devices</p>
+                                    <p className="text-3xl font-black text-white">{xiaomiFamilyCount}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-200">Xiaomi Family</p>
                                 </div>
                                 <div className="rounded-2xl border border-blue-300/25 bg-blue-500/10 p-4">
                                     <Cpu className="mb-4 h-6 w-6 text-blue-200" />
-                                    <p className="text-3xl font-black text-white">{snapdragonDevices.length}</p>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">Snapdragon</p>
+                                    <p className="text-3xl font-black text-white">{redmiPocoCount}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">Redmi / POCO</p>
                                 </div>
                             </div>
 

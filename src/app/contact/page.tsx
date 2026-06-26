@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { officialLinks } from "@/data/deadzone-registry";
+import { officialLinks } from "@/lib/links";
 
 export default function ContactPage() {
     return (
@@ -27,7 +27,7 @@ export default function ContactPage() {
                             <RomBadge accent="gold">Direct</RomBadge>
                             <h2 className="mt-5 text-2xl font-black text-white">Contact MEZO</h2>
                             <p className="mt-3 text-sm leading-7 text-zinc-300">Premium membership, build requests, and direct communication.</p>
-                            <a href={officialLinks.contact} target="_blank" rel="noopener noreferrer" className="mt-6 flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+                            <a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer" className="mt-6 flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
                                 <MessageCircle className="h-4 w-4" /> Open Telegram
                             </a>
                         </GlassCard>
@@ -51,11 +51,11 @@ export default function ContactPage() {
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                                 <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Send className="h-4 w-4" /> Official Updates</p>
-                                <a href={officialLinks.updates} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.updates}</a>
+                                <a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.officialUpdates}</a>
                             </div>
                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                                 <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Mail className="h-4 w-4" /> Discussion Group</p>
-                                <a href={officialLinks.discussion} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.discussion}</a>
+                                <a href={officialLinks.discussionGroup} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.discussionGroup}</a>
                             </div>
                         </div>
                     </GlassCard>

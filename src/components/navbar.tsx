@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { CircuitBoard, Download, Gem, Home, Menu, MessageCircle, Smartphone, Sparkles, UserRound, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { siteLinks } from "@/data/deadzone-registry";
+import { siteLinks } from "@/lib/links";
 
 const navItems = [
     { name: "Home", href: siteLinks.home, icon: Home },

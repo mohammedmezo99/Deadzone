@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { findDevice, publicBuilds } from "@/data/deadzone-registry";
+import { findSupportedDevice } from "@/data/devices";
+import { publicBuilds } from "@/lib/builds";
 
 export async function GET(request: Request, { params }: { params: { codename: string } }) {
-    const device = findDevice(params.codename);
+    const device = findSupportedDevice(params.codename);
 
     if (!device) {
         return NextResponse.json({ error: "Device not found" }, { status: 404 });
@@ -12,12 +13,12 @@ export async function GET(request: Request, { params }: { params: { codename: st
         .filter((build) => build.codename === params.codename)
         .map((build) => ({
             id: build.id,
-            flavor: "Lite",
-            version: build.rom,
+            flavor: build.style,
+            version: build.romVersion,
             androidVersion: build.android,
-            downloadUrl: build.download,
+            downloadUrl: build.downloadUrl,
             fileName: build.filename,
-            releaseDate: build.updated_at,
+            releaseDate: build.updatedAt,
         }));
 
     return NextResponse.json({ ...device, roms });

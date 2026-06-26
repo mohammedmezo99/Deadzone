@@ -5,13 +5,13 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { officialLinks } from "@/data/deadzone-registry";
+import { officialLinks } from "@/lib/links";
 
 const communityCards = [
-    { title: "Contact MEZO", href: officialLinks.contact, copy: "Direct contact for premium membership and official DeadZone requests.", accent: "gold" as const },
-    { title: "Discussion Group", href: officialLinks.discussion, copy: "Community chat, support, and general DeadZone discussion.", accent: "cyan" as const },
-    { title: "Official Updates", href: officialLinks.updates, copy: "Announcements, release updates, and official channel posts.", accent: "blue" as const },
-    { title: "Screenshots Cloud", href: officialLinks.screenshots, copy: "Public screenshot drops and visual previews from the project.", accent: "purple" as const },
+    { title: "Contact MEZO", href: officialLinks.contactMezo, copy: "Direct contact for premium membership and official DeadZone requests.", accent: "gold" as const },
+    { title: "Discussion Group", href: officialLinks.discussionGroup, copy: "Community chat, support, and general DeadZone discussion.", accent: "cyan" as const },
+    { title: "Official Updates", href: officialLinks.officialUpdates, copy: "Announcements, release updates, and official channel posts.", accent: "blue" as const },
+    { title: "Screenshots Cloud", href: officialLinks.screenshotsCloud, copy: "Public screenshot drops and visual previews from the project.", accent: "purple" as const },
     { title: "Supported Devices", href: officialLinks.supportedDevices, copy: "Official supported-device reference shared in the community.", accent: "magenta" as const },
     { title: "Group Rules", href: officialLinks.groupRules, copy: "Read the rules before posting or requesting support in the group.", accent: "red" as const },
 ];
