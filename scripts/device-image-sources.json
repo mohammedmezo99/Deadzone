@@ -65,6 +65,12 @@
     "sourceType": "official_or_verified",
     "notes": "Official Redmi Note 13 Pro 5G product image; matches codename garnet and is not redwood/ruby."
   },
+  "haydn": {
+    "name": "Redmi K40 Pro / Mi 11i / Mi 11X Pro",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666345008.53528443.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Mi 11i product image; matches codename haydn through the Mi 11i alias."
+  },
   "houji": {
     "name": "Xiaomi 14",
     "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-14/PC/headAss2_img.jpeg",
@@ -112,6 +118,12 @@
     "source": "https://i02.appmifile.com/511_operatorx_operatorx_xm/02/02/2023/2746f98afd667dc9b90a4bc7595fa8dc.jpg?q=100",
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi POCO X5 5G product image; matches codename moonstone."
+  },
+  "malachite": {
+    "name": "Redmi Note 14 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-14-pro/pc/redmi-note-14-pct2.webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 14 Pro product page hero image; matches codename malachite."
   },
   "munch": {
     "name": "Redmi K40S / POCO F4",
@@ -167,6 +179,18 @@
     "sourceType": "official_or_verified",
     "notes": "Official POCO X5 Pro 5G product image; matches codename redwood and is not ruby/Redmi Note 12 Pro 5G."
   },
+  "rodin": {
+    "name": "Redmi Turbo 4 / POCO X7 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-x7-pro/pc/1a097d170ec6940798552eee961fc641.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X7 Pro product page hero image; matches codename rodin through the POCO X7 Pro alias."
+  },
+  "rothko": {
+    "name": "Redmi K70 Ultra / Xiaomi 14T Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/xiaomi-14t-pro/PC/header_kv.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 14T Pro product image; matches codename rothko through the Xiaomi 14T Pro alias."
+  },
   "ruan": {
     "name": "Redmi Pad Pro 5G / POCO Pad 5G",
     "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-pad-pro-5g/pc/a5e866bcbec1b8449f4126bcf30d6a83.jpg?f=webp",
@@ -178,6 +202,12 @@
     "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13/PC/bac9e4d29124ae838486e7f567d14361.jpg?f=webp",
     "sourceType": "official_or_verified",
     "notes": "Official Redmi Note 13 product page hero image; matches codename sapphire."
+  },
+  "sapphiren": {
+    "name": "Redmi Note 13 4G NFC",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13/PC/bac9e4d29124ae838486e7f567d14361.jpg?f=webp",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 13 4G product page hero image used for the NFC variant codename sapphiren."
   },
   "sky": {
     "name": "Redmi 12 5G / Redmi Note 12R / POCO M6 Pro 5G",
@@ -215,6 +245,12 @@
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi 12S Ultra product page image; matches codename thor."
   },
+  "topaz": {
+    "name": "Redmi Note 12 4G NFC",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-12/pc/7f23bf9dfa3d546262ea5a1d2546636b.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Redmi Note 12 product page render used for the NFC variant codename topaz."
+  },
   "uke": {
     "name": "Xiaomi Pad 7",
     "source": "https://i02.appmifile.com/542_operatorx_operatorx_opx/02/03/2025/74faca2e3c1cad5a154a3b2aa32923a1.png",
@@ -226,6 +262,12 @@
     "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344667.93946102.png",
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi Mi 11 product image; matches codename venus."
+  },
+  "vermeer": {
+    "name": "Redmi K70 / POCO F6 Pro",
+    "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f6-pro/PC/8dbcc7dc42d1b1e95ed58b20830f8e7f.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F6 Pro product image; matches codename vermeer through the POCO F6 Pro alias."
   },
   "vili": {
     "name": "Xiaomi 11T Pro",
