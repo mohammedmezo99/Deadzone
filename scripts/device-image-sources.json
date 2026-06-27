@@ -329,6 +329,18 @@
     "sourceType": "official_or_verified",
     "notes": "Official POCO F3 product image from Xiaomi UK product page; used as an exact market-device image for POCO F3."
   },
+  "poco-m6-plus-5g": {
+    "name": "POCO M6 Plus 5G",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-13-5g-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for the hardware-identical Redmi 13 5G sibling; used as the best available exact-hardware local image for POCO M6 Plus 5G."
+  },
+  "poco-m7-5g": {
+    "name": "POCO M7 5G",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-poco-m7-5g-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for POCO M7 5G; used as an exact market-device local image."
+  },
   "poco-x3-pro": {
     "name": "POCO X3 Pro",
     "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1617947330.95094339.png",
@@ -353,11 +365,65 @@
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi 13T Pro global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 13T Pro."
   },
+  "redmi-k70": {
+    "name": "Redmi K70",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-k70-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi K70; used as an exact market-device local image."
+  },
+  "redmi-k70-pro": {
+    "name": "Redmi K70 Pro",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-k70-pro-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi K70 Pro; used as an exact market-device local image."
+  },
+  "redmi-k70e": {
+    "name": "Redmi K70E",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-k70e-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi K70E; used as an exact market-device local image."
+  },
+  "redmi-note-12-turbo": {
+    "name": "Redmi Note 12 Turbo",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-note-12-turbo-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi Note 12 Turbo; used as an exact market-device local image."
+  },
+  "redmi-note-13r": {
+    "name": "Redmi Note 13R",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-note-13r-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi Note 13R; used as an exact market-device local image."
+  },
+  "redmi-turbo-3": {
+    "name": "Redmi Turbo 3",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-turbo3-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi Turbo 3; used as an exact market-device local image."
+  },
+  "redmi-turbo-4": {
+    "name": "Redmi Turbo 4",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-turbo4-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Redmi Turbo 4; used as an exact market-device local image."
+  },
+  "xiaomi-14-pro": {
+    "name": "Xiaomi 14 Pro",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-14-pro-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Xiaomi 14 Pro; used as an exact market-device local image."
+  },
   "xiaomi-14t": {
     "name": "Xiaomi 14T",
     "source": "https://i02.appmifile.com/293_operatorx_operatorx_opx/27/09/2024/d714b3e4e95bd2d4817f5d3458b92c45.png",
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi 14T global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 14T."
+  },
+  "xiaomi-15-pro": {
+    "name": "Xiaomi 15 Pro",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-15-pro-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Xiaomi 15 Pro; used as an exact market-device local image."
   },
   "xiaomi-15t-pro": {
     "name": "Xiaomi 15T Pro",
@@ -376,6 +442,12 @@
     "source": "https://i02.appmifile.com/645_operatorx_operatorx_xm/14/02/2026/df23386f3a67d3d5fdce72e4e1a18b96.png",
     "sourceType": "official_or_verified",
     "notes": "Official Xiaomi 17 Ultra global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 17 Ultra."
+  },
+  "xiaomi-mix-fold-4": {
+    "name": "Xiaomi MIX Fold 4",
+    "source": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mix-fold4-1.jpg",
+    "sourceType": "official_or_verified",
+    "notes": "Clean GSMArena device render for Xiaomi MIX Fold 4; used as an exact market-device local image."
   },
   "xiaomi-pad-6s-pro-12-4": {
     "name": "Xiaomi Pad 6S Pro 12.4",
