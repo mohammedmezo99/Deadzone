@@ -323,6 +323,18 @@
     "sourceType": "official_or_verified",
     "notes": "Official POCO X6 global product share image from Xiaomi product page; used as an exact market-device image for POCO X6 5G."
   },
+  "poco-f3": {
+    "name": "POCO F3",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1660584615.74169081.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO F3 product image from Xiaomi UK product page; used as an exact market-device image for POCO F3."
+  },
+  "poco-x3-pro": {
+    "name": "POCO X3 Pro",
+    "source": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1617947330.95094339.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X3 Pro product image from Xiaomi UK product page; used as an exact market-device image for POCO X3 Pro."
+  },
   "poco-x6-pro": {
     "name": "POCO X6 Pro",
     "source": "https://i02.appmifile.com/735_operatorx_operatorx_opx/09/01/2024/2343160ce0d2924c046efe29a4783fd7.png",

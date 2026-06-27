@@ -14,6 +14,8 @@ export const deviceCategories: DeviceCategory[] = [
 
 const fallbackImage = "/devices/fallback-device.svg";
 const exactDeviceImageByName: Record<string, string> = {
+    "POCO F3": "poco-f3",
+    "POCO X3 Pro": "poco-x3-pro",
     "POCO X6 5G": "poco-x6",
     "POCO X6 Pro": "poco-x6-pro",
     "POCO X7": "poco-x7",
