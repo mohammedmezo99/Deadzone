@@ -59,7 +59,10 @@ export default function DownloadsPage() {
         );
     }, [query, rows]);
 
-    const requestedDevice = requestedCodename ? supportedDevices.find((device) => device.codename === requestedCodename) : null;
+    const requestedDevices = useMemo(
+        () => (requestedCodename ? supportedDevices.filter((device) => device.codename === requestedCodename) : []),
+        [requestedCodename],
+    );
 
     return (
         <main className="page-shell">
@@ -138,13 +141,13 @@ export default function DownloadsPage() {
                         </div>
                     </GlassCard>
 
-                    {requestedDevice && (
+                    {requestedDevices.length > 0 && (
                         <GlassCard accent="blue" className="mb-8 p-6">
                             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                                 <div>
                                     <RomBadge accent="blue">Codename Filter</RomBadge>
-                                    <h2 className="mt-4 text-2xl font-black text-white">{requestedDevice.name}</h2>
-                                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">{requestedDevice.codename}</p>
+                                    <h2 className="mt-4 text-2xl font-black text-white">{requestedDevices.map((device) => device.name).join(" / ")}</h2>
+                                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">{requestedCodename}</p>
                                 </div>
                                 <PremiumButton href="/devices" variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
                                     Browse Devices

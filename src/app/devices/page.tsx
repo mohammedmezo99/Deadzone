@@ -185,7 +185,7 @@ export default function DevicesPage() {
                                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
                                         {group.devices.map((device, index) => (
                                             <GlassCard
-                                                key={device.codename}
+                                                key={`${device.name}-${device.codename}`}
                                                 accent="cyan"
                                                 className="group border-white/10 transition duration-300 hover:-translate-y-1.5 hover:border-cyan-300/35 hover:shadow-[0_28px_80px_rgba(8,145,178,0.18)]"
                                             >

@@ -29,7 +29,18 @@ export type SupportedDevice = {
     brand: string;
     supported: true;
     image: string;
+    imageSource: "exact" | "codename" | "closest" | "fallback";
     aliases?: string[];
+};
+
+export type CodenameRegistryEntry = {
+    codename: string;
+    supported: true;
+    image: string;
+    imageFallback: string;
+    imageType: "exact" | "closest" | "fallback";
+    aliases?: string[];
+    closestTo?: string;
 };
 
 export type BuildItem = {
