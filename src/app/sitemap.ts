@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { resolveSiteUrl } from "@/lib/site-url";
 
 const routes = [
     "",
@@ -13,13 +14,13 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const siteUrl = resolveSiteUrl();
 
     if (!siteUrl) {
         return [];
     }
 
-    const base = siteUrl.replace(/\/$/, "");
+    const base = siteUrl.toString().replace(/\/$/, "");
 
     return routes.map((route) => ({
         url: `${base}${route || "/"}`,

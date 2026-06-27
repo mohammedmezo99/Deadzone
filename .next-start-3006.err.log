@@ -1,0 +1,19 @@
+=http://127.0.0.1:3006 : The term '=http://127.0.0.1:3006' is not recognized as the name of a cmdlet, function, script 
+file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct 
+and try again.
+At line:1 char:49
++ ... n 'C:\Users\hyper\Desktop\deadzone'; ='http://127.0.0.1:3006'; ='http ...
++                                          ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=http://127.0.0.1:3006:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=https://medo-lite-bot.mezo-deadzone-lite.workers.dev : The term 
+'=https://medo-lite-bot.mezo-deadzone-lite.workers.dev' is not recognized as the name of a cmdlet, function, script 
+file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct 
+and try again.
+At line:1 char:75
++ ... .0.1:3006'; ='https://medo-lite-bot.mezo-deadzone-lite.workers.dev';  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=https://medo-l...ite.workers.dev:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 

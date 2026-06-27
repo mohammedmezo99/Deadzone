@@ -3,10 +3,11 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SplashLoader } from "@/components/splash-loader";
+import { resolveSiteUrl } from "@/lib/site-url";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
-const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://deadzone.example");
+const siteUrl = resolveSiteUrl() ?? new URL("https://deadzone.example");
 const metaRootKey = ["meta", "data", "Base"].join("") as keyof Metadata;
 const siteTitle = "DeadZone | Premium HyperOS ROM Builds by MEZO";
 const siteDescription =
