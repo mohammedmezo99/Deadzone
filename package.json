@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:devices": "node scripts/verify-devices-page.mjs",
+    "test:downloads": "node scripts/verify-download-routes.mjs",
+    "test:downloads:legacy": "node scripts/verify-download-legacy-redirects.mjs",
+    "test:guide": "node scripts/verify-guide-page.mjs",
+    "test:premium": "node scripts/verify-premium-page.mjs",
+    "test:showcase": "node scripts/verify-showcase-page.mjs",
+    "test:status": "node scripts/verify-status-page.mjs",
+    "test:support": "node scripts/verify-support-pages.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.0",

@@ -1,14 +1,36 @@
 "use client";
 
-import { Crown, MessageCircle, Send, Smartphone } from "lucide-react";
+import { useState } from "react";
+import { Check, Copy, Crown, MessageCircle, Send, Smartphone } from "lucide-react";
 import { Footer } from "@/components/footer";
+import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { officialLinks } from "@/lib/links";
 
+const supportTemplate = `Device Name:
+Codename:
+ROM Version:
+Android Version:
+DeadZone Style:
+Problem Details:
+Screenshot / Log:`;
+
 export default function ContactPage() {
+    const [copied, setCopied] = useState(false);
+
+    async function copySupportTemplate() {
+        try {
+            await navigator.clipboard.writeText(supportTemplate);
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 2000);
+        } catch (error) {
+            console.error("Support template copy failed:", error);
+        }
+    }
+
     return (
         <main className="page-shell">
             <Starfield />
@@ -16,6 +38,8 @@ export default function ContactPage() {
 
             <section className="px-6 pb-20 pt-36">
                 <div className="mx-auto max-w-6xl">
+                    <MaintenanceBanner />
+
                     <SectionHeader
                         eyebrow="Contact"
                         title="Contact MEZO for premium membership, build requests, and official support."
@@ -50,6 +74,61 @@ export default function ContactPage() {
                             </div>
                         </GlassCard>
                     </div>
+
+                    <GlassCard accent="cyan" className="mb-10 p-6 md:p-8">
+                        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                            <div className="max-w-3xl">
+                                <RomBadge accent="cyan">Support Report Template</RomBadge>
+                                <h2 className="mt-5 text-3xl font-black text-white md:text-4xl">Send complete issue reports for faster DeadZone support checks.</h2>
+                                <p className="mt-4 text-sm leading-7 text-zinc-300 md:text-base">
+                                    Include the exact device details below before sending your report to MEZO.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                                <PremiumButton
+                                    onClick={copySupportTemplate}
+                                    icon={copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    className="text-xs"
+                                >
+                                    {copied ? "Copied Support Template" : "Copy Support Template"}
+                                </PremiumButton>
+                                <PremiumButton href={officialLinks.contactMezo} external variant="legend" icon={<MessageCircle className="h-4 w-4" />} className="text-xs">
+                                    Contact MEZO
+                                </PremiumButton>
+                                <PremiumButton href="/devices" variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
+                                    View Supported Devices
+                                </PremiumButton>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                            <pre className="whitespace-pre-wrap font-mono text-sm leading-7 text-zinc-200">{supportTemplate}</pre>
+                        </div>
+
+                        <div className="mt-4 rounded-[1.35rem] border border-amber-300/20 bg-amber-400/10 px-4 py-3 text-sm leading-6 text-amber-100">
+                            Reports without device codename and clear problem details cannot be checked properly.
+                        </div>
+
+                        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                            <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Device Name</p>
+                                <p className="mt-2 text-sm font-bold text-white">Your exact device model</p>
+                            </div>
+                            <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Codename</p>
+                                <p className="mt-2 font-mono text-sm text-white">Required for issue checking</p>
+                            </div>
+                            <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Style</p>
+                                <p className="mt-2 text-sm font-bold text-white">Lite / GamingPlus / Legend / Ninja</p>
+                            </div>
+                            <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Screenshot / Log</p>
+                                <p className="mt-2 text-sm font-bold text-white">Attach visual proof or full logs</p>
+                            </div>
+                        </div>
+                    </GlassCard>
 
                     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                         <GlassCard accent="cyan" className="p-6">

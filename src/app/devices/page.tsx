@@ -2,14 +2,14 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { RotateCcw, Search, Smartphone } from "lucide-react";
+import { Check, Copy, RotateCcw, Search, Smartphone } from "lucide-react";
 import { DeviceImage } from "@/components/device-image";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { deviceCategories, supportedDevices } from "@/data/devices";
-import { officialLinks } from "@/lib/links";
+import { buildDownloadsPath, officialLinks } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 const filters = ["All", ...deviceCategories] as const;
@@ -17,6 +17,7 @@ const filters = ["All", ...deviceCategories] as const;
 export default function DevicesPage() {
     const [query, setQuery] = useState("");
     const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");
+    const [copiedCodename, setCopiedCodename] = useState("");
 
     const filteredDevices = useMemo(() => {
         const needle = query.trim().toLowerCase();
@@ -53,6 +54,20 @@ export default function DevicesPage() {
     function resetFilters() {
         setQuery("");
         setActiveFilter("All");
+    }
+
+    async function copyTelegramCommand(codename: string) {
+        const command = `/mezo ${codename}`;
+
+        try {
+            await navigator.clipboard.writeText(command);
+            setCopiedCodename(codename);
+            window.setTimeout(() => {
+                setCopiedCodename((current) => (current === codename ? "" : current));
+            }, 2000);
+        } catch (error) {
+            console.error("Copy command failed:", error);
+        }
     }
 
     return (
@@ -227,21 +242,29 @@ export default function DevicesPage() {
                                                         </div>
                                                     </div>
 
-                                                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                                                    <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                                                         <Link
-                                                            href={`/downloads?codename=${device.codename}`}
+                                                            href={buildDownloadsPath({ codename: device.codename })}
                                                             className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 text-xs font-black uppercase tracking-[0.16em] text-slate-950 transition hover:bg-cyan-300"
                                                         >
                                                             <Smartphone className="h-4 w-4" />
                                                             Check Builds
                                                         </Link>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => copyTelegramCommand(device.codename)}
+                                                            className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
+                                                        >
+                                                            {copiedCodename === device.codename ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                                            {copiedCodename === device.codename ? "Copied Command" : "Copy Command"}
+                                                        </button>
                                                         <a
                                                             href={officialLinks.contactMezo}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
+                                                            className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16 sm:col-span-2 xl:col-span-1"
                                                         >
-                                                            Contact MEZO
+                                                            Request Build
                                                         </a>
                                                     </div>
                                                 </div>

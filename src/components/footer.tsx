@@ -41,6 +41,8 @@ export function Footer() {
                             <li><Link href={siteLinks.devices} className="text-zinc-400 transition-colors hover:text-white">Supported Devices</Link></li>
                             <li><Link href={siteLinks.styles} className="text-zinc-400 transition-colors hover:text-white">ROM Styles</Link></li>
                             <li><Link href={siteLinks.premium} className="text-zinc-400 transition-colors hover:text-white">Premium Membership</Link></li>
+                            <li><Link href={siteLinks.status} className="text-zinc-400 transition-colors hover:text-white">Status</Link></li>
+                            <li><Link href={siteLinks.guide} className="text-zinc-400 transition-colors hover:text-white">Install Guide</Link></li>
                         </ul>
                     </div>
 

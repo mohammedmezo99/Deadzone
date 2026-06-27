@@ -2,6 +2,7 @@
 
 import { Crown, Download, Gem, MessageCircle, ShieldCheck, Sparkles, Smartphone, Zap } from "lucide-react";
 import { Footer } from "@/components/footer";
+import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
@@ -50,6 +51,10 @@ export default function Home() {
             <section className="relative px-6 pb-20 pt-36 md:pt-40">
                 <div className="pointer-events-none absolute inset-x-0 top-8 h-[640px] bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.16),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.14),transparent_30%)]" />
                 <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.08fr_0.92fr]">
+                    <div className="relative z-10 lg:col-span-2">
+                        <MaintenanceBanner />
+                    </div>
+
                     <div className="relative z-10">
                         <RomBadge accent="cyan">Official Public Site</RomBadge>
                         <h1 className="mt-6 max-w-5xl text-5xl font-black leading-[0.94] tracking-tight text-white md:text-7xl">

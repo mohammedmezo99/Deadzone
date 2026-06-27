@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPublicBuilds, type PublicBuildsResponse } from "@/lib/builds";
+import { getPublicBuilds, publicBuilds, type PublicBuildsResponse } from "@/lib/builds";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -8,12 +8,23 @@ function emptyResponse(ok = true) {
     return NextResponse.json<PublicBuildsResponse>({ ok, builds: [] });
 }
 
+function fallbackBuilds(codename?: string | null) {
+    if (!codename) {
+        return publicBuilds;
+    }
+
+    return publicBuilds.filter((build) => build.codename === codename);
+}
+
 export async function GET(request: NextRequest) {
     const codename = request.nextUrl.searchParams.get("codename")?.toLowerCase();
     const base = process.env.DEADZONE_WORKER_API_BASE?.trim();
 
     if (!base) {
-        return emptyResponse(true);
+        return NextResponse.json<PublicBuildsResponse>({
+            ok: true,
+            builds: fallbackBuilds(codename),
+        });
     }
 
     const workerBase = base.replace(/\/+$/, "");
@@ -36,11 +47,16 @@ export async function GET(request: NextRequest) {
         const payload = await response.json();
         const source = Array.isArray(payload) ? payload : payload?.builds;
 
+        const workerBuilds = getPublicBuilds(source);
+
         return NextResponse.json<PublicBuildsResponse>({
             ok: true,
-            builds: getPublicBuilds(source),
+            builds: workerBuilds.length ? workerBuilds : fallbackBuilds(codename),
         });
     } catch {
-        return emptyResponse(false);
+        return NextResponse.json<PublicBuildsResponse>({
+            ok: false,
+            builds: fallbackBuilds(codename),
+        });
     }
 }

@@ -48,12 +48,16 @@ export type BuildItem = {
     deviceName: string;
     codename: string;
     romVersion: string;
+    androidVersion?: string;
+    hyperOsVersion?: string;
     region?: string;
-    android?: string;
     filename?: string;
     downloadUrl?: string;
+    changelogUrl?: string;
+    sha256?: string;
     updatedAt?: string;
-    style: RomStyle["name"];
+    style: "Lite" | "GamingPlus" | "Legend" | "Ninja";
+    status: "Available" | "Coming Soon" | "Building" | "Failed";
 };
 
 export type OfficialLinks = {
@@ -71,6 +75,8 @@ export type SiteLinks = {
     devices: string;
     styles: string;
     premium: string;
+    status: string;
+    guide: string;
     community: string;
     contact: string;
 };

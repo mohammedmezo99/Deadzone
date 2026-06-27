@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
+import { buildDownloadsPath } from "@/lib/links";
 
 export default function LegacyDeviceDownloadPage({ params }: { params: { codename: string } }) {
-    redirect(`/downloads?codename=${encodeURIComponent(params.codename)}`);
+    redirect(buildDownloadsPath({ codename: params.codename }));
 }
