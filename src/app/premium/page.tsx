@@ -1,16 +1,17 @@
 "use client";
 
-import { Crown, MessageCircle, Sparkles } from "lucide-react";
+import { Crown, Gem, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
+import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { premiumRomStyles, publicRomStyle } from "@/data/styles";
 import { officialLinks } from "@/lib/links";
 
 export default function PremiumPage() {
     return (
-        <main className="relative min-h-screen">
+        <main className="page-shell">
             <Starfield />
             <Navbar />
 
@@ -18,10 +19,43 @@ export default function PremiumPage() {
                 <div className="mx-auto max-w-6xl">
                     <SectionHeader
                         eyebrow="Premium Membership"
-                        title="Unlock the premium side of DeadZone."
-                        description="Premium Membership unlocks GamingPlus, Legend, and Ninja. Contact MEZO directly for access."
+                        title="Unlock DeadZone Premium Membership and access GamingPlus, Legend, and Ninja."
+                        description="Premium Membership is the exclusive upgrade path beyond DeadZone Lite, built for users who want a more elevated DeadZone experience."
                         align="center"
                     />
+
+                    <GlassCard accent="gold" className="mb-10 p-7 md:p-10">
+                        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+                            <div>
+                                <RomBadge accent="gold">Exclusive Access</RomBadge>
+                                <h2 className="mt-5 text-4xl font-black text-white">Premium Membership makes the DeadZone lineup feel complete.</h2>
+                                <p className="mt-4 text-sm leading-7 text-zinc-300 md:text-base">
+                                    DeadZone Lite remains the public line. Premium Membership unlocks GamingPlus, Legend, and Ninja for users who want stronger identity, more exclusivity, and a premium-tier DeadZone experience.
+                                </p>
+                                <div className="mt-6 flex flex-wrap gap-3">
+                                    <PremiumButton href={officialLinks.contactMezo} external variant="legend" icon={<Crown className="h-4 w-4" />} className="text-xs">
+                                        Get Premium Membership
+                                    </PremiumButton>
+                                    <PremiumButton href="/styles" variant="secondary" icon={<Sparkles className="h-4 w-4" />} className="text-xs">
+                                        View All Styles
+                                    </PremiumButton>
+                                </div>
+                            </div>
+
+                            <div className="grid gap-4">
+                                <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-5">
+                                    <p className="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200">Public Entry Point</p>
+                                    <p className="mt-3 text-2xl font-black text-white">{publicRomStyle.name}</p>
+                                    <p className="mt-2 text-sm leading-7 text-zinc-400">{publicRomStyle.shortDescription}</p>
+                                </div>
+                                <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-5">
+                                    <p className="text-[11px] font-black uppercase tracking-[0.24em] text-amber-200">Premium Unlocks</p>
+                                    <p className="mt-3 text-2xl font-black text-white">{premiumRomStyles.map((style) => style.name).join(" • ")}</p>
+                                    <p className="mt-2 text-sm leading-7 text-zinc-400">Three premium DeadZone directions, one membership path.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </GlassCard>
 
                     <div className="grid gap-5 md:grid-cols-3">
                         {premiumRomStyles.map((style) => (
@@ -29,32 +63,27 @@ export default function PremiumPage() {
                                 <RomBadge accent={style.accent}>Premium</RomBadge>
                                 <h2 className="mt-5 text-2xl font-black text-white">{style.name}</h2>
                                 <p className="mt-3 text-sm leading-7 text-zinc-300">{style.shortDescription}</p>
+                                <ul className="mt-5 space-y-2 text-sm text-zinc-400">
+                                    {style.features.map((feature) => (
+                                        <li key={feature}>{feature}</li>
+                                    ))}
+                                </ul>
                             </GlassCard>
                         ))}
                     </div>
 
-                    <GlassCard accent="gold" className="mt-8 p-8">
-                        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                            <div>
-                                <h2 className="text-3xl font-black text-white">Ready for Premium Membership?</h2>
-                                <p className="mt-3 text-sm leading-7 text-zinc-300">
-                                    Contact MEZO to unlock GamingPlus, Legend, and Ninja. Premium membership keeps the public site simple while giving members access to the premium DeadZone lineup.
-                                </p>
-                            </div>
-                            <a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-6 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
-                                <MessageCircle className="h-4 w-4" /> Contact MEZO
-                            </a>
-                        </div>
-                    </GlassCard>
-
-                    <div className="mt-8 grid gap-5 md:grid-cols-2">
+                    <div className="mt-10 grid gap-5 md:grid-cols-3">
                         <GlassCard accent="cyan" className="p-6">
-                            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-200"><Sparkles className="h-4 w-4" /> Public Style</p>
-                            <p className="mt-4 text-2xl font-black text-white">{publicRomStyle.name}</p>
+                            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-200"><Gem className="h-4 w-4" /> Premium Value</p>
+                            <p className="mt-4 text-sm leading-7 text-zinc-300">A stronger DeadZone identity for users who want to move beyond the public build line.</p>
                         </GlassCard>
-                        <GlassCard accent="purple" className="p-6">
-                            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Crown className="h-4 w-4" /> Premium Unlocks</p>
-                            <p className="mt-4 text-2xl font-black text-white">{premiumRomStyles.map((style) => style.name).join(", ")}</p>
+                        <GlassCard accent="magenta" className="p-6">
+                            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-fuchsia-200"><ShieldCheck className="h-4 w-4" /> Clean Access</p>
+                            <p className="mt-4 text-sm leading-7 text-zinc-300">No cluttered flow. Contact MEZO directly and keep the public site focused and clear.</p>
+                        </GlassCard>
+                        <GlassCard accent="gold" className="p-6">
+                            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-amber-200"><MessageCircle className="h-4 w-4" /> Official CTA</p>
+                            <p className="mt-4 text-sm leading-7 text-zinc-300">Premium access, membership questions, and official guidance all route through MEZO.</p>
                         </GlassCard>
                     </div>
                 </div>

@@ -1,37 +1,57 @@
 "use client";
 
-import { Mail, MessageCircle, Send } from "lucide-react";
+import { Crown, MessageCircle, Send, Smartphone } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
+import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { officialLinks } from "@/lib/links";
 
 export default function ContactPage() {
     return (
-        <main className="relative min-h-screen">
+        <main className="page-shell">
             <Starfield />
             <Navbar />
 
             <section className="px-6 pb-20 pt-36">
-                <div className="mx-auto max-w-5xl">
+                <div className="mx-auto max-w-6xl">
                     <SectionHeader
                         eyebrow="Contact"
-                        title="Contact MEZO for premium access, build requests, and official support."
-                        description="Use the official DeadZone channels below. Keep build requests simple and use a valid Recovery OTA ROM .zip link for the fastest clean process."
+                        title="Contact MEZO for premium membership, build requests, and official support."
+                        description="Use the official DeadZone contact flow below. Keep build requests simple and use a valid Recovery OTA ROM .zip link for the cleanest request path."
                         align="center"
                     />
 
-                    <div className="grid gap-5 md:grid-cols-3">
-                        <GlassCard accent="gold" className="p-6">
-                            <RomBadge accent="gold">Direct</RomBadge>
-                            <h2 className="mt-5 text-2xl font-black text-white">Contact MEZO</h2>
-                            <p className="mt-3 text-sm leading-7 text-zinc-300">Premium membership, build requests, and direct communication.</p>
-                            <a href={officialLinks.contactMezo} target="_blank" rel="noopener noreferrer" className="mt-6 flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
-                                <MessageCircle className="h-4 w-4" /> Open Telegram
-                            </a>
+                    <div className="mb-10 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+                        <GlassCard accent="gold" className="p-6 md:p-8">
+                            <RomBadge accent="gold">Direct Contact</RomBadge>
+                            <h2 className="mt-5 text-3xl font-black text-white md:text-4xl">MEZO is the official point of contact.</h2>
+                            <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 md:text-base">
+                                Use the official Telegram contact for premium membership, build request guidance, and direct public support routing.
+                            </p>
+                            <div className="mt-6">
+                                <PremiumButton href={officialLinks.contactMezo} external icon={<MessageCircle className="h-4 w-4" />} className="text-xs">
+                                    Contact MEZO
+                                </PremiumButton>
+                            </div>
                         </GlassCard>
 
+                        <GlassCard accent="magenta" className="p-6 md:p-8">
+                            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-fuchsia-200">Premium Membership</p>
+                            <h2 className="mt-3 text-2xl font-black text-white">Unlock GamingPlus, Legend, and Ninja.</h2>
+                            <p className="mt-4 text-sm leading-7 text-zinc-300">
+                                Premium Membership is handled directly through MEZO. Use the official contact link to ask about access and availability.
+                            </p>
+                            <div className="mt-6">
+                                <PremiumButton href={officialLinks.contactMezo} external variant="legend" icon={<Crown className="h-4 w-4" />} className="w-full text-xs">
+                                    Get Premium Membership
+                                </PremiumButton>
+                            </div>
+                        </GlassCard>
+                    </div>
+
+                    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                         <GlassCard accent="cyan" className="p-6">
                             <RomBadge accent="cyan">Build Request</RomBadge>
                             <h2 className="mt-5 text-2xl font-black text-white">Fastest Command</h2>
@@ -45,20 +65,22 @@ export default function ContactPage() {
                             <p className="mt-3 font-mono text-lg font-black text-white">/mezo &lt;codename&gt;</p>
                             <p className="mt-3 text-sm leading-7 text-zinc-300">Example: <span className="font-mono text-white">/mezo zircon</span></p>
                         </GlassCard>
-                    </div>
 
-                    <GlassCard accent="purple" className="mt-8 p-7">
-                        <div className="grid gap-4 md:grid-cols-2">
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Send className="h-4 w-4" /> Official Updates</p>
-                                <a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.officialUpdates}</a>
+                        <GlassCard accent="purple" className="p-6">
+                            <RomBadge accent="purple">Official Links</RomBadge>
+                            <h2 className="mt-5 text-2xl font-black text-white">Stay inside the official channels.</h2>
+                            <div className="mt-4 space-y-3 text-sm">
+                                <a href={officialLinks.officialUpdates} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white transition hover:border-cyan-300/30">
+                                    <Send className="h-4 w-4 text-cyan-200" />
+                                    Official Updates
+                                </a>
+                                <a href={officialLinks.discussionGroup} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white transition hover:border-cyan-300/30">
+                                    <Smartphone className="h-4 w-4 text-cyan-200" />
+                                    Discussion Group
+                                </a>
                             </div>
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-purple-200"><Mail className="h-4 w-4" /> Discussion Group</p>
-                                <a href={officialLinks.discussionGroup} target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-bold text-white">{officialLinks.discussionGroup}</a>
-                            </div>
-                        </div>
-                    </GlassCard>
+                        </GlassCard>
+                    </div>
                 </div>
             </section>
 

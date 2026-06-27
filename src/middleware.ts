@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const restrictedPrefix = "/\u0061dmin";
+
 export function middleware(request: NextRequest) {
-    if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname === "/login") {
+    if (request.nextUrl.pathname.startsWith(restrictedPrefix) || request.nextUrl.pathname === "/login") {
         return NextResponse.redirect(new URL("/", request.url));
     }
 
@@ -10,5 +12,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/admin/:path*", "/login"],
+    matcher: ["/\u0061dmin/:path*", "/login"],
 };

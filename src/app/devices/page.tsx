@@ -56,7 +56,7 @@ export default function DevicesPage() {
     }
 
     return (
-        <main className="relative min-h-screen overflow-hidden bg-mesh">
+        <main className="page-shell bg-mesh">
             <Starfield />
             <Navbar />
 
@@ -121,7 +121,7 @@ export default function DevicesPage() {
                         </GlassCard>
                     </div>
 
-                    <GlassCard accent="blue" className="sticky top-24 z-20 mb-10 p-4 md:p-5">
+                    <GlassCard accent="blue" className="sticky top-24 z-20 mb-10 p-4 md:p-5 shadow-[0_22px_60px_rgba(2,5,10,0.34)]">
                         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto_auto] xl:items-center">
                             <div className="relative">
                                 <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
@@ -182,12 +182,12 @@ export default function DevicesPage() {
                                         <RomBadge accent="blue">{group.devices.length} devices</RomBadge>
                                     </div>
 
-                                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 2xl:grid-cols-3">
+                                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
                                         {group.devices.map((device, index) => (
                                             <GlassCard
                                                 key={device.codename}
                                                 accent="cyan"
-                                                className="group border-white/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/35 hover:shadow-[0_28px_80px_rgba(8,145,178,0.18)]"
+                                                className="group border-white/10 transition duration-300 hover:-translate-y-1.5 hover:border-cyan-300/35 hover:shadow-[0_28px_80px_rgba(8,145,178,0.18)]"
                                             >
                                                 <div className="p-4 md:p-5">
                                                     <DeviceImage
@@ -195,8 +195,8 @@ export default function DevicesPage() {
                                                         name={device.name}
                                                         src={device.image}
                                                         alt={`${device.name} render`}
-                                                        className="border-cyan-300/15 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.14),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))]"
-                                                        imageClassName="p-4"
+                                                        className="border-cyan-300/15 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.14),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] shadow-inner shadow-cyan-400/5"
+                                                        imageClassName="p-4 md:p-5"
                                                         priority={index < 3}
                                                     />
 
@@ -255,7 +255,7 @@ export default function DevicesPage() {
                         <GlassCard accent="slate" className="p-10 text-center">
                             <Smartphone className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
                             <h3 className="text-xl font-black text-white">No devices match this view</h3>
-                            <p className="mt-2 text-sm text-zinc-400">Adjust the search or reset filters to return to the full supported lineup.</p>
+                            <p className="mt-2 text-sm text-zinc-400">Adjust the search, switch categories, or reset filters to return to the full supported lineup.</p>
                         </GlassCard>
                     )}
                 </div>

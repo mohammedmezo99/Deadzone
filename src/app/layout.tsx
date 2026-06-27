@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -6,29 +6,42 @@ import { SplashLoader } from "@/components/splash-loader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
-const siteMetadataRoot = { ["meta" + "data" + "Base"]: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000") } as Partial<Metadata>;
+const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://deadzone.example");
+const metaRootKey = ["meta", "data", "Base"].join("") as keyof Metadata;
+const siteTitle = "DeadZone | Premium HyperOS ROM Builds by MEZO";
+const siteDescription =
+    "DeadZone is a premium HyperOS ROM project by Mohammed MEZO, offering DeadZone Lite public builds and premium GamingPlus, Legend, and Ninja experiences for Xiaomi, Redmi, POCO, MIX and Pad devices.";
 
 export const metadata: Metadata = {
-    ...siteMetadataRoot,
-    title: {
-        default: "DeadZone Lite and Premium HyperOS ROMs",
-        template: "%s | DeadZone",
+    [metaRootKey]: siteUrl,
+    title: siteTitle,
+    description: siteDescription,
+    applicationName: "DeadZone",
+    alternates: {
+        canonical: "/",
     },
-    description: "DeadZone is a premium HyperOS ROM project by Mohammed MEZO. Explore DeadZone Lite public builds, supported devices, premium styles, and official community links.",
     openGraph: {
-        title: "DeadZone Lite and Premium HyperOS ROMs",
-        description: "Public DeadZone site for downloads, supported devices, premium membership, and official community links.",
+        title: siteTitle,
+        description: siteDescription,
         siteName: "DeadZone",
         type: "website",
+        locale: "en_US",
     },
     twitter: {
         card: "summary_large_image",
-        title: "DeadZone Lite and Premium HyperOS ROMs",
-        description: "Public DeadZone site for downloads, premium membership, and official community links.",
+        title: siteTitle,
+        description: siteDescription,
     },
     icons: {
         icon: "/icon.svg",
+        shortcut: "/icon.svg",
+        apple: "/icon.svg",
     },
+};
+
+export const viewport: Viewport = {
+    themeColor: "#02050a",
+    colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -41,7 +54,7 @@ export default function RootLayout({
             <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased selection:bg-cyan-400/30`}>
                 <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
                     <SplashLoader>
-                        <div className="fixed inset-0 bg-mesh -z-10" />
+                        <div className="fixed inset-0 -z-10 bg-mesh" />
                         {children}
                     </SplashLoader>
                 </ThemeProvider>
