@@ -1,0 +1,43 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="56" fill="#050A12"/>
+  <rect x="1" y="1" width="1198" height="898" rx="55" stroke="url(#paint0_linear)" stroke-opacity="0.35" stroke-width="2"/>
+  <g opacity="0.7">
+    <circle cx="202" cy="176" r="170" fill="#22D3EE" fill-opacity="0.14"/>
+    <circle cx="982" cy="196" r="190" fill="#A855F7" fill-opacity="0.14"/>
+    <circle cx="610" cy="728" r="238" fill="#2563EB" fill-opacity="0.18"/>
+  </g>
+  <g opacity="0.24">
+    <path d="M0 168H1200" stroke="#67E8F9" stroke-width="2"/>
+    <path d="M0 296H1200" stroke="#67E8F9" stroke-width="2"/>
+    <path d="M0 424H1200" stroke="#67E8F9" stroke-width="2"/>
+    <path d="M0 552H1200" stroke="#67E8F9" stroke-width="2"/>
+    <path d="M0 680H1200" stroke="#67E8F9" stroke-width="2"/>
+    <path d="M162 0V900" stroke="#D946EF" stroke-width="2"/>
+    <path d="M324 0V900" stroke="#D946EF" stroke-width="2"/>
+    <path d="M486 0V900" stroke="#D946EF" stroke-width="2"/>
+    <path d="M648 0V900" stroke="#D946EF" stroke-width="2"/>
+    <path d="M810 0V900" stroke="#D946EF" stroke-width="2"/>
+    <path d="M972 0V900" stroke="#D946EF" stroke-width="2"/>
+  </g>
+  <rect x="446" y="158" width="308" height="584" rx="44" fill="url(#paint1_linear)" stroke="url(#paint2_linear)" stroke-width="3"/>
+  <rect x="476" y="218" width="248" height="404" rx="20" fill="#0A1420" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="542" y="668" width="116" height="16" rx="8" fill="#1F3B51"/>
+  <circle cx="600" cy="186" r="8" fill="#CFFAFE"/>
+  <text x="600" y="810" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="44" font-weight="700" text-anchor="middle">DeadZone Supported Device</text>
+  <text x="600" y="856" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24" font-weight="500" text-anchor="middle">Premium showcase fallback</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="106" y1="82" x2="1082" y2="848" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="0.52" stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="600" y1="158" x2="600" y2="742" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102232"/>
+      <stop offset="1" stop-color="#07131D"/>
+    </linearGradient>
+    <linearGradient id="paint2_linear" x1="470" y1="170" x2="718" y2="732" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#D946EF" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -28,6 +28,7 @@ export type SupportedDevice = {
     category: DeviceCategory;
     brand: string;
     supported: true;
+    image: string;
     aliases?: string[];
 };
 
