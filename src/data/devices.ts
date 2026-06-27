@@ -191,10 +191,11 @@ const supportedDeviceEntries: SupportedDevice[] = [
     defineDevice({ name: "Redmi K40 Pro / Mi 11i / Mi 11X Pro", codename: "haydn", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true, aliases: ["haydnin"] }),
     defineDevice({ name: "Redmi K50 Ultra / Xiaomi 12T Pro", codename: "diting", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true, aliases: ["ditingp"] }),
     defineDevice({ name: "Redmi K60 Pro", codename: "socrates", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true }),
-    defineDevice({ name: "Redmi K70", codename: "vermeer", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true }),
+    defineDevice({ name: "Redmi K70 / POCO F6 Pro", codename: "vermeer", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true }),
     defineDevice({ name: "Redmi K70 Ultra / Xiaomi 14T Pro", codename: "rothko", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true }),
     defineDevice({ name: "Redmi Turbo 4 / POCO X7 Pro", codename: "rodin", category: "Redmi K / Turbo Series", brand: "Redmi", supported: true }),
 
+    defineDevice({ name: "Redmi Note 11 Pro / Redmi Note 11 Pro+ 5G / Xiaomi 11i 5G", codename: "pissarro", category: "Redmi Note Series", brand: "Redmi", supported: true }),
     defineDevice({ name: "Redmi Note 12 4G", codename: "tapas", category: "Redmi Note Series", brand: "Redmi", supported: true }),
     defineDevice({ name: "Redmi Note 12 4G NFC", codename: "topaz", category: "Redmi Note Series", brand: "Redmi", supported: true }),
     defineDevice({ name: "Redmi Note 12 5G / Redmi Note 12R Pro", codename: "sunstone", category: "Redmi Note Series", brand: "Redmi", supported: true }),
@@ -219,6 +220,7 @@ const supportedDeviceEntries: SupportedDevice[] = [
     defineDevice({ name: "Redmi K90 Pro Max / POCO F8 Ultra", codename: "myron", category: "POCO F Series", brand: "POCO", supported: true }),
 
     defineDevice({ name: "POCO X5 5G", codename: "moonstone", category: "POCO X Series", brand: "POCO", supported: true }),
+    defineDevice({ name: "Redmi Note 11T Pro / Redmi Note 11T Pro+ / Redmi K50i / POCO X4 GT", codename: "xaga", category: "POCO X Series", brand: "POCO", supported: true }),
     defineDevice({ name: "Redmi Note 12 Pro Speed / POCO X5 Pro 5G", codename: "redwood", category: "POCO X Series", brand: "POCO", supported: true }),
 
     defineDevice({ name: "Redmi 12 5G / Redmi Note 12R / POCO M6 Pro 5G", codename: "sky", category: "POCO M / C Series", brand: "POCO", supported: true }),
