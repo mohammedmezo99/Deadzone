@@ -13,6 +13,19 @@ export const deviceCategories: DeviceCategory[] = [
 ];
 
 const fallbackImage = "/devices/fallback-device.svg";
+const exactDeviceImageByName: Record<string, string> = {
+    "POCO X6 5G": "poco-x6",
+    "POCO X6 Pro": "poco-x6-pro",
+    "POCO X7": "poco-x7",
+    "Xiaomi 13T Pro": "xiaomi-13t-pro",
+    "Xiaomi 14T": "xiaomi-14t",
+    "Xiaomi 15T Pro": "xiaomi-15t-pro",
+    "Xiaomi 17": "xiaomi-17",
+    "Xiaomi 17 Ultra": "xiaomi-17-ultra",
+    "Xiaomi Pad 6S Pro 12.4": "xiaomi-pad-6s-pro-12-4",
+    "Xiaomi Pad 8": "xiaomi-pad-8",
+    "Xiaomi Pad 8 Pro": "xiaomi-pad-8-pro",
+};
 
 const exactImageKeys = new Set([
     "agate",
@@ -219,6 +232,17 @@ type DeviceSeed = {
 
 function defineDevice(seed: DeviceSeed): SupportedDevice {
     const registryEntry = codenameRegistryMeta[seed.codename];
+    const exactDeviceImageKey = exactDeviceImageByName[seed.name];
+
+    if (exactDeviceImageKey) {
+        return {
+            ...seed,
+            supported: true,
+            image: `/devices/${exactDeviceImageKey}.webp`,
+            imageSource: "exact",
+            aliases: Array.from(new Set([...(registryEntry?.aliases ?? []), ...(seed.aliases ?? [])])),
+        };
+    }
 
     if (!registryEntry) {
         return {

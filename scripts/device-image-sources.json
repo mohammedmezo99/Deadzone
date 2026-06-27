@@ -316,5 +316,71 @@
     "source": "https://i02.appmifile.com/mi-com-product/fly-birds/poco-f7-pro/pc/1e7c743971c5d34b1d27e82b5c070da1.jpg?f=webp",
     "sourceType": "official_or_verified",
     "notes": "Official POCO F7 Pro product page hero image; matches codename zorn through the POCO F7 Pro alias."
+  },
+  "poco-x6": {
+    "name": "POCO X6 5G",
+    "source": "https://i02.appmifile.com/353_operatorx_operatorx_opx/09/01/2024/93fa26bc310c101aef06eed6f823190c.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X6 global product share image from Xiaomi product page; used as an exact market-device image for POCO X6 5G."
+  },
+  "poco-x6-pro": {
+    "name": "POCO X6 Pro",
+    "source": "https://i02.appmifile.com/735_operatorx_operatorx_opx/09/01/2024/2343160ce0d2924c046efe29a4783fd7.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X6 Pro global product share image from Xiaomi product page; used as an exact market-device image for POCO X6 Pro."
+  },
+  "poco-x7": {
+    "name": "POCO X7",
+    "source": "https://i02.appmifile.com/570_operatorx_operatorx_opx/09/01/2025/0adbdc473ff18bd313ae2278a0d961e3.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official POCO X7 global product share image from Xiaomi product page; used as an exact market-device image for POCO X7."
+  },
+  "xiaomi-13t-pro": {
+    "name": "Xiaomi 13T Pro",
+    "source": "https://i02.appmifile.com/308_operatorx_operatorx_opx/26/09/2023/4796e703846ff6b8afdca74fc2755a10.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 13T Pro global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 13T Pro."
+  },
+  "xiaomi-14t": {
+    "name": "Xiaomi 14T",
+    "source": "https://i02.appmifile.com/293_operatorx_operatorx_opx/27/09/2024/d714b3e4e95bd2d4817f5d3458b92c45.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 14T global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 14T."
+  },
+  "xiaomi-15t-pro": {
+    "name": "Xiaomi 15T Pro",
+    "source": "https://i02.appmifile.com/866_operatorx_operatorx_xm/19/09/2025/f25258b1fe293171376412a95b902263.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 15T Pro global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 15T Pro."
+  },
+  "xiaomi-17": {
+    "name": "Xiaomi 17",
+    "source": "https://i02.appmifile.com/513_operatorx_operatorx_xm/14/02/2026/7e83548bfc090e9eeaa224dc4bdae063.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 17 global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 17."
+  },
+  "xiaomi-17-ultra": {
+    "name": "Xiaomi 17 Ultra",
+    "source": "https://i02.appmifile.com/645_operatorx_operatorx_xm/14/02/2026/df23386f3a67d3d5fdce72e4e1a18b96.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi 17 Ultra global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi 17 Ultra."
+  },
+  "xiaomi-pad-6s-pro-12-4": {
+    "name": "Xiaomi Pad 6S Pro 12.4",
+    "source": "https://i02.appmifile.com/726_operatorx_operatorx_opx/18/11/2024/472ce7ec2c5869976e27c72ee78a52e0.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 6S Pro 12.4 global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi Pad 6S Pro 12.4."
+  },
+  "xiaomi-pad-8": {
+    "name": "Xiaomi Pad 8",
+    "source": "https://i02.appmifile.com/872_operatorx_operatorx_xm/20/02/2026/5e70d08246ce16e52d597b087abae4b9.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 8 global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi Pad 8."
+  },
+  "xiaomi-pad-8-pro": {
+    "name": "Xiaomi Pad 8 Pro",
+    "source": "https://i02.appmifile.com/218_operatorx_operatorx_xm/20/02/2026/38f37b6999ec21ba8715ca36b1b9a1f2.png",
+    "sourceType": "official_or_verified",
+    "notes": "Official Xiaomi Pad 8 Pro global product share image from Xiaomi product page; used as an exact market-device image for Xiaomi Pad 8 Pro."
   }
 }
