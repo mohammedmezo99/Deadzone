@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CircuitBoard, MessageCircle, Send, ShieldCheck, Sparkles } from "lucide-react";
+import { MessageCircle, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { officialLinks, siteLinks } from "@/lib/links";
 
@@ -40,7 +40,7 @@ export function Footer() {
                         <ul className="space-y-3 text-sm">
                             <li><Link href={siteLinks.downloads} className="text-zinc-400 transition-colors hover:text-white">Explore Builds</Link></li>
                             <li><Link href={siteLinks.devices} className="text-zinc-400 transition-colors hover:text-white">Supported Devices</Link></li>
-                            <li><Link href={siteLinks.styles} className="text-zinc-400 transition-colors hover:text-white">ROM Styles</Link></li>
+                            <li><Link href={siteLinks.gallery} className="text-zinc-400 transition-colors hover:text-white">Gallery</Link></li>
                             <li><Link href={siteLinks.premium} className="text-zinc-400 transition-colors hover:text-white">Premium Membership</Link></li>
                             <li><Link href={siteLinks.status} className="text-zinc-400 transition-colors hover:text-white">Status</Link></li>
                             <li><Link href={siteLinks.guide} className="text-zinc-400 transition-colors hover:text-white">Install Guide</Link></li>

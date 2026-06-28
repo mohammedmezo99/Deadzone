@@ -10,6 +10,16 @@ const nextConfig = {
                 destination: "/downloads?codename=:codename",
                 permanent: false,
             },
+            {
+                source: "/downloadsstyle=:style",
+                destination: "/downloads?style=:style",
+                permanent: false,
+            },
+            {
+                source: "/downloadscodename=:codename&style=:style",
+                destination: "/downloads?codename=:codename&style=:style",
+                permanent: false,
+            },
         ];
     },
 };

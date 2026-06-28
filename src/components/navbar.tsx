@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { CircuitBoard, Download, Gem, Home, Menu, MessageCircle, Smartphone, Sparkles, UserRound, X } from "lucide-react";
+import { Download, Gem, Home, Menu, MessageCircle, Smartphone, Sparkles, UserRound, X } from "lucide-react";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { officialLinks, siteLinks } from "@/lib/links";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ const navItems = [
     { name: "Home", href: siteLinks.home, icon: Home },
     { name: "Downloads", href: siteLinks.downloads, icon: Download },
     { name: "Devices", href: siteLinks.devices, icon: Smartphone },
-    { name: "Styles", href: siteLinks.styles, icon: Sparkles },
+    { name: "Gallery", href: siteLinks.gallery, icon: Sparkles },
     { name: "Premium", href: siteLinks.premium, icon: Gem },
     { name: "Community", href: siteLinks.community, icon: MessageCircle },
     { name: "Contact", href: siteLinks.contact, icon: UserRound },

@@ -40,8 +40,8 @@ export function MembershipCard() {
         <PremiumButton href={siteLinks.premium} variant="secondary" className={styles.button}>
           View Premium
         </PremiumButton>
-        <PremiumButton href={siteLinks.styles} variant="secondary" className={styles.button}>
-          View Styles
+        <PremiumButton href={siteLinks.gallery} variant="secondary" className={styles.button}>
+          View Gallery
         </PremiumButton>
       </div>
     </GlassCard>

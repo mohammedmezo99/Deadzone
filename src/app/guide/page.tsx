@@ -117,8 +117,8 @@ export default function GuidePage() {
                                 <PremiumButton href="/premium" variant="secondary" icon={<ShieldCheck className="h-4 w-4" />} className="text-xs">
                                     View Premium
                                 </PremiumButton>
-                                <PremiumButton href="/styles" variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
-                                    View Styles
+                                <PremiumButton href="/gallery" variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
+                                    View Gallery
                                 </PremiumButton>
                             </div>
                         </GlassCard>

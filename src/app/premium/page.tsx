@@ -71,8 +71,8 @@ export default function PremiumPage() {
                                     <PremiumButton href={officialLinks.contactMezo} external variant="legend" icon={<MessageCircle className="h-4 w-4" />} className="text-xs">
                                         Contact MEZO
                                     </PremiumButton>
-                                    <PremiumButton href="/styles" variant="secondary" icon={<Sparkles className="h-4 w-4" />} className="text-xs">
-                                        View Styles
+                                    <PremiumButton href="/gallery" variant="secondary" icon={<Sparkles className="h-4 w-4" />} className="text-xs">
+                                        View Gallery
                                     </PremiumButton>
                                     <PremiumButton href="/devices" variant="secondary" icon={<Gem className="h-4 w-4" />} className="text-xs">
                                         View Supported Devices
@@ -95,8 +95,8 @@ export default function PremiumPage() {
                                 </div>
                                 <div className="rounded-[1.45rem] border border-white/10 bg-white/[0.04] p-4">
                                     <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Style Screenshots</p>
-                                    <a href="/styles" className="mt-2 inline-flex text-sm font-bold text-cyan-200 transition hover:text-cyan-100">
-                                        View style screenshots
+                                    <a href="/gallery" className="mt-2 inline-flex text-sm font-bold text-cyan-200 transition hover:text-cyan-100">
+                                        View gallery screenshots
                                     </a>
                                 </div>
                             </div>
@@ -188,8 +188,8 @@ export default function PremiumPage() {
                                 <PremiumButton href={officialLinks.contactMezo} external variant="legend" icon={<MessageCircle className="h-4 w-4" />} className="text-xs">
                                     Contact MEZO
                                 </PremiumButton>
-                                <PremiumButton href="/styles" variant="secondary" icon={<Sparkles className="h-4 w-4" />} className="text-xs">
-                                    View Styles
+                                <PremiumButton href="/gallery" variant="secondary" icon={<Sparkles className="h-4 w-4" />} className="text-xs">
+                                    View Gallery
                                 </PremiumButton>
                                 <PremiumButton href="/devices" variant="secondary" icon={<Gem className="h-4 w-4" />} className="text-xs">
                                     View Supported Devices

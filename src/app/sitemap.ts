@@ -5,7 +5,7 @@ const routes = [
     "",
     "/downloads",
     "/devices",
-    "/styles",
+    "/gallery",
     "/premium",
     "/community",
     "/contact",

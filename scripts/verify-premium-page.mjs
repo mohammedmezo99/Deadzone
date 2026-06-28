@@ -21,9 +21,9 @@ async function main() {
         "Legend",
         "Ninja",
         "Contact MEZO",
-        'href="/styles"',
+        'href="/gallery"',
         'href="/devices"',
-        "View style screenshots",
+        "View gallery screenshots",
     ];
 
     for (const item of expected) {

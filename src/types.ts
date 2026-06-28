@@ -74,6 +74,7 @@ export type SiteLinks = {
     home: string;
     downloads: string;
     devices: string;
+    gallery: string;
     styles: string;
     premium: string;
     status: string;
