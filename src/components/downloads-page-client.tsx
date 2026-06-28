@@ -16,7 +16,8 @@ import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { supportedDevices } from "@/data/supported-devices";
-import { publicBuilds } from "@/lib/builds";
+import { hasPublishedFile } from "@/lib/builds";
+import type { BuildItem } from "@/types";
 
 const categoryFilters = ["All", "Xiaomi", "Redmi", "POCO", "Pad", "MIX", "Civi", "Unknown"] as const;
 const chipsetFilters = ["All", "Snapdragon", "MediaTek", "Unknown"] as const;
@@ -31,12 +32,22 @@ function getStatusAccent(status: (typeof supportedDevices)[number]["status"]) {
     return "blue";
 }
 
+function getBuildStatusAccent(status: BuildItem["status"]) {
+    if (status === "Available") return "gold";
+    if (status === "Processing Metadata" || status === "Metadata Incomplete") return "magenta";
+    if (status === "Upload Pending" || status === "Building") return "blue";
+    if (status === "Failed") return "red";
+    return "slate";
+}
+
 export function DownloadsPageClient({
     initialCodename = "",
     initialStyle = "All",
+    builds = [],
 }: {
     initialCodename?: string;
     initialStyle?: (typeof styleFilters)[number];
+    builds?: BuildItem[];
 }) {
     const [query, setQuery] = useState(initialCodename);
     const [activeCategory, setActiveCategory] = useState<(typeof categoryFilters)[number]>("All");
@@ -54,10 +65,26 @@ export function DownloadsPageClient({
         setActiveStyle(initialStyle);
     }, [initialStyle]);
 
-    const availableBuildCodenames = useMemo(
-        () => new Set(publicBuilds.filter((build) => build.status === "Available").map((build) => build.codename)),
-        [],
-    );
+    const buildStateByCodename = useMemo(() => {
+        const states = new Map<string, BuildItem["status"]>();
+
+        for (const build of builds) {
+            if (!build.codename) continue;
+            const status = hasPublishedFile(build) ? "Available" : build.status;
+            const current = states.get(build.codename);
+
+            if (status === "Available" || !current) {
+                states.set(build.codename, status);
+                continue;
+            }
+
+            if (current !== "Available") {
+                states.set(build.codename, status);
+            }
+        }
+
+        return states;
+    }, [builds]);
 
     const filteredDevices = useMemo(() => {
         const needle = query.trim().toLowerCase();
@@ -84,9 +111,9 @@ export function DownloadsPageClient({
     const stats = useMemo(() => ({
         supportedDevices: supportedDevices.length,
         activeDevices: supportedDevices.filter((device) => device.status === "Active").length,
-        availableBuilds: publicBuilds.filter((build) => build.status === "Available").length,
+        availableBuilds: builds.filter((build) => hasPublishedFile(build)).length,
         premiumStyles: 3,
-    }), []);
+    }), [builds]);
 
     function loadMore() {
         setVisibleCount((current) => current + visibleStep);
@@ -259,7 +286,9 @@ export function DownloadsPageClient({
                         <>
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
                                 {visibleDevices.map((device, index) => {
-                                    const isBuildReady = availableBuildCodenames.has(device.codename);
+                                    const buildStatus = buildStateByCodename.get(device.codename);
+                                    const isBuildReady = buildStatus === "Available";
+                                    const isBuildProcessing = Boolean(buildStatus && buildStatus !== "Available");
                                     const isQueryFocus = initialCodename === device.codename;
 
                                     return (
@@ -303,6 +332,7 @@ export function DownloadsPageClient({
                                                         {device.chipset}
                                                     </RomBadge>
                                                     {isBuildReady && <RomBadge accent="gold">Available Build</RomBadge>}
+                                                    {isBuildProcessing && buildStatus && <RomBadge accent={getBuildStatusAccent(buildStatus)}>Build Processing</RomBadge>}
                                                 </div>
 
                                                 <div className="mt-5 grid gap-3 sm:grid-cols-2">

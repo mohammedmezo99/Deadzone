@@ -3,7 +3,7 @@ import type { BuildItem } from "@/types";
 export const publicBuilds: BuildItem[] = [];
 
 const validStyles: BuildItem["style"][] = ["Lite", "GamingPlus", "Legend", "Ninja"];
-const validStatuses: BuildItem["status"][] = ["Available", "Coming Soon", "Building", "Failed"];
+const validStatuses: BuildItem["status"][] = ["Available", "Coming Soon", "Building", "Failed", "Processing Metadata", "Upload Pending", "Metadata Incomplete"];
 
 export type PublicBuildsResponse = {
     ok: boolean;
@@ -27,6 +27,9 @@ function normalizeStatus(input: unknown): BuildItem["status"] {
     if (value === "coming soon" || value === "planned") return "Coming Soon";
     if (value === "building" || value === "in progress") return "Building";
     if (value === "failed" || value === "broken") return "Failed";
+    if (value === "processing metadata") return "Processing Metadata";
+    if (value === "upload pending") return "Upload Pending";
+    if (value === "metadata incomplete" || value === "uploaded, verifying metadata") return "Metadata Incomplete";
     return "Available";
 }
 
@@ -102,7 +105,28 @@ export function sanitizePublicFileSize(value: string | undefined) {
 }
 
 export function getBuildAvailabilityStatus(build: BuildItem): BuildItem["status"] {
-    return hasPublishedFile(build) ? build.status : "Coming Soon";
+    if (hasPublishedFile(build)) {
+        return build.status === "Available" ? "Available" : build.status;
+    }
+
+    const hasDownloadUrl = Boolean(sanitizePublicDownloadUrl(build.downloadUrl));
+    const hasFilename = Boolean(sanitizePublicFilename(build.filename));
+    const hasSha = Boolean(sanitizePublicSha256(build.sha256));
+    const hasSize = Boolean(sanitizePublicFileSize(build.fileSize));
+
+    if (hasDownloadUrl && hasFilename && (!hasSha || !hasSize)) {
+        return "Metadata Incomplete";
+    }
+
+    if (hasDownloadUrl && (!hasSha || !hasSize)) {
+        return "Processing Metadata";
+    }
+
+    if (hasFilename && !hasDownloadUrl) {
+        return "Upload Pending";
+    }
+
+    return build.status === "Available" ? "Coming Soon" : build.status;
 }
 
 export function sanitizeBuildForPublicResponse(build: BuildItem): BuildItem {
@@ -111,13 +135,20 @@ export function sanitizeBuildForPublicResponse(build: BuildItem): BuildItem {
     const sha256 = sanitizePublicSha256(build.sha256);
     const fileSize = sanitizePublicFileSize(build.fileSize);
     const published = Boolean(downloadUrl && filename && sha256 && fileSize);
+    const normalizedStatus = getBuildAvailabilityStatus({
+        ...build,
+        downloadUrl,
+        filename,
+        sha256,
+        fileSize,
+    });
 
     return {
         ...build,
         deadZoneVersion: build.deadZoneVersion || defaultDeadZoneVersion,
-        status: published ? build.status : "Coming Soon",
-        downloadUrl: published ? downloadUrl : undefined,
-        filename: published ? filename : undefined,
+        status: published ? (build.status === "Available" ? "Available" : build.status) : normalizedStatus,
+        downloadUrl: downloadUrl || undefined,
+        filename: filename || undefined,
         sha256: published ? sha256 : undefined,
         fileSize: published ? fileSize : undefined,
         changelogUrl: published ? sanitizePublicDownloadUrl(build.changelogUrl) || undefined : undefined,

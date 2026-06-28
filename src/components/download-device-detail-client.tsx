@@ -33,7 +33,8 @@ function styleAccent(style: BuildItem["style"] | SupportedDevice["supportedStyle
 function statusAccent(status: BuildItem["status"] | SupportedDevice["status"]) {
     if (status === "Available" || status === "Active") return "cyan";
     if (status === "Coming Soon" || status === "Supported") return "blue";
-    if (status === "Building") return "gold";
+    if (status === "Processing Metadata" || status === "Metadata Incomplete") return "magenta";
+    if (status === "Upload Pending" || status === "Building") return "gold";
     return "red";
 }
 
@@ -97,7 +98,7 @@ export function DownloadDeviceDetailClient({
     }
 
     const command = `/mezo ${device.codename}`;
-    const publishedBuilds = builds.filter(hasPublishedFile);
+    const hasAnyBuilds = builds.length > 0;
 
     return (
         <main className="page-shell">
@@ -215,16 +216,18 @@ export function DownloadDeviceDetailClient({
                             description="Review the current DeadZone build records for this device. File metadata and download actions only appear when a real public ROM file has been published."
                         />
 
-                        {publishedBuilds.length ? (
+                        {hasAnyBuilds ? (
                             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-                                {publishedBuilds.map((build) => {
+                                {builds.map((build) => {
                                     const hasFile = hasPublishedFile(build);
+                                    const isMetadataPending = build.status === "Processing Metadata" || build.status === "Metadata Incomplete";
+                                    const statusLabel = build.status === "Metadata Incomplete" ? "Uploaded, verifying metadata" : build.status;
 
                                     return (
                                     <GlassCard key={build.id} accent={styleAccent(build.style)} className="p-6">
                                         <div className="flex flex-wrap items-center gap-3">
                                             <RomBadge accent={styleAccent(build.style)}>{build.style}</RomBadge>
-                                            <RomBadge accent={statusAccent(hasFile ? build.status : "Coming Soon")}>{hasFile ? build.status : "Request Available"}</RomBadge>
+                                            <RomBadge accent={statusAccent(build.status)}>{statusLabel}</RomBadge>
                                         </div>
 
                                         <div className="mt-5 grid grid-cols-2 gap-3">
@@ -254,6 +257,10 @@ export function DownloadDeviceDetailClient({
                                             </div>
                                         </div>
 
+                                        {!hasFile && isMetadataPending && (
+                                            <p className="mt-4 text-sm font-medium text-fuchsia-100">Metadata verification in progress.</p>
+                                        )}
+
                                         <div className="mt-6 grid gap-3 sm:grid-cols-3">
                                             {hasFile && build.downloadUrl ? (
                                                 <a
@@ -271,7 +278,7 @@ export function DownloadDeviceDetailClient({
                                                     rel="noopener noreferrer"
                                                     className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
                                                 >
-                                                    Request on Telegram
+                                                    {isMetadataPending ? "Contact MEZO" : "Request on Telegram"}
                                                 </a>
                                             )}
 

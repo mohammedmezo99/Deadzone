@@ -80,6 +80,7 @@ async function verifyBuildValidationHelpers() {
     const {
         sanitizeBuildForPublicResponse,
         hasPublishedFile,
+        getBuildAvailabilityStatus,
     } = module.exports;
 
     const incomplete = sanitizeBuildForPublicResponse({
@@ -100,8 +101,8 @@ async function verifyBuildValidationHelpers() {
     if (hasPublishedFile(incomplete)) {
         throw new Error("incomplete build was incorrectly treated as published");
     }
-    if (incomplete.status !== "Coming Soon") {
-        throw new Error("incomplete build was not downgraded to Coming Soon");
+    if (incomplete.status !== "Upload Pending") {
+        throw new Error("incomplete build was not normalized to Upload Pending");
     }
     if (incomplete.downloadUrl || incomplete.sha256 || incomplete.fileSize) {
         throw new Error("incomplete build retained restricted file metadata");
@@ -130,6 +131,61 @@ async function verifyBuildValidationHelpers() {
     }
     if (complete.status !== "Available") {
         throw new Error("complete build lost Available status");
+    }
+
+    const uploadedPending = sanitizeBuildForPublicResponse({
+        id: "upload-pending",
+        deviceName: "Redmi Note 13 Pro+ 5G",
+        codename: "zircon",
+        style: "Lite",
+        status: "Available",
+        deadZoneVersion: "v1.06",
+        filename: "real-final-file.zip",
+    });
+
+    if (uploadedPending.status !== "Upload Pending") {
+        throw new Error("filename-only build did not normalize to Upload Pending");
+    }
+    if (hasPublishedFile(uploadedPending)) {
+        throw new Error("filename-only build was incorrectly treated as published");
+    }
+
+    const processingOnly = sanitizeBuildForPublicResponse({
+        id: "processing-only",
+        deviceName: "Redmi Note 13 Pro+ 5G",
+        codename: "zircon",
+        style: "Lite",
+        status: "Available",
+        deadZoneVersion: "v1.06",
+        downloadUrl: "https://drive.google.com/file/d/real/view",
+    });
+
+    if (processingOnly.status !== "Processing Metadata") {
+        throw new Error("downloadUrl-only build did not normalize to Processing Metadata");
+    }
+    if (hasPublishedFile(processingOnly)) {
+        throw new Error("downloadUrl-only build was incorrectly treated as published");
+    }
+
+    const metadataIncomplete = sanitizeBuildForPublicResponse({
+        id: "metadata-incomplete",
+        deviceName: "Redmi Note 13 Pro+ 5G",
+        codename: "zircon",
+        style: "Lite",
+        status: "Available",
+        deadZoneVersion: "v1.06",
+        filename: "real-final-file.zip",
+        downloadUrl: "https://drive.google.com/file/d/real/view",
+    });
+
+    if (metadataIncomplete.status !== "Metadata Incomplete") {
+        throw new Error("downloadUrl+filename build did not normalize to Metadata Incomplete");
+    }
+    if (hasPublishedFile(metadataIncomplete)) {
+        throw new Error("metadata-incomplete build was incorrectly treated as published");
+    }
+    if (getBuildAvailabilityStatus(metadataIncomplete) !== "Metadata Incomplete") {
+        throw new Error("metadata-incomplete build availability status mismatch");
     }
 }
 
