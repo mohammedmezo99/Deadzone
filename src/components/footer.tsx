@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { CircuitBoard, MessageCircle, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { PremiumButton } from "@/components/ui/premium-button";
@@ -12,7 +13,7 @@ export function Footer() {
                     <div className="max-w-xl">
                         <Link href={siteLinks.home} className="mb-6 flex items-center gap-3">
                             <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-300/25 bg-gradient-to-br from-cyan-400/20 via-blue-500/20 to-fuchsia-500/20">
-                                <CircuitBoard className="h-5 w-5 text-cyan-100" />
+                                <Image src="/brand/logo.png" alt="DeadZone logo" width={24} height={24} className="object-contain" />
                             </div>
                             <div>
                                 <span className="block text-xl font-black uppercase tracking-[0.16em] text-white">DeadZone</span>

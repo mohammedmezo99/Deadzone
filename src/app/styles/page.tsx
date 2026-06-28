@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
+import { LiteGallery } from "@/components/LiteGallery";
 import { premiumRomStyles, publicRomStyle, romStyles } from "@/data/styles";
 import { officialLinks, siteLinks } from "@/lib/links";
 
@@ -225,6 +226,7 @@ export default function StylesPage() {
                 </div>
             </section>
 
+            <LiteGallery />
             <Footer />
         </main>
     );

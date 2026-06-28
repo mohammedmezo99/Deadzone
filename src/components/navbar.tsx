@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { CircuitBoard, Download, Gem, Home, Menu, MessageCircle, Smartphone, Sparkles, UserRound, X } from "lucide-react";
 import { PremiumButton } from "@/components/ui/premium-button";
@@ -42,7 +43,7 @@ export function Navbar() {
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-[1.75rem] border border-white/10 bg-black/30 px-4 py-3 backdrop-blur-2xl">
                 <Link href={siteLinks.home} className="group flex flex-1 items-center gap-3">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400/18 via-blue-500/18 to-fuchsia-500/18 shadow-lg shadow-cyan-500/20 transition-transform duration-300 group-hover:rotate-6">
-                        <CircuitBoard className="h-5 w-5 text-cyan-100" />
+                        <Image src="/brand/logo.png" alt="DeadZone logo" width={24} height={24} className="object-contain" />
                     </div>
                     <div className="min-w-0">
                         <span className="block text-lg font-black uppercase tracking-[0.18em] text-white whitespace-nowrap">DeadZone</span>

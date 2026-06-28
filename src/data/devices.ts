@@ -12,7 +12,7 @@ export const deviceCategories: DeviceCategory[] = [
     "Xiaomi Pad / Redmi Pad / POCO Pad",
 ];
 
-const fallbackImage = "/devices/fallback-device.svg";
+const fallbackImage = "/devices/placeholder.png";
 const exactDeviceImageByName: Record<string, string> = {
     "POCO F3": "poco-f3",
     "POCO M6 Plus 5G": "poco-m6-plus-5g",

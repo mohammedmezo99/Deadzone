@@ -3,7 +3,7 @@
 import { Smartphone } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { getDeviceImage } from "@/lib/device-images";
 
 type DeviceImageProps = {
     codename: string;
@@ -27,7 +27,7 @@ export function DeviceImage({
     priority = false,
 }: DeviceImageProps) {
     const [failed, setFailed] = useState(false);
-    const imageSrc = src || `/devices/${codename}.webp`;
+    const imageSrc = src ?? getDeviceImage(codename);
     const isMtk = soc === "MTK";
 
     return (
