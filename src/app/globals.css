@@ -141,3 +141,12 @@ h1, h2, h3, h4, h5, h6 {
 .button-secondary {
   @apply px-6 py-3 bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/[0.05] rounded-2xl font-bold transition-all duration-300 active:scale-95;
 }
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
