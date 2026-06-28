@@ -33,6 +33,15 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--card-border);
 }
 
+/* Glass effect for the navbar */
+.glass-navbar {
+  background: rgba(8, 13, 22, 0.62);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
 .glass-premium {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
   backdrop-filter: blur(24px) saturate(200%);
@@ -94,6 +103,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .hud-card {
   clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover animation for premium glass cards */
+.hud-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 22px 60px rgba(34, 211, 238, 0.26);
 }
 
 .custom-scrollbar::-webkit-scrollbar {

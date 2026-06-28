@@ -33,7 +33,7 @@ export function Navbar() {
     return (
         <nav
             className={cn(
-                "fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6",
+                "fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6 glass-navbar",
                 scrolled
                     ? "border-b border-white/10 bg-[#02050a]/82 shadow-[0_18px_50px_rgba(2,5,10,0.42)] backdrop-blur-2xl"
                     : "bg-transparent"
@@ -45,8 +45,8 @@ export function Navbar() {
                         <CircuitBoard className="h-5 w-5 text-cyan-100" />
                     </div>
                     <div className="min-w-0">
-                        <span className="block truncate text-lg font-black uppercase tracking-[0.18em] text-white">DeadZone</span>
-                        <span className="block truncate text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200/80">
+                        <span className="block text-lg font-black uppercase tracking-[0.18em] text-white whitespace-nowrap">DeadZone</span>
+                        <span className="block text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200/80 whitespace-nowrap">
                             Premium HyperOS by MEZO
                         </span>
                     </div>
