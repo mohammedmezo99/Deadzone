@@ -1,17 +1,23 @@
-"use client";
+import { verifiedDeviceImageByCodename } from "@/data/supported-devices";
 
-import { exactDeviceImageByName } from "@/data/devices";
-export const fallbackImage = "/devices/placeholder.png";
+export const deviceImageExtensionsByCodename = Object.freeze(
+    Object.fromEntries(
+        Object.entries(verifiedDeviceImageByCodename).map(([codename, imagePath]) => {
+            const extension = imagePath.split(".").pop() || "webp";
+            return [codename, extension];
+        }),
+    ) as Record<string, string>,
+);
 
-/**
- * Resolve the correct device image path for a given codename.
- * If a verified image exists in `public/devices/` it returns that path.
- * Otherwise it falls back to the generic placeholder image.
- */
-export function getDeviceImage(codename: string): string {
-  const mappedName = exactDeviceImageByName[codename];
-  if (mappedName) {
-    return `/devices/${mappedName}.webp`;
-  }
-  return fallbackImage;
+export function getVerifiedDeviceImage(codename: string): string | null {
+    const normalized = codename.trim().toLowerCase();
+    return verifiedDeviceImageByCodename[normalized] || null;
+}
+
+export function hasVerifiedDeviceImage(codename: string) {
+    return getVerifiedDeviceImage(codename) !== null;
+}
+
+export function getDeviceImage(codename: string) {
+    return getVerifiedDeviceImage(codename);
 }

@@ -1,0 +1,273 @@
+total supported device records: 172
+source entries: 215
+unique codenames: 172
+duplicate codenames: 0
+duplicate codenames merged: 9
+verified image count: 53
+placeholder count: 119
+devices without codename: 0
+missing mapped image files: 0
+
+merged duplicate codename details:
+- rothko: Redmi K70 Ultra
+- corot: Redmi K60 Ultra
+- diting: Redmi K50 Ultra
+- flame: Redmi 14R 5G
+- miro: POCO F7 Ultra
+- zorn: POCO F7 Pro
+- vermeer: POCO F6 Pro
+- mondrian: POCO F5 Pro
+- fleur: POCO M4 Pro 4G
+
+variant codename groups:
+- star / mars: star, mars
+- vayu / bhima: vayu, bhima
+- camellian / camellia: camellian, camellia
+
+missing image codenames:
+- pudding
+- pandora
+- popsicle
+- nezha
+- haotian
+- dijun
+- goya
+- klimt
+- shennong
+- degas
+- chenfeng
+- corot
+- daumier
+- psyche
+- mayfly
+- unicorn
+- mars
+- renoir
+- courbet
+- mona
+- zijin
+- yuechu
+- luming
+- odin
+- cetus
+- zizhan
+- goku
+- ruyi
+- bixi
+- annibale
+- myron
+- dali
+- manet
+- duchamp
+- socrates
+- rembrandt
+- rubens
+- matisse
+- alioth
+- ares
+- spinel
+- kunzite
+- charoite
+- lapis
+- flourite
+- tanzanite
+- beryl
+- emerald-r
+- obsidian
+- gold
+- emerald
+- sea
+- ruby
+- pearl
+- spes
+- selenes
+- evergo
+- viva
+- veux
+- fleur
+- mojito
+- sweet
+- chopin
+- rosemary
+- camellian
+- camellia
+- xig02
+- creek
+- spring
+- dew
+- tornado
+- lake
+- flame
+- moon
+- breeze
+- gale
+- air
+- fire
+- earth
+- selene
+- light
+- fog
+- dandelion
+- klee
+- dash
+- vayu
+- bhima
+- surya
+- rock
+- evergreen
+- citrus
+- arctic
+- warm
+- serenity
+- blue
+- water
+- ice
+- piano
+- yupei
+- jinghu
+- violin
+- sheng
+- yudi
+- liuqin
+- nabu
+- enuma
+- elish
+- dagu
+- turner
+- yili
+- taiko
+- koto
+- flute
+- organ
+- guitar
+- erhu
+- flare
+- spark
+- yunluo
+
+missing image names:
+- Xiaomi 17
+- Xiaomi 17 Pro
+- Xiaomi 17 Pro Max
+- Xiaomi 17 Ultra
+- Xiaomi 15 Pro
+- Xiaomi 15S Pro
+- Xiaomi 15T
+- Xiaomi 15T Pro
+- Xiaomi 14 Pro
+- Xiaomi 14T
+- Xiaomi 14 Civi
+- Xiaomi 13T Pro
+- Xiaomi 12 Pro Dimensity
+- Xiaomi 12X
+- Xiaomi 12S
+- Xiaomi 12S Pro
+- Xiaomi 11 Ultra
+- Xiaomi Mi 11 Lite 5G
+- Xiaomi Mi 11 Lite 4G
+- Xiaomi Civi
+- Xiaomi Civi 1S
+- Xiaomi Civi 3
+- Xiaomi Civi 5 Pro
+- Xiaomi MIX 4
+- Xiaomi MIX Fold
+- Xiaomi MIX Fold 2
+- Xiaomi MIX Fold 4
+- Xiaomi MIX Flip
+- Xiaomi MIX Flip 2
+- Redmi K90
+- Redmi K90 Pro Max
+- Redmi K80 Ultra
+- Redmi K70 Pro
+- Redmi K70E
+- Redmi K60 Pro
+- Redmi K60E
+- Redmi K50
+- Redmi K50 Pro
+- Redmi K40
+- Redmi K40 Gaming
+- Redmi Note 15 4G
+- Redmi Note 15 5G
+- Redmi Note 15 Pro 4G
+- Redmi Note 15 Pro 5G
+- Redmi Note 15 Pro+ 5G
+- Redmi Note 14 4G
+- Redmi Note 14 5G
+- Redmi Note 14S 4G
+- Redmi Note 14 Pro 4G
+- Redmi Note 13 5G
+- Redmi Note 13 Pro 4G
+- Redmi Note 12S
+- Redmi Note 12 Pro
+- Redmi Note 12T Pro
+- Redmi Note 11
+- Redmi Note 11 4G
+- Redmi Note 11 5G
+- Redmi Note 11 Pro 4G
+- Redmi Note 11 Pro 5G
+- Redmi Note 11S
+- Redmi Note 10
+- Redmi Note 10 Pro
+- Redmi Note 10 Pro 5G
+- Redmi Note 10S
+- Redmi Note 10 5G
+- POCO M3 Pro 5G variant
+- Redmi Note 10 JE
+- Redmi 15 4G
+- Redmi 15 5G
+- Redmi 15C
+- Redmi 15C 5G
+- Redmi 14C
+- Redmi 14C 5G
+- Redmi 13
+- Redmi 13 5G
+- Redmi 13C
+- Redmi 13C 5G
+- Redmi 12
+- Redmi 12C
+- Redmi 10
+- Redmi 10 5G
+- Redmi 10C
+- Redmi 10A
+- POCO X8 Pro
+- POCO X8 Pro Max
+- POCO X3 Pro
+- POCO X3 Pro variant
+- POCO X3
+- POCO M5
+- POCO M4 Pro 5G
+- POCO M3
+- POCO C81
+- POCO C75 5G
+- POCO C71
+- POCO C61
+- POCO C51
+- POCO C50
+- Xiaomi Pad 8 Pro
+- Xiaomi Pad 8
+- Xiaomi Pad 7 Ultra
+- Xiaomi Pad 7S Pro 12.5
+- Xiaomi Pad 6S Pro 12.4
+- Xiaomi Pad 6 Max
+- Xiaomi Pad 6 Pro
+- Xiaomi Pad 5
+- Xiaomi Pad 5 Pro 5G
+- Xiaomi Pad 5 Pro Wi-Fi
+- Xiaomi Pad 5 Pro 12.4
+- Redmi K Pad
+- Redmi K Pad 2
+- Redmi Pad 2
+- Redmi Pad 2 4G
+- Redmi Pad 2 Pro
+- Redmi Pad 2 Pro 5G
+- Redmi Pad 2 SE
+- Redmi Pad 2 SE 4G
+- Redmi Pad SE 8.7 WiFi
+- Redmi Pad SE 8.7 4G
+- Redmi Pad
+
+missing mapped image files:
+- none
+
+devices without codename:
+- none

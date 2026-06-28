@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { DownloadsPageClient } from "@/components/downloads-page-client";
-import { publicBuilds } from "@/lib/builds";
 
 export const metadata: Metadata = {
-    title: "DeadZone Downloads | Public Builds and Status by Device",
+    title: "DeadZone Download Center | Supported Devices and ROM Access",
     description:
-        "Browse DeadZone downloads by device name, codename, and style. Check Lite, GamingPlus, Legend, and Ninja build status, changelogs, and download availability.",
+        "Browse DeadZone supported devices by name, codename, category, and style. Open a device detail page to view builds, ROM status, and request options.",
     alternates: {
         canonical: "/downloads",
     },
@@ -22,7 +21,6 @@ export default function DownloadsPage({
 
     return (
         <DownloadsPageClient
-            initialBuilds={publicBuilds}
             initialCodename={initialCodename}
             initialStyle={initialStyle}
         />

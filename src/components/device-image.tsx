@@ -30,6 +30,21 @@ export function DeviceImage({
     const [failed, setFailed] = useState(false);
     const imageSrc = src ?? getDeviceImage(codename);
     const isMtk = soc === "MTK";
+    const showPlaceholder = failed || !imageSrc;
+
+    function renderPlaceholder() {
+        return (
+            <div className="relative flex h-full w-full flex-col items-center justify-center p-6 text-center">
+                <div className="mb-3 flex h-24 w-14 items-center justify-center rounded-[1.5rem] border border-white/20 bg-black/45 shadow-2xl shadow-black/60">
+                    <Smartphone className="h-8 w-8 text-cyan-100" />
+                </div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200/80">DeadZone</p>
+                <p className="mt-2 text-sm font-black text-white">Device image coming soon</p>
+                <p className="mt-2 max-w-[14rem] text-sm font-semibold text-zinc-300">{name}</p>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">{codename}</p>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -40,7 +55,7 @@ export function DeviceImage({
             )}
         >
             <div className="absolute inset-0 deadzone-grid opacity-35" />
-            {!failed ? (
+            {!showPlaceholder ? (
                 <Image
                     src={imageSrc}
                     alt={alt || `${name} device image`}
@@ -51,15 +66,7 @@ export function DeviceImage({
                     onError={() => setFailed(true)}
                 />
             ) : (
-                <div className="relative flex h-full w-full flex-col items-center justify-center p-6 text-center">
-                    <div className="mb-3 flex h-24 w-14 items-center justify-center rounded-[1.5rem] border border-white/20 bg-black/45 shadow-2xl shadow-black/60">
-                        <Smartphone className="h-8 w-8 text-cyan-100" />
-                    </div>
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200/80">DeadZone</p>
-                    <p className="mt-1 max-w-[14rem] text-sm font-black text-white">{name}</p>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">{codename}</p>
-                    <p className="mt-2 text-[10px] text-zinc-500">Device image coming soon</p>
-                </div>
+                renderPlaceholder()
             )}
             <div className="absolute bottom-3 left-3 rounded-full border border-white/10 bg-black/55 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white backdrop-blur-xl">
                 {codename}
