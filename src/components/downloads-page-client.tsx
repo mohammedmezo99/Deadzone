@@ -17,13 +17,13 @@ import { Starfield } from "@/components/starfield";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { supportedDevices } from "@/data/supported-devices";
 import { publicBuilds } from "@/lib/builds";
-import { officialLinks } from "@/lib/links";
 
 const categoryFilters = ["All", "Xiaomi", "Redmi", "POCO", "Pad", "MIX", "Civi", "Unknown"] as const;
 const chipsetFilters = ["All", "Snapdragon", "MediaTek", "Unknown"] as const;
 const statusFilters = ["All", "Active", "Supported", "Inactive"] as const;
 const styleFilters = ["All", "Lite", "GamingPlus", "Legend", "Ninja"] as const;
 const visibleStep = 24;
+const requestTelegramLink = "https://t.me/xDeadZoneh";
 
 function getStatusAccent(status: (typeof supportedDevices)[number]["status"]) {
     if (status === "Active") return "cyan";
@@ -173,12 +173,12 @@ export function DownloadsPageClient({
                                     View Supported Devices
                                 </Link>
                                 <a
-                                    href={officialLinks.contactMezo}
+                                    href={requestTelegramLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
                                 >
-                                    Contact MEZO
+                                    Request on Telegram
                                 </a>
                             </div>
                         </GlassCard>
@@ -348,13 +348,13 @@ export function DownloadsPageClient({
                                                         {copiedCodename === device.codename ? "Copied Command" : "Copy Command"}
                                                     </button>
                                                     <a
-                                                        href={officialLinks.contactMezo}
+                                                        href={requestTelegramLink}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         onClick={(event) => event.stopPropagation()}
                                                         className="relative z-20 flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16 sm:col-span-2 xl:col-span-1"
                                                     >
-                                                        Contact MEZO
+                                                        Request on Telegram
                                                     </a>
                                                 </div>
                                             </div>

@@ -47,7 +47,8 @@ export type BuildItem = {
     id: string;
     deviceName: string;
     codename: string;
-    romVersion: string;
+    romVersion?: string;
+    deadZoneVersion?: string;
     androidVersion?: string;
     hyperOsVersion?: string;
     region?: string;

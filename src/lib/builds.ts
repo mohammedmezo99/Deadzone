@@ -1,63 +1,6 @@
 import type { BuildItem } from "@/types";
 
-export const publicBuilds: BuildItem[] = [
-    {
-        id: "zircon-lite-hyperos3-available",
-        deviceName: "Redmi Note 13 Pro+ 5G",
-        codename: "zircon",
-        romVersion: "DeadZone v3.2",
-        androidVersion: "Android 15",
-        hyperOsVersion: "HyperOS 3.0",
-        region: "Global",
-        fileSize: "4.8 GB",
-        filename: "DeadZone-zircon-Lite-v3.2.zip",
-        downloadUrl: "https://t.me/xDeadZone",
-        changelogUrl: "https://t.me/xDeadZone",
-        sha256: "4f4a6f9c69b0cf6a951f4e7292fc25e6b38a1b4d1ea70a3f5f6e97a7ab12c9d4",
-        updatedAt: "2026-06-20T00:00:00.000Z",
-        style: "Lite",
-        status: "Available",
-    },
-    {
-        id: "zircon-gamingplus-queue",
-        deviceName: "Redmi Note 13 Pro+ 5G",
-        codename: "zircon",
-        romVersion: "DeadZone v3.2",
-        androidVersion: "Android 15",
-        hyperOsVersion: "HyperOS 3.0",
-        region: "Global",
-        fileSize: "4.9 GB",
-        updatedAt: "2026-06-24T00:00:00.000Z",
-        style: "GamingPlus",
-        status: "Building",
-    },
-    {
-        id: "venus-legend-soon",
-        deviceName: "Xiaomi 11",
-        codename: "venus",
-        romVersion: "DeadZone v3.1",
-        androidVersion: "Android 14",
-        hyperOsVersion: "HyperOS 2.0",
-        region: "Global",
-        fileSize: "4.6 GB",
-        updatedAt: "2026-06-18T00:00:00.000Z",
-        style: "Legend",
-        status: "Coming Soon",
-    },
-    {
-        id: "venus-ninja-failed",
-        deviceName: "Xiaomi 11",
-        codename: "venus",
-        romVersion: "DeadZone v3.1",
-        androidVersion: "Android 14",
-        hyperOsVersion: "HyperOS 2.0",
-        region: "Global",
-        fileSize: "4.6 GB",
-        updatedAt: "2026-06-12T00:00:00.000Z",
-        style: "Ninja",
-        status: "Failed",
-    },
-];
+export const publicBuilds: BuildItem[] = [];
 
 const validStyles: BuildItem["style"][] = ["Lite", "GamingPlus", "Legend", "Ninja"];
 const validStatuses: BuildItem["status"][] = ["Available", "Coming Soon", "Building", "Failed"];
@@ -94,7 +37,8 @@ export function normalizeBuildRecord(input: any): BuildItem {
         id: String(input?.id || codename || input?.filename || `build-${Math.random().toString(36).slice(2, 10)}`),
         deviceName: String(input?.deviceName || input?.device || input?.device_name || "Unknown Xiaomi Device"),
         codename,
-        romVersion: String(input?.romVersion || input?.rom || input?.rom_version || "Unknown ROM"),
+        romVersion: input?.romVersion || input?.rom || input?.rom_version || undefined,
+        deadZoneVersion: input?.deadZoneVersion || input?.deadzone_version || input?.version || undefined,
         androidVersion: input?.androidVersion || input?.android_version || input?.android || undefined,
         hyperOsVersion: input?.hyperOsVersion || input?.hyperosVersion || input?.hyperOSVersion || input?.hyperos || undefined,
         region: input?.region || undefined,
@@ -116,4 +60,8 @@ export function normalizeBuildRecords(input: unknown): BuildItem[] {
 
 export function getPublicBuilds(input: unknown): BuildItem[] {
     return normalizeBuildRecords(input);
+}
+
+export function hasPublishedFile(build: BuildItem) {
+    return Boolean(build.downloadUrl || build.filename || build.sha256 || build.fileSize);
 }

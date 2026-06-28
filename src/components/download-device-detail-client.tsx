@@ -6,7 +6,6 @@ import {
     ArrowLeft,
     Check,
     Copy,
-    Download,
     FileText,
     ShieldAlert,
     Smartphone,
@@ -17,9 +16,12 @@ import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
+import { hasPublishedFile } from "@/lib/builds";
 import { officialLinks } from "@/lib/links";
 import type { BuildItem } from "@/types";
 import type { SupportedDevice } from "@/data/supported-devices";
+
+const requestTelegramLink = "https://t.me/xDeadZoneh";
 
 function styleAccent(style: BuildItem["style"] | SupportedDevice["supportedStyles"][number]) {
     if (style === "Lite") return "cyan";
@@ -38,9 +40,11 @@ function statusAccent(status: BuildItem["status"] | SupportedDevice["status"]) {
 export function DownloadDeviceDetailClient({
     device,
     builds,
+    deadZoneVersion,
 }: {
     device: SupportedDevice | null;
     builds: BuildItem[];
+    deadZoneVersion: string;
 }) {
     const [copiedValue, setCopiedValue] = useState("");
 
@@ -156,6 +160,11 @@ export function DownloadDeviceDetailClient({
                                 </div>
                             </div>
 
+                            <div className="mt-4 rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Version</p>
+                                <p className="mt-2 text-sm font-bold text-white">{deadZoneVersion}</p>
+                            </div>
+
                             <div className="mt-5 flex flex-wrap gap-2">
                                 {device.supportedStyles.map((style) => (
                                     <RomBadge key={`${device.codename}-${style}`} accent={styleAccent(style)}>
@@ -180,12 +189,12 @@ export function DownloadDeviceDetailClient({
                                     Report Issue
                                 </Link>
                                 <a
-                                    href={officialLinks.contactMezo}
+                                    href={requestTelegramLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
                                 >
-                                    Contact MEZO
+                                    Request on Telegram
                                 </a>
                                 <Link
                                     href="/downloads"
@@ -202,16 +211,19 @@ export function DownloadDeviceDetailClient({
                         <SectionHeader
                             eyebrow="Build Catalog"
                             title="Available DeadZone Builds"
-                            description="Review the current DeadZone build records for this device, including style, status, versioning, and file metadata."
+                            description="Review the current DeadZone build records for this device. File metadata and download actions only appear when a real public ROM file has been published."
                         />
 
                         {builds.length ? (
                             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-                                {builds.map((build) => (
+                                {builds.map((build) => {
+                                    const hasFile = hasPublishedFile(build);
+
+                                    return (
                                     <GlassCard key={build.id} accent={styleAccent(build.style)} className="p-6">
                                         <div className="flex flex-wrap items-center gap-3">
                                             <RomBadge accent={styleAccent(build.style)}>{build.style}</RomBadge>
-                                            <RomBadge accent={statusAccent(build.status)}>{build.status}</RomBadge>
+                                            <RomBadge accent={statusAccent(hasFile ? build.status : "Coming Soon")}>{hasFile ? build.status : "Request Available"}</RomBadge>
                                         </div>
 
                                         <div className="mt-5 grid grid-cols-2 gap-3">
@@ -225,7 +237,7 @@ export function DownloadDeviceDetailClient({
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.romVersion}</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.romVersion || "Not listed"}</p>
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</p>
@@ -236,40 +248,33 @@ export function DownloadDeviceDetailClient({
                                                 <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString("en-US") : "Not listed"}</p>
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">File Size</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.fileSize || "Not listed"}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-4 grid gap-3">
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Filename</p>
-                                                <p className="mt-1 break-all text-sm text-white">{build.filename || "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">SHA256 / Hash</p>
-                                                <p className="mt-1 break-all font-mono text-xs text-zinc-200">{build.sha256 || "Not listed"}</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Version</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.deadZoneVersion || deadZoneVersion}</p>
                                             </div>
                                         </div>
 
                                         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                                            {build.downloadUrl ? (
+                                            {hasFile && build.downloadUrl ? (
                                                 <a
                                                     href={build.downloadUrl}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 text-xs font-black uppercase tracking-[0.16em] text-slate-950 transition hover:bg-cyan-300"
                                                 >
-                                                    <Download className="h-4 w-4" />
                                                     Download
                                                 </a>
                                             ) : (
-                                                <div className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-zinc-500">
-                                                    Download Pending
-                                                </div>
+                                                <a
+                                                    href={requestTelegramLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
+                                                >
+                                                    Request on Telegram
+                                                </a>
                                             )}
 
-                                            {build.changelogUrl ? (
+                                            {hasFile && build.changelogUrl ? (
                                                 <a
                                                     href={build.changelogUrl}
                                                     target="_blank"
@@ -280,9 +285,12 @@ export function DownloadDeviceDetailClient({
                                                     Changelog
                                                 </a>
                                             ) : (
-                                                <div className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-zinc-500">
-                                                    Changelog Pending
-                                                </div>
+                                                <Link
+                                                    href="/guide"
+                                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
+                                                >
+                                                    View Install Guide
+                                                </Link>
                                             )}
 
                                             <button
@@ -295,15 +303,19 @@ export function DownloadDeviceDetailClient({
                                             </button>
                                         </div>
                                     </GlassCard>
-                                ))}
+                                )})}
                             </div>
                         ) : (
                             <GlassCard accent="slate" className="p-10 text-center">
                                 <Smartphone className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
-                                <h3 className="text-xl font-black text-white">No ROMs found for this device yet.</h3>
+                                <h3 className="text-xl font-black text-white">No public ROM file is available yet.</h3>
                                 <p className="mt-3 text-sm leading-7 text-zinc-400">
-                                    You can request a DeadZone Lite build using Telegram if your device and ROM base are supported.
+                                    This device is supported by DeadZone, but no public ROM file has been published on the website yet. You can request a build through Telegram.
                                 </p>
+                                <div className="mt-4 rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Version</p>
+                                    <p className="mt-2 text-sm font-bold text-white">{deadZoneVersion}</p>
+                                </div>
                                 <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                                     <button
                                         type="button"
@@ -313,8 +325,8 @@ export function DownloadDeviceDetailClient({
                                         {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                                         {copiedValue === command ? "Copied Command" : "Copy /mezo"}
                                     </button>
-                                    <PremiumButton href={officialLinks.contactMezo} external variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
-                                        Contact MEZO
+                                    <PremiumButton href={requestTelegramLink} external variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
+                                        Request on Telegram
                                     </PremiumButton>
                                     <PremiumButton href="/guide" variant="secondary" icon={<FileText className="h-4 w-4" />} className="text-xs">
                                         View Install Guide

@@ -3,7 +3,7 @@ const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:30
 const checks = [
     {
         path: "/downloads",
-        includes: ["DeadZone Download Center", "Supported Devices", "Active Devices", "Available Builds", "Premium Styles", "Search by device name, alias, or codename", "Copy Command", "Contact MEZO", "Style: All", "Open Details", "Load More"],
+        includes: ["DeadZone Download Center", "Supported Devices", "Active Devices", "Available Builds", "Premium Styles", "Search by device name, alias, or codename", "Copy Command", "Style: All", "Open Details", "Load More"],
     },
     {
         path: "/downloads?codename=zircon",
@@ -27,11 +27,11 @@ const checks = [
     },
     {
         path: "/downloads/zircon",
-        includes: ["Redmi Note 13 Pro+ 5G", "zircon", "Available DeadZone Builds", "Copy Command", "Contact MEZO", "Back to Download Center"],
+        includes: ["Redmi Note 13 Pro+ 5G", "zircon", "Available DeadZone Builds", "Copy Command", "Back to Download Center", "DeadZone Version", "v1.06", "Request on Telegram"],
     },
     {
         path: "/downloads/dada",
-        includesAny: ["No ROMs found for this device yet.", "You can request a DeadZone Lite build using Telegram if your device and ROM base are supported."],
+        includes: ["No public ROM file is available yet.", "This device is supported by DeadZone, but no public ROM file has been published on the website yet. You can request a build through Telegram.", "Request on Telegram", "v1.06"],
     },
     {
         path: "/downloads/not-a-real-device",
@@ -75,6 +75,22 @@ async function verifyRoute({ path, includes = [], includesAny = [] }) {
 
     if (html.includes("Dead Zone")) {
         throw new Error(`${path} contains forbidden "Dead Zone" text`);
+    }
+
+    if (html.includes("v3.2")) {
+        throw new Error(`${path} still contains fake v3.2 version text`);
+    }
+
+    if (html.includes("DeadZone-zircon-Lite-v3.2.zip")) {
+        throw new Error(`${path} still contains fake filename text`);
+    }
+
+    if (html.includes("4f4a6f9c69b0cf6a951f4e7292fc25e6b38a1b4d1ea70a3f5f6e97a7ab12c9d4")) {
+        throw new Error(`${path} still contains fake SHA256 text`);
+    }
+
+    if ((path === "/downloads/zircon" || path === "/downloads/dada") && !html.includes('href="https://t.me/xDeadZoneh"')) {
+        throw new Error(`${path} is missing the request Telegram link`);
     }
 
     console.log(`PASS ${path}`);
