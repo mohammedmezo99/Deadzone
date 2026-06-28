@@ -1,4 +1,11 @@
 const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:3000").replace(/\/+$/, "");
+const forbiddenDemoValues = [
+    "https://drive.google.com/file/d/api/view",
+    "https://example.com/changelog/api",
+    "2222222222222222222222222222222222222222222222222222222222222222",
+    "OS3.0.123.0",
+    "DeadZoneLite_v1.06_ZIRCON_OS3.0.123.0_Global-A16.zip",
+];
 
 const checks = [
     {
@@ -38,6 +45,93 @@ const checks = [
         includes: ["Device not found.", "Back to Download Center", "View Supported Devices", "Contact MEZO"],
     },
 ];
+
+async function verifyBuildValidationHelpers() {
+    const ts = await import("typescript");
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+
+    const root = process.cwd();
+    const helperPath = path.join(root, "src", "lib", "builds.ts");
+    const source = fs.readFileSync(helperPath, "utf8");
+    const transpiled = ts.transpileModule(source, {
+        compilerOptions: {
+            module: ts.ModuleKind.CommonJS,
+            target: ts.ScriptTarget.ES2020,
+            baseUrl: root,
+            paths: {
+                "@/*": ["src/*"],
+            },
+        },
+        fileName: helperPath,
+    }).outputText;
+
+    const localRequire = (specifier) => {
+        if (specifier === "@/lib/deadzone-version") {
+            return { getDeadZoneVersion: () => "v1.06" };
+        }
+        throw new Error(`Unsupported helper require: ${specifier}`);
+    };
+
+    const module = { exports: {} };
+    const compiled = new Function("require", "module", "exports", transpiled);
+    compiled(localRequire, module, module.exports);
+
+    const {
+        sanitizeBuildForPublicResponse,
+        hasPublishedFile,
+    } = module.exports;
+
+    const incomplete = sanitizeBuildForPublicResponse({
+        id: "bad-build",
+        deviceName: "Redmi Note 13 Pro+ 5G",
+        codename: "zircon",
+        style: "Lite",
+        status: "Available",
+        deadZoneVersion: "v1.06",
+        androidVersion: "A16",
+        hyperOsVersion: "OS3",
+        romVersion: "OS3.0.xxx",
+        region: "Global",
+        filename: "real-final-file.zip",
+        updatedAt: "2026-06-28T00:00:00.000Z",
+    });
+
+    if (hasPublishedFile(incomplete)) {
+        throw new Error("incomplete build was incorrectly treated as published");
+    }
+    if (incomplete.status !== "Coming Soon") {
+        throw new Error("incomplete build was not downgraded to Coming Soon");
+    }
+    if (incomplete.downloadUrl || incomplete.sha256 || incomplete.fileSize) {
+        throw new Error("incomplete build retained restricted file metadata");
+    }
+
+    const complete = sanitizeBuildForPublicResponse({
+        id: "good-build",
+        deviceName: "Redmi Note 13 Pro+ 5G",
+        codename: "zircon",
+        style: "Lite",
+        status: "Available",
+        deadZoneVersion: "v1.06",
+        androidVersion: "A16",
+        hyperOsVersion: "OS3",
+        romVersion: "OS3.0.xxx",
+        region: "Global",
+        filename: "real-final-file.zip",
+        downloadUrl: "https://drive.google.com/file/d/real/view",
+        sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        fileSize: "5.4 GB",
+        updatedAt: "2026-06-28T00:00:00.000Z",
+    });
+
+    if (!hasPublishedFile(complete)) {
+        throw new Error("complete build was not treated as published");
+    }
+    if (complete.status !== "Available") {
+        throw new Error("complete build lost Available status");
+    }
+}
 
 async function verifyRoute({ path, includes = [], includesAny = [] }) {
     const response = await fetch(`${baseUrl}${path}`);
@@ -89,6 +183,12 @@ async function verifyRoute({ path, includes = [], includesAny = [] }) {
         throw new Error(`${path} still contains fake SHA256 text`);
     }
 
+    for (const forbidden of forbiddenDemoValues) {
+        if (html.includes(forbidden)) {
+            throw new Error(`${path} contains forbidden demo metadata: ${forbidden}`);
+        }
+    }
+
     if ((path === "/downloads/zircon" || path === "/downloads/dada") && !html.includes('href="https://t.me/xDeadZoneh"')) {
         throw new Error(`${path} is missing the request Telegram link`);
     }
@@ -97,6 +197,23 @@ async function verifyRoute({ path, includes = [], includesAny = [] }) {
 }
 
 async function main() {
+    await verifyBuildValidationHelpers();
+
+    const apiResponse = await fetch(`${baseUrl}/api/builds`);
+    if (!apiResponse.ok) {
+        throw new Error(`/api/builds returned ${apiResponse.status}`);
+    }
+    const apiPayload = await apiResponse.json();
+    if (apiPayload?.ok !== true || !Array.isArray(apiPayload?.builds) || apiPayload.builds.length !== 0) {
+        throw new Error("/api/builds did not return a clean empty payload");
+    }
+    const serializedPayload = JSON.stringify(apiPayload);
+    for (const forbidden of forbiddenDemoValues) {
+        if (serializedPayload.includes(forbidden)) {
+            throw new Error(`/api/builds contains forbidden demo metadata: ${forbidden}`);
+        }
+    }
+
     for (const check of checks) {
         await verifyRoute(check);
     }

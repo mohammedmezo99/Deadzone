@@ -1,4 +1,11 @@
 const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:3000").replace(/\/+$/, "");
+const forbiddenDemoValues = [
+    "https://drive.google.com/file/d/api/view",
+    "https://example.com/changelog/api",
+    "2222222222222222222222222222222222222222222222222222222222222222",
+    "OS3.0.123.0",
+    "DeadZoneLite_v1.06_ZIRCON_OS3.0.123.0_Global-A16.zip",
+];
 
 async function main() {
     const response = await fetch(`${baseUrl}/guide`);
@@ -33,6 +40,12 @@ async function main() {
 
     if (html.includes("Dead Zone")) {
         throw new Error('/guide contains forbidden "Dead Zone" text');
+    }
+
+    for (const forbidden of forbiddenDemoValues) {
+        if (html.includes(forbidden)) {
+            throw new Error(`/guide contains forbidden demo metadata: ${forbidden}`);
+        }
     }
 
     console.log("PASS /guide");

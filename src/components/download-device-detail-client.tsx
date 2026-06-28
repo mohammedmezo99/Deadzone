@@ -97,6 +97,7 @@ export function DownloadDeviceDetailClient({
     }
 
     const command = `/mezo ${device.codename}`;
+    const publishedBuilds = builds.filter(hasPublishedFile);
 
     return (
         <main className="page-shell">
@@ -214,9 +215,9 @@ export function DownloadDeviceDetailClient({
                             description="Review the current DeadZone build records for this device. File metadata and download actions only appear when a real public ROM file has been published."
                         />
 
-                        {builds.length ? (
+                        {publishedBuilds.length ? (
                             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-                                {builds.map((build) => {
+                                {publishedBuilds.map((build) => {
                                     const hasFile = hasPublishedFile(build);
 
                                     return (

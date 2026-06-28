@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { DownloadDeviceDetailClient } from "@/components/download-device-detail-client";
 import { findSupportedDeviceRecord } from "@/data/supported-devices";
-import { publicBuilds } from "@/lib/builds";
 import { getDeadZoneVersion } from "@/lib/deadzone-version";
+import { resolveWebsiteBuilds } from "@/lib/builds";
 
 export async function generateMetadata({ params }: { params: { codename: string } }): Promise<Metadata> {
     const device = findSupportedDeviceRecord(params.codename);
@@ -23,10 +23,11 @@ export async function generateMetadata({ params }: { params: { codename: string 
     };
 }
 
-export default function DownloadDeviceDetailPage({ params }: { params: { codename: string } }) {
+export default async function DownloadDeviceDetailPage({ params }: { params: { codename: string } }) {
     const codename = params.codename.trim().toLowerCase();
     const device = findSupportedDeviceRecord(codename);
-    const builds = publicBuilds.filter((build) => build.codename === codename);
+    const buildResponse = await resolveWebsiteBuilds(codename);
+    const builds = buildResponse.builds.filter((build) => build.codename === codename);
     const deadZoneVersion = getDeadZoneVersion();
 
     return <DownloadDeviceDetailClient device={device} builds={builds} deadZoneVersion={deadZoneVersion} />;

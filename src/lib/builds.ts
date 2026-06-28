@@ -10,6 +10,8 @@ export type PublicBuildsResponse = {
     builds: BuildItem[];
 };
 
+const defaultDeadZoneVersion = "v1.06";
+
 function normalizeStyle(input: unknown): BuildItem["style"] {
     const value = String(input || "").trim().toLowerCase();
     if (value === "deadzone lite" || value === "lite") return "Lite";
@@ -38,7 +40,7 @@ export function normalizeBuildRecord(input: any): BuildItem {
         deviceName: String(input?.deviceName || input?.device || input?.device_name || "Unknown Xiaomi Device"),
         codename,
         romVersion: input?.romVersion || input?.rom || input?.rom_version || undefined,
-        deadZoneVersion: input?.deadZoneVersion || input?.deadzone_version || input?.version || undefined,
+        deadZoneVersion: input?.deadZoneVersion || input?.deadzone_version || input?.version || defaultDeadZoneVersion,
         androidVersion: input?.androidVersion || input?.android_version || input?.android || undefined,
         hyperOsVersion: input?.hyperOsVersion || input?.hyperosVersion || input?.hyperOSVersion || input?.hyperos || undefined,
         region: input?.region || undefined,
@@ -63,5 +65,108 @@ export function getPublicBuilds(input: unknown): BuildItem[] {
 }
 
 export function hasPublishedFile(build: BuildItem) {
-    return Boolean(build.downloadUrl || build.filename || build.sha256 || build.fileSize);
+    return Boolean(
+        sanitizePublicDownloadUrl(build.downloadUrl) &&
+        sanitizePublicFilename(build.filename) &&
+        sanitizePublicSha256(build.sha256) &&
+        sanitizePublicFileSize(build.fileSize),
+    );
+}
+
+export function sanitizePublicDownloadUrl(value: string | undefined) {
+    const url = String(value || "").trim();
+
+    if (!url) {
+        return "";
+    }
+
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:" ? parsed.toString() : "";
+    } catch {
+        return "";
+    }
+}
+
+export function sanitizePublicFilename(value: string | undefined) {
+    return String(value || "").trim();
+}
+
+export function sanitizePublicSha256(value: string | undefined) {
+    const normalized = String(value || "").trim().toLowerCase();
+    return /^[a-f0-9]{64}$/.test(normalized) ? normalized : "";
+}
+
+export function sanitizePublicFileSize(value: string | undefined) {
+    return String(value || "").trim();
+}
+
+export function getBuildAvailabilityStatus(build: BuildItem): BuildItem["status"] {
+    return hasPublishedFile(build) ? build.status : "Coming Soon";
+}
+
+export function sanitizeBuildForPublicResponse(build: BuildItem): BuildItem {
+    const downloadUrl = sanitizePublicDownloadUrl(build.downloadUrl);
+    const filename = sanitizePublicFilename(build.filename);
+    const sha256 = sanitizePublicSha256(build.sha256);
+    const fileSize = sanitizePublicFileSize(build.fileSize);
+    const published = Boolean(downloadUrl && filename && sha256 && fileSize);
+
+    return {
+        ...build,
+        deadZoneVersion: build.deadZoneVersion || defaultDeadZoneVersion,
+        status: published ? build.status : "Coming Soon",
+        downloadUrl: published ? downloadUrl : undefined,
+        filename: published ? filename : undefined,
+        sha256: published ? sha256 : undefined,
+        fileSize: published ? fileSize : undefined,
+        changelogUrl: published ? sanitizePublicDownloadUrl(build.changelogUrl) || undefined : undefined,
+    };
+}
+
+export function sanitizeBuildsForPublicResponse(builds: BuildItem[]) {
+    return builds.map(sanitizeBuildForPublicResponse);
+}
+
+export async function fetchRemoteBuilds(base: string, codename?: string | null): Promise<PublicBuildsResponse> {
+    const workerBase = base.replace(/\/+$/, "");
+    const endpoint = codename
+        ? `${workerBase}/api/builds?codename=${encodeURIComponent(codename)}`
+        : `${workerBase}/api/builds`;
+
+    const response = await fetch(endpoint, {
+        cache: "no-store",
+        headers: {
+            Accept: "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        return { ok: false, builds: [] };
+    }
+
+    const payload = await response.json();
+    const source = Array.isArray(payload) ? payload : payload?.builds;
+    return {
+        ok: true,
+        builds: sanitizeBuildsForPublicResponse(getPublicBuilds(source)),
+    };
+}
+
+export async function resolveWebsiteBuilds(codename?: string | null): Promise<PublicBuildsResponse> {
+    const fallback = sanitizeBuildsForPublicResponse(
+        codename ? publicBuilds.filter((build) => build.codename === codename) : publicBuilds,
+    );
+    const base = process.env.DEADZONE_WORKER_API_BASE?.trim();
+
+    if (!base) {
+        return { ok: true, builds: fallback };
+    }
+
+    try {
+        const remote = await fetchRemoteBuilds(base, codename);
+        return remote.builds.length ? remote : { ok: remote.ok, builds: fallback };
+    } catch {
+        return { ok: false, builds: fallback };
+    }
 }

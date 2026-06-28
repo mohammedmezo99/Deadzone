@@ -2,6 +2,13 @@ import fs from "fs";
 import path from "path";
 
 const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:3000").replace(/\/+$/, "");
+const forbiddenDemoValues = [
+    "https://drive.google.com/file/d/api/view",
+    "https://example.com/changelog/api",
+    "2222222222222222222222222222222222222222222222222222222222222222",
+    "OS3.0.123.0",
+    "DeadZoneLite_v1.06_ZIRCON_OS3.0.123.0_Global-A16.zip",
+];
 
 const liteFolder = path.join(process.cwd(), "public", "showcase", "deadzone-lite");
 const liteImages = fs.readdirSync(liteFolder).filter((file) => /\.(png|jpe?g|webp|avif)$/i.test(file)).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -79,6 +86,12 @@ async function main() {
 
     if (html.includes('href="/downloadsstyle=Lite"') || html.includes('href="/downloadscodename=')) {
         throw new Error("/gallery contains malformed legacy downloads routes in rendered UI");
+    }
+
+    for (const forbidden of forbiddenDemoValues) {
+        if (html.includes(forbidden)) {
+            throw new Error(`/gallery contains forbidden demo metadata: ${forbidden}`);
+        }
     }
 
     const legacyResponse = await fetch(`${baseUrl}/styles`, { redirect: "manual" });
