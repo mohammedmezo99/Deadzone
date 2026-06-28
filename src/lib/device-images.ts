@@ -1,6 +1,7 @@
 "use client";
 
-import { exactDeviceImageByName, fallbackImage } from "@/data/devices";
+import { exactDeviceImageByName } from "@/data/devices";
+export const fallbackImage = "/devices/placeholder.png";
 
 /**
  * Resolve the correct device image path for a given codename.
