@@ -3,12 +3,13 @@
 import React from "react";
 import { Gem, ShieldCheck, Sparkles, Crown } from "lucide-react";
 import { PremiumButton } from "@/components/ui/premium-button";
+import { GlassCard } from "@/components/ui/glass-card";
 import { officialLinks, siteLinks } from "@/lib/links";
 import styles from "@/components/MembershipCard.module.css";
 
 export function MembershipCard() {
   return (
-    <section className={styles.cardContainer}>
+    <GlassCard className={styles.cardContainer}>
       <h2 className={styles.title}>Get Premium Membership</h2>
       <p className={styles.description}>
         Unlock GamingPlus, Legend, and Ninja with premium DeadZone access by MEZO.
@@ -43,6 +44,6 @@ export function MembershipCard() {
           View Styles
         </PremiumButton>
       </div>
-    </section>
+    </GlassCard>
   );
 }

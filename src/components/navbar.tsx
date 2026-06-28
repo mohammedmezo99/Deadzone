@@ -40,7 +40,7 @@ export function Navbar() {
             )}
         >
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-[1.75rem] border border-white/10 bg-black/30 px-4 py-3 backdrop-blur-2xl">
-                <Link href={siteLinks.home} className="group flex min-w-0 items-center gap-3">
+                <Link href={siteLinks.home} className="group flex flex-1 items-center gap-3">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400/18 via-blue-500/18 to-fuchsia-500/18 shadow-lg shadow-cyan-500/20 transition-transform duration-300 group-hover:rotate-6">
                         <CircuitBoard className="h-5 w-5 text-cyan-100" />
                     </div>
@@ -52,7 +52,7 @@ export function Navbar() {
                     </div>
                 </Link>
 
-                <div className="hidden items-center gap-1 xl:flex">
+                <div className="hidden items-center gap-1 xl:flex ml-auto">
                     {navItems.map((item) => {
                         const baseHref = item.href.split("#")[0];
                         const isActive = pathname === baseHref || (baseHref !== "/" && pathname.startsWith(baseHref));
