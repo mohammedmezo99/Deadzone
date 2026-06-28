@@ -1,6 +1,7 @@
 "use client";
 
 import { Crown, Download, Gem, MessageCircle, ShieldCheck, Sparkles, Smartphone, Zap } from "lucide-react";
+import { MembershipCard } from "@/components/MembershipCard";
 import { Footer } from "@/components/footer";
 import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { Navbar } from "@/components/navbar";
@@ -83,27 +84,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <GlassCard accent="purple" className="relative overflow-hidden p-6 md:p-8">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.16),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(217,70,239,0.16),transparent_38%)]" />
-                        <div className="relative z-10">
-                            <div className="flex items-center justify-between gap-4">
-                                <div>
-                                    <p className="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200">DeadZone Overview</p>
-                                    <h2 className="mt-3 text-2xl font-black text-white">Public builds with premium ambition.</h2>
-                                </div>
-                                <Crown className="h-7 w-7 text-amber-200" />
-                            </div>
-
-                            <div className="mt-6 grid gap-4">
-                                {spotlightCards.map((card) => (
-                                    <GlassCard key={card.title} accent={card.accent} className="p-5">
-                                        <h3 className="text-xl font-black text-white">{card.title}</h3>
-                                        <p className="mt-3 text-sm leading-7 text-zinc-300">{card.copy}</p>
-                                    </GlassCard>
-                                ))}
-                            </div>
-                        </div>
-                    </GlassCard>
+                    <MembershipCard />
                 </div>
             </section>
 
