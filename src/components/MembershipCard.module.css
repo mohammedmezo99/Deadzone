@@ -1,4 +1,4 @@
-﻿.button {
+.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -25,3 +25,58 @@
 .button:active {
   transform: translateY(0);
 }
+
+/* Membership Card specific styles */
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 1.25rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: #d1d5db;
+  line-height: 1.5;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.15);
+  border-radius: 0.35rem;
+  padding: 0.125rem;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
