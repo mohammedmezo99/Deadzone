@@ -1,0 +1,272 @@
+{
+  "downloaded": [
+    "dijun",
+    "goya",
+    "daumier",
+    "psyche",
+    "mayfly",
+    "unicorn",
+    "renoir",
+    "zijin",
+    "luming",
+    "beryl",
+    "emerald-r",
+    "gold",
+    "emerald",
+    "pearl",
+    "selenes",
+    "annibale",
+    "myron",
+    "dali",
+    "socrates",
+    "rembrandt",
+    "rubens",
+    "matisse",
+    "ares",
+    "spring",
+    "dew",
+    "lake",
+    "moon",
+    "gale",
+    "air",
+    "fire",
+    "earth",
+    "selene",
+    "light",
+    "fog",
+    "dandelion",
+    "klee",
+    "dash",
+    "surya",
+    "rock",
+    "evergreen",
+    "citrus",
+    "arctic",
+    "warm",
+    "serenity",
+    "blue",
+    "water",
+    "ice",
+    "cetus",
+    "ruyi",
+    "nabu"
+  ],
+  "skipped": [],
+  "failed": [
+    {
+      "codename": "pandora",
+      "name": "Xiaomi 17 Pro",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "popsicle",
+      "name": "Xiaomi 17 Pro Max",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "chenfeng",
+      "name": "Xiaomi 14 Civi",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "mars",
+      "name": "Xiaomi 11 Ultra",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "courbet",
+      "name": "Xiaomi Mi 11 Lite 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "mona",
+      "name": "Xiaomi Civi",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "yuechu",
+      "name": "Xiaomi Civi 3",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "spinel",
+      "name": "Redmi Note 15 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "kunzite",
+      "name": "Redmi Note 15 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "charoite",
+      "name": "Redmi Note 15 Pro 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "lapis",
+      "name": "Redmi Note 15 Pro 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "flourite",
+      "name": "Redmi Note 15 Pro+ 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "tanzanite",
+      "name": "Redmi Note 14 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "obsidian",
+      "name": "Redmi Note 14 Pro 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "sea",
+      "name": "Redmi Note 12S",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "ruby",
+      "name": "Redmi Note 12 Pro",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "spes",
+      "name": "Redmi Note 11",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "evergo",
+      "name": "Redmi Note 11 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "viva",
+      "name": "Redmi Note 11 Pro 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "veux",
+      "name": "Redmi Note 11 Pro 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "fleur",
+      "name": "Redmi Note 11S",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "mojito",
+      "name": "Redmi Note 10",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "sweet",
+      "name": "Redmi Note 10 Pro",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "chopin",
+      "name": "Redmi Note 10 Pro 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "rosemary",
+      "name": "Redmi Note 10S",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "camellian",
+      "name": "Redmi Note 10 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "creek",
+      "name": "Redmi 15 4G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "tornado",
+      "name": "Redmi 15C 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "camellia",
+      "name": "POCO M3 Pro 5G variant",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "odin",
+      "name": "Xiaomi MIX 4",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "zizhan",
+      "name": "Xiaomi MIX Fold 2",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "bixi",
+      "name": "Xiaomi MIX Flip 2",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "jinghu",
+      "name": "Xiaomi Pad 7 Ultra",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "violin",
+      "name": "Xiaomi Pad 7S Pro 12.5",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "yudi",
+      "name": "Xiaomi Pad 6 Max",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "liuqin",
+      "name": "Xiaomi Pad 6 Pro",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "enuma",
+      "name": "Xiaomi Pad 5 Pro 5G",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "elish",
+      "name": "Xiaomi Pad 5 Pro Wi-Fi",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "dagu",
+      "name": "Xiaomi Pad 5 Pro 12.4",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "turner",
+      "name": "Redmi K Pad",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "yunluo",
+      "name": "Redmi Pad",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "flare",
+      "name": "Redmi Pad SE 8.7 WiFi",
+      "error": "HTTP 404"
+    },
+    {
+      "codename": "spark",
+      "name": "Redmi Pad SE 8.7 4G",
+      "error": "HTTP 404"
+    }
+  ]
+}
