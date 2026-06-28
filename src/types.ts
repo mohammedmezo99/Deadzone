@@ -59,7 +59,7 @@ export type BuildItem = {
     sha256?: string;
     updatedAt?: string;
     style: "Lite" | "GamingPlus" | "Legend" | "Ninja";
-    status: "Available" | "Coming Soon" | "Building" | "Failed" | "Processing Metadata" | "Upload Pending" | "Metadata Incomplete";
+    status: "Available" | "Coming Soon" | "Building" | "Failed" | "Processing Metadata" | "Upload Pending" | "Metadata Incomplete" | "ROM Link Available";
 };
 
 export type OfficialLinks = {

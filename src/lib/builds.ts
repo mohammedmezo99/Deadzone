@@ -3,7 +3,7 @@ import type { BuildItem } from "@/types";
 export const publicBuilds: BuildItem[] = [];
 
 const validStyles: BuildItem["style"][] = ["Lite", "GamingPlus", "Legend", "Ninja"];
-const validStatuses: BuildItem["status"][] = ["Available", "Coming Soon", "Building", "Failed", "Processing Metadata", "Upload Pending", "Metadata Incomplete"];
+const validStatuses: BuildItem["status"][] = ["Available", "Coming Soon", "Building", "Failed", "Processing Metadata", "Upload Pending", "Metadata Incomplete", "ROM Link Available"];
 
 export type PublicBuildsResponse = {
     ok: boolean;
@@ -11,6 +11,47 @@ export type PublicBuildsResponse = {
 };
 
 const defaultDeadZoneVersion = "v1.06";
+
+export function deriveHyperOsVersion(value: string | undefined) {
+    const text = String(value || "").trim();
+    if (!text) {
+        return "";
+    }
+
+    const osMatch = text.match(/^(OS[1-3])(?:[.\s]|$)/i);
+    if (osMatch?.[1]) {
+        return osMatch[1].toUpperCase();
+    }
+
+    if (/^V14/i.test(text)) {
+        return "MIUI 14";
+    }
+
+    return "";
+}
+
+export function deriveRegion(value: string | undefined, romVersion?: string | undefined) {
+    const direct = String(value || "").trim();
+    if (direct && direct.toLowerCase() !== "unknown") {
+        return direct;
+    }
+
+    const normalizedRom = String(romVersion || "").trim().toUpperCase();
+    if (!normalizedRom) {
+        return "Unknown";
+    }
+
+    if (normalizedRom.endsWith("CNXM")) return "ChinaStable";
+    if (normalizedRom.endsWith("EUXM")) return "EEAStable";
+    if (normalizedRom.endsWith("MIXM")) return "GlobalStable";
+    if (normalizedRom.endsWith("INXM")) return "IndiaStable";
+    if (normalizedRom.endsWith("RUXM")) return "RussiaStable";
+    if (normalizedRom.endsWith("TRXM")) return "TurkeyStable";
+    if (normalizedRom.endsWith("TWXM")) return "TaiwanStable";
+    if (normalizedRom.endsWith("IDXM")) return "IndonesiaStable";
+
+    return "Unknown";
+}
 
 function normalizeStyle(input: unknown): BuildItem["style"] {
     const value = String(input || "").trim().toLowerCase();
@@ -29,6 +70,7 @@ function normalizeStatus(input: unknown): BuildItem["status"] {
     if (value === "failed" || value === "broken") return "Failed";
     if (value === "processing metadata") return "Processing Metadata";
     if (value === "upload pending") return "Upload Pending";
+    if (value === "rom link available") return "ROM Link Available";
     if (value === "metadata incomplete" || value === "uploaded, verifying metadata") return "Metadata Incomplete";
     return "Available";
 }
@@ -38,15 +80,17 @@ export function normalizeBuildRecord(input: any): BuildItem {
     const normalizedStyle = normalizeStyle(input?.style);
     const normalizedStatus = normalizeStatus(input?.status);
 
+    const romVersion = input?.romVersion || input?.rom || input?.rom_version || undefined;
+
     return {
         id: String(input?.id || codename || input?.filename || `build-${Math.random().toString(36).slice(2, 10)}`),
         deviceName: String(input?.deviceName || input?.device || input?.device_name || "Unknown Xiaomi Device"),
         codename,
-        romVersion: input?.romVersion || input?.rom || input?.rom_version || undefined,
+        romVersion,
         deadZoneVersion: input?.deadZoneVersion || input?.deadzone_version || input?.version || defaultDeadZoneVersion,
-        androidVersion: input?.androidVersion || input?.android_version || input?.android || undefined,
-        hyperOsVersion: input?.hyperOsVersion || input?.hyperosVersion || input?.hyperOSVersion || input?.hyperos || undefined,
-        region: input?.region || undefined,
+        androidVersion: input?.androidVersion || input?.android_version || input?.android || "Unknown",
+        hyperOsVersion: input?.hyperOsVersion || input?.hyperosVersion || input?.hyperOSVersion || input?.hyperos || deriveHyperOsVersion(romVersion) || undefined,
+        region: deriveRegion(input?.region, romVersion),
         fileSize: input?.fileSize || input?.file_size || input?.size || undefined,
         filename: input?.filename || input?.final_zip || "",
         downloadUrl: input?.downloadUrl || input?.download || input?.drive_link || "",
@@ -119,7 +163,7 @@ export function getBuildAvailabilityStatus(build: BuildItem): BuildItem["status"
     }
 
     if (hasDownloadUrl && (!hasSha || !hasSize)) {
-        return "Processing Metadata";
+        return "ROM Link Available";
     }
 
     if (hasFilename && !hasDownloadUrl) {
@@ -152,6 +196,9 @@ export function sanitizeBuildForPublicResponse(build: BuildItem): BuildItem {
         sha256: published ? sha256 : undefined,
         fileSize: published ? fileSize : undefined,
         changelogUrl: published ? sanitizePublicDownloadUrl(build.changelogUrl) || undefined : undefined,
+        region: deriveRegion(build.region, build.romVersion),
+        androidVersion: build.androidVersion || "Unknown",
+        hyperOsVersion: build.hyperOsVersion || deriveHyperOsVersion(build.romVersion) || undefined,
     };
 }
 

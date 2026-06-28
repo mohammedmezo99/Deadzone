@@ -16,7 +16,7 @@ import { Navbar } from "@/components/navbar";
 import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
-import { hasPublishedFile } from "@/lib/builds";
+import { deriveHyperOsVersion, hasPublishedFile } from "@/lib/builds";
 import { officialLinks } from "@/lib/links";
 import type { BuildItem } from "@/types";
 import type { SupportedDevice } from "@/data/supported-devices";
@@ -33,9 +33,28 @@ function styleAccent(style: BuildItem["style"] | SupportedDevice["supportedStyle
 function statusAccent(status: BuildItem["status"] | SupportedDevice["status"]) {
     if (status === "Available" || status === "Active") return "cyan";
     if (status === "Coming Soon" || status === "Supported") return "blue";
-    if (status === "Processing Metadata" || status === "Metadata Incomplete") return "magenta";
+    if (status === "Processing Metadata" || status === "Metadata Incomplete" || status === "ROM Link Available") return "magenta";
     if (status === "Upload Pending" || status === "Building") return "gold";
     return "red";
+}
+
+function getStyleTitle(style: BuildItem["style"]) {
+    return style === "Lite" ? "DeadZone Lite Builds" : `DeadZone ${style} Builds`;
+}
+
+function getResolvedHyperOsVersion(build: BuildItem) {
+    return build.hyperOsVersion || deriveHyperOsVersion(build.romVersion) || "";
+}
+
+function getMissingMetadata(build: BuildItem) {
+    const missing: string[] = [];
+
+    if (!build.filename) missing.push("Filename");
+    if (!build.downloadUrl) missing.push("Download Link");
+    if (!build.sha256) missing.push("SHA256");
+    if (!build.fileSize) missing.push("File Size");
+
+    return missing;
 }
 
 export function DownloadDeviceDetailClient({
@@ -99,6 +118,15 @@ export function DownloadDeviceDetailClient({
 
     const command = `/mezo ${device.codename}`;
     const hasAnyBuilds = builds.length > 0;
+    const completeBuilds = builds.filter(hasPublishedFile);
+    const incompleteBuilds = builds.filter((build) => !hasPublishedFile(build));
+    const groupedIncompleteBuilds = incompleteBuilds.reduce<Record<string, BuildItem[]>>((groups, build) => {
+        if (!groups[build.style]) {
+            groups[build.style] = [];
+        }
+        groups[build.style].push(build);
+        return groups;
+    }, {});
 
     return (
         <main className="page-shell">
@@ -217,101 +245,211 @@ export function DownloadDeviceDetailClient({
                         />
 
                         {hasAnyBuilds ? (
-                            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-                                {builds.map((build) => {
-                                    const hasFile = hasPublishedFile(build);
-                                    const isMetadataPending = build.status === "Processing Metadata" || build.status === "Metadata Incomplete";
-                                    const statusLabel = build.status === "Metadata Incomplete" ? "Uploaded, verifying metadata" : build.status;
+                            <div className="space-y-6">
+                                {completeBuilds.length > 0 && (
+                                    <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+                                        {completeBuilds.map((build) => {
+                                            const resolvedHyperOs = getResolvedHyperOsVersion(build);
 
-                                    return (
-                                    <GlassCard key={build.id} accent={styleAccent(build.style)} className="p-6">
+                                            return (
+                                                <GlassCard key={build.id} accent={styleAccent(build.style)} className="p-6">
+                                                    <div className="flex flex-wrap items-center gap-3">
+                                                        <RomBadge accent={styleAccent(build.style)}>{build.style}</RomBadge>
+                                                        <RomBadge accent={statusAccent(build.status)}>{build.status}</RomBadge>
+                                                    </div>
+
+                                                    <div className="mt-5 grid grid-cols-2 gap-3 xl:grid-cols-3">
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Android Version</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.androidVersion || "Unknown"}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">HyperOS Version</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{resolvedHyperOs || "Not listed"}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.romVersion || "Not listed"}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.region || "Unknown"}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">File Size</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.fileSize}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Version</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.deadZoneVersion || deadZoneVersion}</p>
+                                                        </div>
+                                                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Build Date</p>
+                                                            <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString("en-US") : "Unknown"}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mt-4 space-y-3 rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+                                                        <div>
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Filename</p>
+                                                            <p className="mt-1 break-all text-sm font-bold text-white">{build.filename}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">SHA256</p>
+                                                            <p className="mt-1 break-all font-mono text-xs text-cyan-100">{build.sha256}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                                                        <a
+                                                            href={build.downloadUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 text-xs font-black uppercase tracking-[0.16em] text-slate-950 transition hover:bg-cyan-300"
+                                                        >
+                                                            Verified Download
+                                                        </a>
+                                                        {build.changelogUrl ? (
+                                                            <a
+                                                                href={build.changelogUrl}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-fuchsia-300/30"
+                                                            >
+                                                                <FileText className="h-4 w-4" />
+                                                                Changelog
+                                                            </a>
+                                                        ) : (
+                                                            <div className="hidden sm:block" />
+                                                        )}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => copyCommand(device.codename)}
+                                                            className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
+                                                        >
+                                                            {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                                            {copiedValue === command ? "Copied Command" : "Copy Command"}
+                                                        </button>
+                                                    </div>
+                                                </GlassCard>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+
+                                {Object.entries(groupedIncompleteBuilds).map(([style, styleBuilds]) => (
+                                    <GlassCard key={style} accent={styleAccent(style as BuildItem["style"])} className="p-6">
                                         <div className="flex flex-wrap items-center gap-3">
-                                            <RomBadge accent={styleAccent(build.style)}>{build.style}</RomBadge>
-                                            <RomBadge accent={statusAccent(build.status)}>{statusLabel}</RomBadge>
+                                            <RomBadge accent={styleAccent(style as BuildItem["style"])}>{style}</RomBadge>
+                                            <h3 className="text-xl font-black text-white">{getStyleTitle(style as BuildItem["style"])}</h3>
+                                        </div>
+                                        <p className="mt-3 text-sm text-zinc-300">
+                                            This ROM record exists, but SHA256 or file size is still missing.
+                                        </p>
+
+                                        <div className="mt-5 hidden rounded-[1.35rem] border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_1.4fr_0.95fr] md:gap-3">
+                                            <span>Region</span>
+                                            <span>ROM Version</span>
+                                            <span>Android</span>
+                                            <span>HyperOS</span>
+                                            <span>Status</span>
+                                            <span>Missing Metadata</span>
+                                            <span>Action</span>
                                         </div>
 
-                                        <div className="mt-5 grid grid-cols-2 gap-3">
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Android Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.androidVersion || "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">HyperOS Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.hyperOsVersion || "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.romVersion || "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.region || "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Build Date</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString("en-US") : "Not listed"}</p>
-                                            </div>
-                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.deadZoneVersion || deadZoneVersion}</p>
-                                            </div>
-                                        </div>
+                                        <div className="mt-3 space-y-3">
+                                            {styleBuilds.map((build) => {
+                                                const missing = getMissingMetadata(build);
+                                                const resolvedHyperOs = getResolvedHyperOsVersion(build);
 
-                                        {!hasFile && isMetadataPending && (
-                                            <p className="mt-4 text-sm font-medium text-fuchsia-100">Metadata verification in progress.</p>
-                                        )}
+                                                return (
+                                                    <div
+                                                        key={build.id}
+                                                        className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_1.4fr_0.95fr] md:items-center md:gap-3"
+                                                    >
+                                                        <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</div>
+                                                        <p className="text-sm font-bold text-white">{build.region || "Unknown"}</p>
 
-                                        <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                                            {hasFile && build.downloadUrl ? (
-                                                <a
-                                                    href={build.downloadUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-4 text-xs font-black uppercase tracking-[0.16em] text-slate-950 transition hover:bg-cyan-300"
-                                                >
-                                                    Download
-                                                </a>
-                                            ) : (
-                                                <a
-                                                    href={requestTelegramLink}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
-                                                >
-                                                    {isMetadataPending ? "Contact MEZO" : "Request on Telegram"}
-                                                </a>
-                                            )}
+                                                        <div className="mt-3 md:mt-0">
+                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</div>
+                                                            <p className="text-sm font-bold text-white">{build.romVersion || "Not listed"}</p>
+                                                        </div>
 
-                                            {hasFile && build.changelogUrl ? (
-                                                <a
-                                                    href={build.changelogUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-fuchsia-300/30"
-                                                >
-                                                    <FileText className="h-4 w-4" />
-                                                    Changelog
-                                                </a>
-                                            ) : (
-                                                <Link
-                                                    href="/guide"
-                                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-center text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
-                                                >
-                                                    View Install Guide
-                                                </Link>
-                                            )}
+                                                        <div className="mt-3 md:mt-0">
+                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Android</div>
+                                                            <p className="text-sm font-bold text-white">{build.androidVersion || "Unknown"}</p>
+                                                        </div>
 
-                                            <button
-                                                type="button"
-                                                onClick={() => copyCommand(device.codename)}
-                                                className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
-                                            >
-                                                {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                                                {copiedValue === command ? "Copied Command" : "Copy Command"}
-                                            </button>
+                                                        <div className="mt-3 md:mt-0">
+                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">HyperOS</div>
+                                                            <p className="text-sm font-bold text-white">{resolvedHyperOs || "Not listed"}</p>
+                                                        </div>
+
+                                                        <div className="mt-3 md:mt-0">
+                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Status</div>
+                                                            <div className="space-y-1">
+                                                                <RomBadge accent={statusAccent(build.status)}>{build.downloadUrl ? "ROM Link Available" : build.status}</RomBadge>
+                                                                {build.downloadUrl && <p className="text-xs text-zinc-400">Metadata Incomplete</p>}
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="mt-3 md:mt-0">
+                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Missing Metadata</div>
+                                                            <p className="text-sm text-fuchsia-100">Missing: {missing.join(", ")}</p>
+                                                        </div>
+
+                                                        <div className="mt-4 flex gap-2 md:mt-0 md:flex-col">
+                                                            {build.downloadUrl && (
+                                                                <a
+                                                                    href={build.downloadUrl}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="flex min-h-11 flex-1 items-center justify-center rounded-2xl bg-cyan-400 px-3 text-[11px] font-black uppercase tracking-[0.14em] text-slate-950 transition hover:bg-cyan-300"
+                                                                >
+                                                                    Open ROM Link
+                                                                </a>
+                                                            )}
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => copyCommand(device.codename)}
+                                                                className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-3 text-[11px] font-black uppercase tracking-[0.14em] text-white transition hover:border-cyan-300/30"
+                                                            >
+                                                                {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                                                {copiedValue === command ? "Copied" : "Copy Command"}
+                                                            </button>
+                                                            <a
+                                                                href={requestTelegramLink}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex min-h-11 flex-1 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-3 text-[11px] font-black uppercase tracking-[0.14em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
+                                                            >
+                                                                Contact MEZO
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </GlassCard>
-                                )})}
+                                ))}
+
+                                <GlassCard accent="slate" className="p-6">
+                                    <h3 className="text-xl font-black text-white">Need help with this build?</h3>
+                                    <p className="mt-3 text-sm text-zinc-300">
+                                        Use the support links below for install guidance, template-based requests, or direct help from MEZO.
+                                    </p>
+                                    <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                                        <PremiumButton href={requestTelegramLink} external variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="text-xs">
+                                            Contact MEZO
+                                        </PremiumButton>
+                                        <PremiumButton href="/guide" variant="secondary" icon={<FileText className="h-4 w-4" />} className="text-xs">
+                                            View Install Guide
+                                        </PremiumButton>
+                                        <PremiumButton href="/contact" variant="secondary" icon={<ShieldAlert className="h-4 w-4" />} className="text-xs">
+                                            Support Template
+                                        </PremiumButton>
+                                    </div>
+                                </GlassCard>
                             </div>
                         ) : (
                             <GlassCard accent="slate" className="p-10 text-center">

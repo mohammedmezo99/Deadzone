@@ -81,6 +81,8 @@ async function verifyBuildValidationHelpers() {
         sanitizeBuildForPublicResponse,
         hasPublishedFile,
         getBuildAvailabilityStatus,
+        deriveHyperOsVersion,
+        deriveRegion,
     } = module.exports;
 
     const incomplete = sanitizeBuildForPublicResponse({
@@ -160,8 +162,8 @@ async function verifyBuildValidationHelpers() {
         downloadUrl: "https://drive.google.com/file/d/real/view",
     });
 
-    if (processingOnly.status !== "Processing Metadata") {
-        throw new Error("downloadUrl-only build did not normalize to Processing Metadata");
+    if (processingOnly.status !== "ROM Link Available") {
+        throw new Error("downloadUrl-only build did not normalize to ROM Link Available");
     }
     if (hasPublishedFile(processingOnly)) {
         throw new Error("downloadUrl-only build was incorrectly treated as published");
@@ -186,6 +188,22 @@ async function verifyBuildValidationHelpers() {
     }
     if (getBuildAvailabilityStatus(metadataIncomplete) !== "Metadata Incomplete") {
         throw new Error("metadata-incomplete build availability status mismatch");
+    }
+
+    if (deriveHyperOsVersion("OS3.0.303.0.WNOCNXM") !== "OS3") {
+        throw new Error("failed to derive OS3 from China ROM version");
+    }
+    if (deriveHyperOsVersion("OS3.0.6.0.WNOEUXM") !== "OS3") {
+        throw new Error("failed to derive OS3 from EEA ROM version");
+    }
+    if (deriveRegion("", "OS3.0.303.0.WNOCNXM") !== "ChinaStable") {
+        throw new Error("failed to derive ChinaStable region");
+    }
+    if (deriveRegion("", "OS3.0.6.0.WNOEUXM") !== "EEAStable") {
+        throw new Error("failed to derive EEAStable region");
+    }
+    if (deriveRegion("", "V14.0.2.0.TMCMIXM") !== "GlobalStable") {
+        throw new Error("failed to derive GlobalStable region");
     }
 }
 
