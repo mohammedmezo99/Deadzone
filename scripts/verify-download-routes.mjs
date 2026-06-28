@@ -3,11 +3,15 @@ const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:30
 const checks = [
     {
         path: "/downloads",
-        includes: ["DeadZone Downloads", "DeadZone Build Index"],
+        includes: ["DeadZone Downloads", "Search by device name, codename, ROM version, or style", "Copy Command", "Style: All"],
     },
     {
         path: "/downloads?codename=zircon",
         includes: ["zircon", "Redmi Note 13 Pro+ 5G"],
+    },
+    {
+        path: "/downloads?style=Lite",
+        includes: ["Lite", "Copy Command"],
     },
     {
         path: "/downloads?codename=venus",
@@ -19,7 +23,7 @@ const checks = [
     },
     {
         path: "/downloads?codename=dada",
-        includesAny: ["No public builds found for codename: dada", "dada"],
+        includesAny: ["No public builds found for codename: dada", "You can request a build using Telegram."],
     },
 ];
 
@@ -40,6 +44,10 @@ async function verifyRoute({ path, includes = [], includesAny = [] }) {
 
     if (includesAny.length > 0 && !includesAny.some((expected) => html.includes(expected))) {
         throw new Error(`${path} is missing all expected content variants: ${includesAny.join(", ")}`);
+    }
+
+    if (html.includes("Dead Zone")) {
+        throw new Error(`${path} contains forbidden "Dead Zone" text`);
     }
 
     console.log(`PASS ${path}`);

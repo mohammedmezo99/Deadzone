@@ -5,10 +5,16 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
     AlertCircle,
+    CalendarDays,
+    Check,
     CheckCircle2,
     Clock3,
+    Copy,
     Download,
     FileText,
+    FolderSearch,
+    HardDriveDownload,
+    Layers3,
     Search,
     Smartphone,
     Wrench,
@@ -20,12 +26,15 @@ import { Starfield } from "@/components/starfield";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { GlassCard, RomBadge, SectionHeader } from "@/components/ui/deadzone";
 import { supportedDevices } from "@/data/devices";
-import { officialLinks } from "@/lib/links";
+import { publicBuilds, type PublicBuildsResponse } from "@/lib/builds";
+import { buildDownloadsPath, officialLinks } from "@/lib/links";
 import { cn } from "@/lib/utils";
-import type { PublicBuildsResponse } from "@/lib/builds";
 import type { BuildItem } from "@/types";
 
 const styleFilters = ["All", "Lite", "GamingPlus", "Legend", "Ninja"] as const;
+const androidFilters = ["All", "A13", "A14", "A15", "A16"] as const;
+const hyperOsFilters = ["All", "OS1", "OS2", "OS3"] as const;
+const statusFilters = ["All", "Available", "Coming Soon", "Building", "Failed"] as const;
 
 function getStatusAccent(status: BuildItem["status"]) {
     if (status === "Available") return "cyan";
@@ -41,6 +50,18 @@ function getStatusIcon(status: BuildItem["status"]) {
     return XCircle;
 }
 
+function normalizeAndroidFilter(version?: string) {
+    if (!version) return "";
+    const match = version.match(/(13|14|15|16)/);
+    return match ? `A${match[1]}` : "";
+}
+
+function normalizeHyperOsFilter(version?: string) {
+    if (!version) return "";
+    const match = version.match(/(1|2|3)/);
+    return match ? `OS${match[1]}` : "";
+}
+
 export function DownloadsPageClient({
     initialBuilds = [],
     initialCodename = "",
@@ -53,13 +74,19 @@ export function DownloadsPageClient({
     const searchParams = useSearchParams();
     const requestedCodename = (searchParams.get("codename") || "").trim().toLowerCase();
     const requestedStyle = (searchParams.get("style") || "").trim();
-    const resolvedStyle = styleFilters.includes(requestedStyle as (typeof styleFilters)[number]) ? requestedStyle as (typeof styleFilters)[number] : initialStyle;
+    const resolvedStyle = styleFilters.includes(requestedStyle as (typeof styleFilters)[number])
+        ? requestedStyle as (typeof styleFilters)[number]
+        : initialStyle;
 
     const [query, setQuery] = useState(initialCodename);
     const [activeStyle, setActiveStyle] = useState<(typeof styleFilters)[number]>(initialStyle);
+    const [activeAndroid, setActiveAndroid] = useState<(typeof androidFilters)[number]>("All");
+    const [activeHyperOs, setActiveHyperOs] = useState<(typeof hyperOsFilters)[number]>("All");
+    const [activeStatus, setActiveStatus] = useState<(typeof statusFilters)[number]>("All");
     const [rows, setRows] = useState<BuildItem[]>(initialBuilds);
     const [loading, setLoading] = useState(initialBuilds.length === 0);
     const [hasError, setHasError] = useState(false);
+    const [copiedValue, setCopiedValue] = useState("");
 
     useEffect(() => {
         setQuery(requestedCodename || initialCodename);
@@ -80,7 +107,9 @@ export function DownloadsPageClient({
             setHasError(false);
 
             try {
-                const endpoint = requestedCodename ? `/api/builds?codename=${encodeURIComponent(requestedCodename)}` : "/api/builds";
+                const params = new URLSearchParams();
+                if (requestedCodename) params.set("codename", requestedCodename);
+                const endpoint = params.toString() ? `/api/builds?${params.toString()}` : "/api/builds";
                 const response = await fetch(endpoint, { cache: "no-store" });
                 const data = await response.json() as PublicBuildsResponse;
 
@@ -98,35 +127,73 @@ export function DownloadsPageClient({
         loadBuilds();
     }, [requestedCodename]);
 
+    const latestUpdate = useMemo(() => {
+        const timestamps = rows
+            .map((build) => build.updatedAt ? new Date(build.updatedAt).getTime() : 0)
+            .filter((value) => value > 0);
+        return timestamps.length ? new Date(Math.max(...timestamps)).toLocaleDateString("en-US") : "Not listed";
+    }, [rows]);
+
     const filteredBuilds = useMemo(() => {
         const needle = query.trim().toLowerCase();
 
         return rows.filter((build) => {
             const matchesSearch =
                 !needle ||
-                [build.deviceName, build.codename, build.romVersion, build.androidVersion || "", build.hyperOsVersion || ""].some((field) =>
-                    field.toLowerCase().includes(needle)
-                );
+                [
+                    build.deviceName,
+                    build.codename,
+                    build.romVersion,
+                    build.style,
+                    build.androidVersion || "",
+                    build.hyperOsVersion || "",
+                ].some((field) => field.toLowerCase().includes(needle));
 
             const matchesStyle = activeStyle === "All" || build.style === activeStyle;
-            return matchesSearch && matchesStyle;
-        });
-    }, [activeStyle, query, rows]);
+            const matchesAndroid = activeAndroid === "All" || normalizeAndroidFilter(build.androidVersion) === activeAndroid;
+            const matchesHyperOs = activeHyperOs === "All" || normalizeHyperOsFilter(build.hyperOsVersion) === activeHyperOs;
+            const matchesStatus = activeStatus === "All" || build.status === activeStatus;
 
-    const requestedDevices = useMemo(
-        () => (requestedCodename ? supportedDevices.filter((device) => device.codename === requestedCodename) : []),
-        [requestedCodename],
-    );
+            return matchesSearch && matchesStyle && matchesAndroid && matchesHyperOs && matchesStatus;
+        });
+    }, [activeAndroid, activeHyperOs, activeStatus, activeStyle, query, rows]);
 
     const availableCount = useMemo(() => rows.filter((build) => build.status === "Available").length, [rows]);
     const visibleCount = filteredBuilds.length;
+    const uniqueStyles = useMemo(() => new Set(rows.map((build) => build.style)).size, [rows]);
+
+    async function copyCommand(codename: string) {
+        const command = `/mezo ${codename}`;
+
+        try {
+            await navigator.clipboard.writeText(command);
+            setCopiedValue(command);
+            window.setTimeout(() => {
+                setCopiedValue((current) => (current === command ? "" : current));
+            }, 2000);
+        } catch (error) {
+            console.error("Copy command failed:", error);
+        }
+    }
+
+    function resetFilters() {
+        setQuery(requestedCodename || "");
+        setActiveStyle(resolvedStyle);
+        setActiveAndroid("All");
+        setActiveHyperOs("All");
+        setActiveStatus("All");
+    }
 
     const emptyTitle = requestedCodename
         ? `No public builds found for codename: ${requestedCodename}`
-        : "No public builds found yet";
-    const emptyDescription = requestedCodename
-        ? "No public builds found for this device yet. You can request a build using Telegram."
-        : "No public builds found for this device yet. You can request a build using Telegram.";
+        : "No public builds found for this filter view.";
+
+    const hasActiveFilters =
+        query.trim().length > 0 ||
+        activeStyle !== "All" ||
+        activeAndroid !== "All" ||
+        activeHyperOs !== "All" ||
+        activeStatus !== "All";
 
     return (
         <main className="page-shell">
@@ -136,50 +203,68 @@ export function DownloadsPageClient({
             <section className="px-6 pb-20 pt-36">
                 <div className="mx-auto max-w-7xl">
                     <SectionHeader
-                        eyebrow="Downloads"
-                        title={<><span className="text-gradient">DeadZone Downloads</span><br />Public builds, premium styles, and clear status tracking.</>}
-                        description="Browse DeadZone releases by device name or codename, filter by style, and check build availability before you open a download or changelog."
+                        eyebrow="Downloads Hub"
+                        title="DeadZone Downloads"
+                        description="Find official DeadZone builds by device codename, ROM version, Android version, HyperOS version, and style."
                         align="center"
                     />
+
+                    <div className="mb-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                        <GlassCard accent="cyan" className="p-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-4xl font-black text-white">{availableCount}</p>
+                                    <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200">Available Builds</p>
+                                </div>
+                                <HardDriveDownload className="h-6 w-6 text-cyan-200" />
+                            </div>
+                        </GlassCard>
+                        <GlassCard accent="blue" className="p-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-4xl font-black text-white">{supportedDevices.length}</p>
+                                    <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-blue-200">Supported Devices</p>
+                                </div>
+                                <Smartphone className="h-6 w-6 text-blue-200" />
+                            </div>
+                        </GlassCard>
+                        <GlassCard accent="magenta" className="p-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-4xl font-black text-white">{uniqueStyles}</p>
+                                    <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-fuchsia-200">DeadZone Styles</p>
+                                </div>
+                                <Layers3 className="h-6 w-6 text-fuchsia-200" />
+                            </div>
+                        </GlassCard>
+                        <GlassCard accent="gold" className="p-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-xl font-black text-white">{latestUpdate}</p>
+                                    <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-amber-200">Latest Update</p>
+                                </div>
+                                <CalendarDays className="h-6 w-6 text-amber-200" />
+                            </div>
+                        </GlassCard>
+                    </div>
 
                     <div className="mb-8 grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
                         <GlassCard accent="cyan" className="relative overflow-hidden p-6 md:p-8">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_46%),radial-gradient(circle_at_bottom_right,rgba(217,70,239,0.16),transparent_42%)]" />
-                            <div className="relative z-10 flex flex-col gap-8">
-                                <div className="max-w-3xl">
-                                    <RomBadge accent="cyan">DeadZone Build Index</RomBadge>
-                                    <h2 className="mt-5 text-3xl font-black tracking-tight text-white md:text-4xl">
-                                        Search builds, inspect status, and move between Lite and premium DeadZone styles.
-                                    </h2>
-                                    <p className="mt-4 text-sm leading-7 text-zinc-300 md:text-base">
-                                        This page keeps DeadZone downloads usable even when a device has no public package yet, with explicit status cards and direct Telegram request paths.
-                                    </p>
-                                </div>
-
-                                <div className="grid gap-4 md:grid-cols-3">
-                                    <div className="rounded-[1.75rem] border border-cyan-300/20 bg-black/30 p-5 backdrop-blur-xl">
-                                        <p className="text-4xl font-black text-white">{rows.length}</p>
-                                        <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200">Tracked Builds</p>
-                                    </div>
-                                    <div className="rounded-[1.75rem] border border-blue-300/20 bg-black/30 p-5 backdrop-blur-xl">
-                                        <p className="text-4xl font-black text-white">{availableCount}</p>
-                                        <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-blue-200">Available Now</p>
-                                    </div>
-                                    <div className="rounded-[1.75rem] border border-fuchsia-300/20 bg-black/30 p-5 backdrop-blur-xl">
-                                        <p className="text-4xl font-black text-white">{visibleCount}</p>
-                                        <p className="mt-2 text-[11px] font-black uppercase tracking-[0.24em] text-fuchsia-200">Visible Results</p>
-                                    </div>
-                                </div>
+                            <div className="relative z-10">
+                                <RomBadge accent="cyan">Official Downloads Hub</RomBadge>
+                                <h2 className="mt-5 text-3xl font-black text-white md:text-4xl">
+                                    Search builds fast, filter hard, and move straight into the correct DeadZone package.
+                                </h2>
+                                <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-300 md:text-base">
+                                    Search by device name, codename, ROM version, or style, then narrow the list by Android, HyperOS, and build status before downloading or requesting support.
+                                </p>
                             </div>
                         </GlassCard>
 
                         <GlassCard accent="magenta" className="p-6 md:p-8">
-                            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-fuchsia-200">Request Flow</p>
-                            <h2 className="mt-3 text-2xl font-black text-white">Use the public page first, then request missing builds.</h2>
-                            <p className="mt-4 text-sm leading-7 text-zinc-300">
-                                DeadZone keeps the public lineup visible here. If a package is not ready, contact MEZO on Telegram or review the supported device list before requesting it.
-                            </p>
-
+                            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-fuchsia-200">Support Actions</p>
+                            <h2 className="mt-3 text-2xl font-black text-white">Request a build or jump into the correct support path.</h2>
                             <div className="mt-6 grid gap-3">
                                 <PremiumButton href={officialLinks.contactMezo} external icon={<Smartphone className="h-4 w-4" />} className="w-full text-xs">
                                     Contact MEZO
@@ -187,76 +272,73 @@ export function DownloadsPageClient({
                                 <PremiumButton href="/devices" variant="secondary" icon={<Smartphone className="h-4 w-4" />} className="w-full text-xs">
                                     View Supported Devices
                                 </PremiumButton>
+                                <PremiumButton href="/contact" variant="secondary" icon={<FileText className="h-4 w-4" />} className="w-full text-xs">
+                                    Support Template
+                                </PremiumButton>
                             </div>
                         </GlassCard>
                     </div>
 
                     <GlassCard accent="blue" className="sticky top-24 z-20 mb-10 p-4 md:p-5 shadow-[0_22px_60px_rgba(2,5,10,0.34)]">
-                        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
-                            <div className="relative">
+                        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_1fr]">
+                            <div className="relative xl:col-span-2">
                                 <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
                                 <input
                                     value={query}
                                     onChange={(event) => setQuery(event.target.value)}
-                                    placeholder="Search by device name or codename..."
+                                    placeholder="Search by device name, codename, ROM version, or style..."
                                     className="min-h-14 w-full rounded-2xl border border-white/10 bg-white/[0.05] py-4 pl-14 pr-5 text-white outline-none transition focus:border-cyan-300/45 focus:ring-2 focus:ring-cyan-500/20"
                                 />
                             </div>
 
-                            <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
-                                {styleFilters.map((filter) => {
-                                    const count = filter === "All" ? rows.length : rows.filter((build) => build.style === filter).length;
+                            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4 xl:col-span-2">
+                                <select
+                                    value={activeStyle}
+                                    onChange={(event) => setActiveStyle(event.target.value as (typeof styleFilters)[number])}
+                                    className="min-h-14 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-sm font-bold text-white outline-none"
+                                >
+                                    {styleFilters.map((filter) => <option key={filter} value={filter} className="bg-[#0a1018]">{filter === "All" ? "Style: All" : filter}</option>)}
+                                </select>
+                                <select
+                                    value={activeAndroid}
+                                    onChange={(event) => setActiveAndroid(event.target.value as (typeof androidFilters)[number])}
+                                    className="min-h-14 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-sm font-bold text-white outline-none"
+                                >
+                                    {androidFilters.map((filter) => <option key={filter} value={filter} className="bg-[#0a1018]">{filter === "All" ? "Android: All" : filter}</option>)}
+                                </select>
+                                <select
+                                    value={activeHyperOs}
+                                    onChange={(event) => setActiveHyperOs(event.target.value as (typeof hyperOsFilters)[number])}
+                                    className="min-h-14 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-sm font-bold text-white outline-none"
+                                >
+                                    {hyperOsFilters.map((filter) => <option key={filter} value={filter} className="bg-[#0a1018]">{filter === "All" ? "HyperOS: All" : filter}</option>)}
+                                </select>
+                                <select
+                                    value={activeStatus}
+                                    onChange={(event) => setActiveStatus(event.target.value as (typeof statusFilters)[number])}
+                                    className="min-h-14 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-sm font-bold text-white outline-none"
+                                >
+                                    {statusFilters.map((filter) => <option key={filter} value={filter} className="bg-[#0a1018]">{filter === "All" ? "Status: All" : filter}</option>)}
+                                </select>
+                            </div>
 
-                                    return (
-                                        <button
-                                            key={filter}
-                                            onClick={() => setActiveStyle(filter)}
-                                            className={cn(
-                                                "min-h-14 shrink-0 rounded-2xl border px-4 text-xs font-black uppercase tracking-[0.14em] transition",
-                                                activeStyle === filter
-                                                    ? "border-cyan-300/50 bg-cyan-400 text-slate-950 shadow-[0_0_30px_rgba(34,211,238,0.24)]"
-                                                    : "border-white/10 bg-white/[0.04] text-zinc-300 hover:border-fuchsia-300/30 hover:text-white"
-                                            )}
-                                        >
-                                            {filter}
-                                            <span className={cn("ml-2 rounded-full px-2 py-0.5 text-[10px]", activeStyle === filter ? "bg-slate-950/12 text-slate-950" : "bg-white/10 text-zinc-400")}>
-                                                {count}
-                                            </span>
-                                        </button>
-                                    );
-                                })}
+                            <div className="xl:col-span-2 flex justify-end">
+                                <button
+                                    type="button"
+                                    onClick={resetFilters}
+                                    disabled={!hasActiveFilters}
+                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-cyan-300/30 disabled:cursor-not-allowed disabled:opacity-45"
+                                >
+                                    Reset Filters
+                                </button>
                             </div>
                         </div>
                     </GlassCard>
 
-                    {(requestedDevices.length > 0 || requestedCodename || activeStyle !== "All") && (
-                        <GlassCard accent="slate" className="mb-8 p-6">
-                            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                                <div>
-                                    <RomBadge accent="blue">Active Filters</RomBadge>
-                                    <h2 className="mt-4 text-2xl font-black text-white">
-                                        {requestedDevices.length > 0 ? requestedDevices.map((device) => device.name).join(" / ") : "Downloads Filtered View"}
-                                    </h2>
-                                    <p className="mt-2 text-sm text-zinc-400">
-                                        Codename: <span className="font-mono text-white">{requestedCodename || "all"}</span>
-                                        {" • "}
-                                        Style: <span className="font-mono text-white">{activeStyle}</span>
-                                    </p>
-                                </div>
-                                <Link
-                                    href="/downloads"
-                                    className="flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
-                                >
-                                    Clear Filters
-                                </Link>
-                            </div>
-                        </GlassCard>
-                    )}
-
                     {loading ? (
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                             {Array.from({ length: 4 }).map((_, index) => (
-                                <GlassCard key={index} accent="slate" className="h-[420px] animate-pulse p-5" />
+                                <GlassCard key={index} accent="slate" className="h-[500px] animate-pulse p-5" />
                             ))}
                         </div>
                     ) : filteredBuilds.length ? (
@@ -264,6 +346,7 @@ export function DownloadsPageClient({
                             {filteredBuilds.map((build) => {
                                 const StatusIcon = getStatusIcon(build.status);
                                 const statusAccent = getStatusAccent(build.status);
+                                const command = `/mezo ${build.codename}`;
                                 const canDownload = build.status === "Available" && Boolean(build.downloadUrl);
 
                                 return (
@@ -281,8 +364,8 @@ export function DownloadsPageClient({
 
                                         <div className="mt-5 grid grid-cols-2 gap-3">
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.romVersion}</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Style</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.style}</p>
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Build Status</p>
@@ -297,25 +380,33 @@ export function DownloadsPageClient({
                                                 <p className="mt-1 text-sm font-bold text-white">{build.hyperOsVersion || "Not listed"}</p>
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">DeadZone Style</p>
-                                                <p className="mt-1 text-sm font-bold text-white">{build.style}</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">ROM Version</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.romVersion}</p>
                                             </div>
                                             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Updated</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.region || "Not listed"}</p>
+                                            </div>
+                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Build Date</p>
                                                 <p className="mt-1 text-sm font-bold text-white">{build.updatedAt ? new Date(build.updatedAt).toLocaleDateString("en-US") : "Not listed"}</p>
+                                            </div>
+                                            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">File Size</p>
+                                                <p className="mt-1 text-sm font-bold text-white">{build.fileSize || "Not listed"}</p>
                                             </div>
                                         </div>
 
                                         {build.sha256 && (
                                             <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">SHA256</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">SHA256 / Hash</p>
                                                 <p className="mt-1 break-all font-mono text-xs text-zinc-200">{build.sha256}</p>
                                             </div>
                                         )}
 
                                         <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Filename</p>
-                                            <p className="mt-1 break-all text-sm font-bold text-white">{build.filename || "Package not published yet"}</p>
+                                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Command</p>
+                                            <p className="mt-1 font-mono text-sm text-white">{command}</p>
                                         </div>
 
                                         <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -335,6 +426,15 @@ export function DownloadsPageClient({
                                                 </div>
                                             )}
 
+                                            <button
+                                                type="button"
+                                                onClick={() => copyCommand(build.codename)}
+                                                className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:border-cyan-300/30"
+                                            >
+                                                {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                                {copiedValue === command ? "Copied Command" : "Copy Command"}
+                                            </button>
+
                                             {build.changelogUrl ? (
                                                 <a
                                                     href={build.changelogUrl}
@@ -350,6 +450,15 @@ export function DownloadsPageClient({
                                                     Changelog Pending
                                                 </div>
                                             )}
+
+                                            <a
+                                                href={officialLinks.contactMezo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex min-h-12 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-4 text-xs font-black uppercase tracking-[0.16em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
+                                            >
+                                                Contact MEZO
+                                            </a>
                                         </div>
                                     </GlassCard>
                                 );
@@ -363,10 +472,23 @@ export function DownloadsPageClient({
                         </GlassCard>
                     ) : (
                         <GlassCard accent="slate" className="p-10 text-center">
-                            <Smartphone className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
+                            <FolderSearch className="mx-auto mb-4 h-10 w-10 text-zinc-500" />
                             <h3 className="text-xl font-black text-white">{emptyTitle}</h3>
-                            <p className="mt-3 text-sm leading-7 text-zinc-400">{emptyDescription}</p>
+                            <p className="mt-3 text-sm leading-7 text-zinc-400">
+                                {requestedCodename
+                                    ? "You can request a build using Telegram."
+                                    : "Adjust your filters or request a build using Telegram."}
+                            </p>
                             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                                {requestedCodename && (
+                                    <PremiumButton
+                                        onClick={() => copyCommand(requestedCodename)}
+                                        icon={copiedValue === `/mezo ${requestedCodename}` ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                        className="text-xs"
+                                    >
+                                        {copiedValue === `/mezo ${requestedCodename}` ? "Copied Command" : "Copy Command"}
+                                    </PremiumButton>
+                                )}
                                 <PremiumButton href={officialLinks.contactMezo} external icon={<Smartphone className="h-4 w-4" />} className="text-xs">
                                     Contact MEZO
                                 </PremiumButton>

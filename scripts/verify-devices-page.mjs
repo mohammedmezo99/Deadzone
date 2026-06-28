@@ -1,11 +1,5 @@
 const baseUrl = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:3000").replace(/\/+$/, "");
 
-const expectedLinks = [
-    '/downloads?codename=zircon',
-    '/downloads?codename=venus',
-    '/downloads?codename=dada',
-];
-
 async function main() {
     const response = await fetch(`${baseUrl}/devices`);
 
@@ -15,14 +9,17 @@ async function main() {
 
     const html = await response.text();
 
-    if (!html.includes("DeadZone Device Gallery")) {
+    if (!html.includes("DeadZone Supported Devices")) {
         throw new Error("/devices is missing the page title");
     }
 
-    for (const href of expectedLinks) {
-        if (!html.includes(href)) {
-            throw new Error(`/devices is missing expected Check Builds link: ${href}`);
-        }
+    const canonicalLinks = html.match(/href="\/downloads\?codename=[^"]+"/g) || [];
+    if (canonicalLinks.length === 0) {
+        throw new Error("/devices is missing canonical Check Builds links");
+    }
+
+    if (html.includes('href="/downloadscodename=')) {
+        throw new Error('/devices still contains malformed downloads path routes');
     }
 
     if (!html.includes("Copy Command")) {
@@ -33,10 +30,20 @@ async function main() {
         throw new Error("/devices is missing the Request Build button");
     }
 
-    console.log("PASS /devices");
-    for (const href of expectedLinks) {
-        console.log(`PASS link ${href}`);
+    if (!html.includes("Load More")) {
+        throw new Error("/devices is missing the Load More control");
     }
+
+    if (!html.includes("Family: All")) {
+        throw new Error("/devices is missing the family filter");
+    }
+
+    if (html.includes("Dead Zone")) {
+        throw new Error('/devices contains forbidden "Dead Zone" text');
+    }
+
+    console.log("PASS /devices");
+    console.log(`PASS canonical links ${canonicalLinks.length}`);
 }
 
 main().catch((error) => {

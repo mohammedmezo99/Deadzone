@@ -51,6 +51,7 @@ export type BuildItem = {
     androidVersion?: string;
     hyperOsVersion?: string;
     region?: string;
+    fileSize?: string;
     filename?: string;
     downloadUrl?: string;
     changelogUrl?: string;

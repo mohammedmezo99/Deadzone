@@ -31,7 +31,7 @@ async function main() {
     }
 
     if (html.includes('href="/downloadsstyle=Lite"')) {
-        throw new Error('/styles still contains the broken Lite CTA route');
+        throw new Error('/styles still contains malformed Lite CTA route');
     }
 
     console.log("PASS /styles showcase");

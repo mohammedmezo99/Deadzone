@@ -6,6 +6,10 @@ const checks = [
         location: "/downloads?codename=zircon",
     },
     {
+        path: "/downloadsstyle=Lite",
+        location: "/downloads?style=Lite",
+    },
+    {
         path: "/downloadscodename=zircon&style=Lite",
         location: "/downloads?codename=zircon&style=Lite",
     },
