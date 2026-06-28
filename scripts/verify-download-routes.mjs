@@ -257,6 +257,24 @@ async function verifyRoute({ path, includes = [], includesAny = [] }) {
         throw new Error(`${path} still contains fake SHA256 text`);
     }
 
+    const forbiddenUiText = [
+        "Missing:",
+        "Missing Metadata",
+        "SHA256 missing",
+        "File Size missing",
+        "Metadata Incomplete",
+        "Metadata verification",
+        "verification is incomplete",
+        "This ROM record exists",
+        "Uploaded, verifying metadata",
+    ];
+
+    for (const forbiddenText of forbiddenUiText) {
+        if (html.includes(forbiddenText)) {
+            throw new Error(`${path} contains forbidden internal metadata text: ${forbiddenText}`);
+        }
+    }
+
     for (const forbidden of forbiddenDemoValues) {
         if (html.includes(forbidden)) {
             throw new Error(`${path} contains forbidden demo metadata: ${forbidden}`);

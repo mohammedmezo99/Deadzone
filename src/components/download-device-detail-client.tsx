@@ -46,17 +46,6 @@ function getResolvedHyperOsVersion(build: BuildItem) {
     return build.hyperOsVersion || deriveHyperOsVersion(build.romVersion) || "";
 }
 
-function getMissingMetadata(build: BuildItem) {
-    const missing: string[] = [];
-
-    if (!build.filename) missing.push("Filename");
-    if (!build.downloadUrl) missing.push("Download Link");
-    if (!build.sha256) missing.push("SHA256");
-    if (!build.fileSize) missing.push("File Size");
-
-    return missing;
-}
-
 export function DownloadDeviceDetailClient({
     device,
     builds,
@@ -343,29 +332,24 @@ export function DownloadDeviceDetailClient({
                                             <RomBadge accent={styleAccent(style as BuildItem["style"])}>{style}</RomBadge>
                                             <h3 className="text-xl font-black text-white">{getStyleTitle(style as BuildItem["style"])}</h3>
                                         </div>
-                                        <p className="mt-3 text-sm text-zinc-300">
-                                            This ROM record exists, but SHA256 or file size is still missing.
-                                        </p>
 
-                                        <div className="mt-5 hidden rounded-[1.35rem] border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_1.4fr_0.95fr] md:gap-3">
+                                        <div className="mt-5 hidden rounded-[1.35rem] border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_0.95fr] md:gap-3">
                                             <span>Region</span>
                                             <span>ROM Version</span>
                                             <span>Android</span>
                                             <span>HyperOS</span>
                                             <span>Status</span>
-                                            <span>Missing Metadata</span>
                                             <span>Action</span>
                                         </div>
 
                                         <div className="mt-3 space-y-3">
                                             {styleBuilds.map((build) => {
-                                                const missing = getMissingMetadata(build);
                                                 const resolvedHyperOs = getResolvedHyperOsVersion(build);
 
                                                 return (
                                                     <div
                                                         key={build.id}
-                                                        className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_1.4fr_0.95fr] md:items-center md:gap-3"
+                                                        className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 md:grid md:grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr_1fr_0.95fr] md:items-center md:gap-3"
                                                     >
                                                         <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Region</div>
                                                         <p className="text-sm font-bold text-white">{build.region || "Unknown"}</p>
@@ -388,14 +372,9 @@ export function DownloadDeviceDetailClient({
                                                         <div className="mt-3 md:mt-0">
                                                             <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Status</div>
                                                             <div className="space-y-1">
-                                                                <RomBadge accent={statusAccent(build.status)}>{build.downloadUrl ? "ROM Link Available" : build.status}</RomBadge>
-                                                                {build.downloadUrl && <p className="text-xs text-zinc-400">Metadata Incomplete</p>}
+                                                                <RomBadge accent={statusAccent(build.status)}>{build.downloadUrl ? "ROM Link Available" : "Request Available"}</RomBadge>
+                                                                {build.downloadUrl && <p className="text-xs text-zinc-400">Download link is available.</p>}
                                                             </div>
-                                                        </div>
-
-                                                        <div className="mt-3 md:mt-0">
-                                                            <div className="md:hidden text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">Missing Metadata</div>
-                                                            <p className="text-sm text-fuchsia-100">Missing: {missing.join(", ")}</p>
                                                         </div>
 
                                                         <div className="mt-4 flex gap-2 md:mt-0 md:flex-col">
@@ -417,14 +396,16 @@ export function DownloadDeviceDetailClient({
                                                                 {copiedValue === command ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                                                                 {copiedValue === command ? "Copied" : "Copy Command"}
                                                             </button>
-                                                            <a
-                                                                href={requestTelegramLink}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="flex min-h-11 flex-1 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-3 text-[11px] font-black uppercase tracking-[0.14em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
-                                                            >
-                                                                Contact MEZO
-                                                            </a>
+                                                            {!build.downloadUrl && (
+                                                                <a
+                                                                    href={requestTelegramLink}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="flex min-h-11 flex-1 items-center justify-center rounded-2xl border border-fuchsia-300/20 bg-fuchsia-400/10 px-3 text-[11px] font-black uppercase tracking-[0.14em] text-fuchsia-100 transition hover:border-fuchsia-300/40 hover:bg-fuchsia-400/16"
+                                                                >
+                                                                    Contact MEZO
+                                                                </a>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 );
