@@ -1,6 +1,6 @@
 ============================================================
  DeadZone Device Image Audit Report
- Generated: 2026-06-29T20:01:46.616Z
+ Generated: 2026-06-29T20:19:03.252Z
 ============================================================
 
 --- Summary ---
@@ -9,8 +9,8 @@ source entries: 215
 unique codenames: 172
 duplicate codenames: 0
 duplicate codenames merged: 9
-verified image count: 154
-placeholder count: 18
+verified image count: 159
+placeholder count: 13
 broken image files: 0
 unused image files: 26
 devices without codename: 0
@@ -53,19 +53,19 @@ unicorn | Xiaomi 12S Pro |  | Xiaomi | /devices/unicorn.webp | verified
 thor | Xiaomi 12S Ultra |  | Xiaomi | /devices/thor.webp | verified
 venus | Xiaomi 11 |  | Xiaomi | /devices/venus.webp | verified
 star | Xiaomi 11 Pro |  | Xiaomi | /devices/star.webp | verified
-mars | Xiaomi 11 Ultra |  | Xiaomi | public/devices/mars.webp | missing
+mars | Xiaomi 11 Ultra |  | Xiaomi | /devices/mars.webp | verified
 agate | Xiaomi 11T |  | Xiaomi | /devices/agate.webp | verified
 vili | Xiaomi 11T Pro |  | Xiaomi | /devices/vili.webp | verified
 lisa | Xiaomi 11 Lite 5G NE | Xiaomi 11 LE | Xiaomi | /devices/lisa.webp | verified
 renoir | Xiaomi Mi 11 Lite 5G |  | Xiaomi | /devices/renoir.webp | verified
 courbet | Xiaomi Mi 11 Lite 4G |  | Xiaomi | /devices/courbet.webp | verified
-mona | Xiaomi Civi |  | Civi | public/devices/mona.webp | missing
+mona | Xiaomi Civi |  | Civi | /devices/mona.webp | verified
 zijin | Xiaomi Civi 1S |  | Civi | /devices/zijin.webp | verified
 yuechu | Xiaomi Civi 3 |  | Civi | public/devices/yuechu.webp | missing
 luming | Xiaomi Civi 5 Pro |  | Civi | /devices/luming.webp | verified
 odin | Xiaomi MIX 4 |  | MIX | public/devices/odin.webp | missing
 cetus | Xiaomi MIX Fold |  | MIX | /devices/cetus.webp | verified
-zizhan | Xiaomi MIX Fold 2 |  | MIX | public/devices/zizhan.webp | missing
+zizhan | Xiaomi MIX Fold 2 |  | MIX | /devices/zizhan.webp | verified
 babylon | Xiaomi MIX Fold 3 |  | MIX | /devices/babylon.webp | verified
 goku | Xiaomi MIX Fold 4 |  | MIX | /devices/goku.webp | verified
 ruyi | Xiaomi MIX Flip |  | MIX | /devices/ruyi.webp | verified
@@ -157,7 +157,7 @@ surya | POCO X3 | POCO X3 NFC | POCO | /devices/surya.webp | verified
 rock | POCO M5 |  | POCO | /devices/rock.webp | verified
 evergreen | POCO M4 Pro 5G |  | POCO | /devices/evergreen.webp | verified
 citrus | POCO M3 |  | POCO | /devices/citrus.webp | verified
-arctic | POCO C81 | Redmi A7 Pro | POCO | public/devices/arctic.webp | missing
+arctic | POCO C81 | Redmi A7 Pro | POCO | /devices/arctic.webp | verified
 warm | POCO C75 5G | Redmi A4 5G | POCO | /devices/warm.webp | verified
 serenity | POCO C71 | Redmi A5 | POCO | /devices/serenity.webp | verified
 blue | POCO C61 | Redmi A3 | POCO | /devices/blue.webp | verified
@@ -178,7 +178,7 @@ enuma | Xiaomi Pad 5 Pro 5G |  | Pad | public/devices/enuma.webp | missing
 elish | Xiaomi Pad 5 Pro Wi-Fi |  | Pad | public/devices/elish.webp | missing
 dagu | Xiaomi Pad 5 Pro 12.4 |  | Pad | /devices/dagu.webp | verified
 turner | Redmi K Pad |  | Pad | /devices/turner.webp | verified
-yili | Redmi K Pad 2 |  | Pad | public/devices/yili.webp | missing
+yili | Redmi K Pad 2 |  | Pad | /devices/yili.webp | verified
 taiko | Redmi Pad 2 |  | Pad | /devices/taiko.webp | verified
 koto | Redmi Pad 2 4G |  | Pad | /devices/koto.webp | verified
 flute | Redmi Pad 2 Pro |  | Pad | /devices/flute.webp | verified
@@ -211,18 +211,13 @@ yunluo | Redmi Pad |  | Pad | /devices/yunluo.webp | verified
 --- Missing Image Codenames ---
 - pandora
 - popsicle
-- mars
-- mona
 - yuechu
 - odin
-- zizhan
 - charoite
 - evergo
 - tornado
-- arctic
 - enuma
 - elish
-- yili
 - guitar
 - erhu
 - flare
@@ -231,18 +226,13 @@ yunluo | Redmi Pad |  | Pad | /devices/yunluo.webp | verified
 --- Missing Image Names ---
 - Xiaomi 17 Pro
 - Xiaomi 17 Pro Max
-- Xiaomi 11 Ultra
-- Xiaomi Civi
 - Xiaomi Civi 3
 - Xiaomi MIX 4
-- Xiaomi MIX Fold 2
 - Redmi Note 15 Pro 4G
 - Redmi Note 11 5G
 - Redmi 15C 5G
-- POCO C81
 - Xiaomi Pad 5 Pro 5G
 - Xiaomi Pad 5 Pro Wi-Fi
-- Redmi K Pad 2
 - Redmi Pad 2 SE
 - Redmi Pad 2 SE 4G
 - Redmi Pad SE 8.7 WiFi
