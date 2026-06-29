@@ -1,6 +1,6 @@
 ============================================================
  DeadZone Device Image Audit Report
- Generated: 2026-06-28T16:09:14.540Z
+ Generated: 2026-06-29T19:20:04.268Z
 ============================================================
 
 --- Summary ---
@@ -9,8 +9,8 @@ source entries: 215
 unique codenames: 172
 duplicate codenames: 0
 duplicate codenames merged: 9
-verified image count: 71
-placeholder count: 101
+verified image count: 104
+placeholder count: 68
 broken image files: 0
 unused image files: 26
 devices without codename: 0
@@ -26,15 +26,15 @@ nezha | Xiaomi 17 Ultra |  | Xiaomi | /devices/nezha.webp | verified
 dada | Xiaomi 15 |  | Xiaomi | /devices/dada.webp | verified
 haotian | Xiaomi 15 Pro |  | Xiaomi | /devices/haotian.webp | verified
 xuanyuan | Xiaomi 15 Ultra |  | Xiaomi | /devices/xuanyuan.webp | verified
-dijun | Xiaomi 15S Pro |  | Xiaomi | public/devices/dijun.webp | missing
-goya | Xiaomi 15T |  | Xiaomi | public/devices/goya.webp | missing
+dijun | Xiaomi 15S Pro |  | Xiaomi | /devices/dijun.webp | verified
+goya | Xiaomi 15T |  | Xiaomi | /devices/goya.webp | verified
 klimt | Xiaomi 15T Pro |  | Xiaomi | /devices/klimt.webp | verified
 houji | Xiaomi 14 |  | Xiaomi | /devices/houji.webp | verified
 shennong | Xiaomi 14 Pro |  | Xiaomi | /devices/shennong.webp | verified
 aurora | Xiaomi 14 Ultra |  | Xiaomi | /devices/aurora.webp | verified
 degas | Xiaomi 14T |  | Xiaomi | /devices/degas.webp | verified
 rothko | Xiaomi 14T Pro | Redmi K70 Ultra | Xiaomi | /devices/rothko.webp | verified
-chenfeng | Xiaomi 14 Civi | Xiaomi Civi 4 Pro | Civi | public/devices/chenfeng.webp | missing
+chenfeng | Xiaomi 14 Civi | Xiaomi Civi 4 Pro | Civi | /devices/chenfeng.webp | verified
 fuxi | Xiaomi 13 |  | Xiaomi | /devices/fuxi.webp | verified
 nuwa | Xiaomi 13 Pro |  | Xiaomi | /devices/nuwa.webp | verified
 ishtar | Xiaomi 13 Ultra |  | Xiaomi | /devices/ishtar.webp | verified
@@ -43,13 +43,13 @@ aristotle | Xiaomi 13T |  | Xiaomi | /devices/aristotle.webp | verified
 corot | Xiaomi 13T Pro | Redmi K60 Ultra | Xiaomi | /devices/corot.webp | verified
 cupid | Xiaomi 12 |  | Xiaomi | /devices/cupid.webp | verified
 zeus | Xiaomi 12 Pro |  | Xiaomi | /devices/zeus.webp | verified
-daumier | Xiaomi 12 Pro Dimensity |  | Xiaomi | public/devices/daumier.webp | missing
+daumier | Xiaomi 12 Pro Dimensity |  | Xiaomi | /devices/daumier.webp | verified
 taoyao | Xiaomi 12 Lite |  | Xiaomi | /devices/taoyao.webp | verified
 plato | Xiaomi 12T |  | Xiaomi | /devices/plato.webp | verified
 diting | Xiaomi 12T Pro | Redmi K50 Ultra | Xiaomi | /devices/diting.webp | verified
-psyche | Xiaomi 12X |  | Xiaomi | public/devices/psyche.webp | missing
-mayfly | Xiaomi 12S |  | Xiaomi | public/devices/mayfly.webp | missing
-unicorn | Xiaomi 12S Pro |  | Xiaomi | public/devices/unicorn.webp | missing
+psyche | Xiaomi 12X |  | Xiaomi | /devices/psyche.webp | verified
+mayfly | Xiaomi 12S |  | Xiaomi | /devices/mayfly.webp | verified
+unicorn | Xiaomi 12S Pro |  | Xiaomi | /devices/unicorn.webp | verified
 thor | Xiaomi 12S Ultra |  | Xiaomi | /devices/thor.webp | verified
 venus | Xiaomi 11 |  | Xiaomi | /devices/venus.webp | verified
 star | Xiaomi 11 Pro |  | Xiaomi | /devices/star.webp | verified
@@ -57,19 +57,19 @@ mars | Xiaomi 11 Ultra |  | Xiaomi | public/devices/mars.webp | missing
 agate | Xiaomi 11T |  | Xiaomi | /devices/agate.webp | verified
 vili | Xiaomi 11T Pro |  | Xiaomi | /devices/vili.webp | verified
 lisa | Xiaomi 11 Lite 5G NE | Xiaomi 11 LE | Xiaomi | /devices/lisa.webp | verified
-renoir | Xiaomi Mi 11 Lite 5G |  | Xiaomi | public/devices/renoir.webp | missing
-courbet | Xiaomi Mi 11 Lite 4G |  | Xiaomi | public/devices/courbet.webp | missing
+renoir | Xiaomi Mi 11 Lite 5G |  | Xiaomi | /devices/renoir.webp | verified
+courbet | Xiaomi Mi 11 Lite 4G |  | Xiaomi | /devices/courbet.webp | verified
 mona | Xiaomi Civi |  | Civi | public/devices/mona.webp | missing
-zijin | Xiaomi Civi 1S |  | Civi | public/devices/zijin.webp | missing
+zijin | Xiaomi Civi 1S |  | Civi | /devices/zijin.webp | verified
 yuechu | Xiaomi Civi 3 |  | Civi | public/devices/yuechu.webp | missing
-luming | Xiaomi Civi 5 Pro |  | Civi | public/devices/luming.webp | missing
+luming | Xiaomi Civi 5 Pro |  | Civi | /devices/luming.webp | verified
 odin | Xiaomi MIX 4 |  | MIX | public/devices/odin.webp | missing
-cetus | Xiaomi MIX Fold |  | MIX | public/devices/cetus.webp | missing
+cetus | Xiaomi MIX Fold |  | MIX | /devices/cetus.webp | verified
 zizhan | Xiaomi MIX Fold 2 |  | MIX | public/devices/zizhan.webp | missing
 babylon | Xiaomi MIX Fold 3 |  | MIX | /devices/babylon.webp | verified
 goku | Xiaomi MIX Fold 4 |  | MIX | /devices/goku.webp | verified
-ruyi | Xiaomi MIX Flip |  | MIX | public/devices/ruyi.webp | missing
-bixi | Xiaomi MIX Flip 2 |  | MIX | public/devices/bixi.webp | missing
+ruyi | Xiaomi MIX Flip |  | MIX | /devices/ruyi.webp | verified
+bixi | Xiaomi MIX Flip 2 |  | MIX | /devices/bixi.webp | verified
 annibale | Redmi K90 | POCO F8 Pro | Redmi | public/devices/annibale.webp | missing
 myron | Redmi K90 Pro Max | POCO F8 Ultra | Redmi | public/devices/myron.webp | missing
 zorn | Redmi K80 | POCO F7 Pro | Redmi | /devices/zorn.webp | verified
@@ -115,20 +115,20 @@ sea | Redmi Note 12S |  | Redmi | public/devices/sea.webp | missing
 ruby | Redmi Note 12 Pro | Redmi Note 12 Pro+ 5G | Redmi | public/devices/ruby.webp | missing
 redwood | Redmi Note 12 Pro Speed | POCO X5 Pro 5G | Redmi | /devices/redwood.webp | verified
 marble | Redmi Note 12 Turbo | POCO F5 | Redmi | /devices/marble.webp | verified
-pearl | Redmi Note 12T Pro |  | Redmi | public/devices/pearl.webp | missing
-spes | Redmi Note 11 |  | Redmi | public/devices/spes.webp | missing
-selenes | Redmi Note 11 4G |  | Redmi | public/devices/selenes.webp | missing
+pearl | Redmi Note 12T Pro |  | Redmi | /devices/pearl.webp | verified
+spes | Redmi Note 11 |  | Redmi | /devices/spes.webp | verified
+selenes | Redmi Note 11 4G |  | Redmi | /devices/selenes.webp | verified
 evergo | Redmi Note 11 5G |  | Redmi | public/devices/evergo.webp | missing
 viva | Redmi Note 11 Pro 4G |  | Redmi | public/devices/viva.webp | missing
 veux | Redmi Note 11 Pro 5G | POCO X4 Pro 5G | Redmi | public/devices/veux.webp | missing
 pissarro | Redmi Note 11 Pro+ 5G |  | Redmi | /devices/pissarro.webp | verified
 fleur | Redmi Note 11S | POCO M4 Pro 4G | Redmi | public/devices/fleur.webp | missing
 xaga | Redmi Note 11T Pro | POCO X4 GT | Redmi | /devices/xaga.webp | verified
-mojito | Redmi Note 10 |  | Redmi | public/devices/mojito.webp | missing
-sweet | Redmi Note 10 Pro |  | Redmi | public/devices/sweet.webp | missing
-chopin | Redmi Note 10 Pro 5G | POCO X3 GT | Redmi | public/devices/chopin.webp | missing
-rosemary | Redmi Note 10S | POCO M5s | Redmi | public/devices/rosemary.webp | missing
-camellian | Redmi Note 10 5G | POCO M3 Pro 5G | Redmi | public/devices/camellian.webp | missing
+mojito | Redmi Note 10 |  | Redmi | /devices/mojito.webp | verified
+sweet | Redmi Note 10 Pro |  | Redmi | /devices/sweet.webp | verified
+chopin | Redmi Note 10 Pro 5G | POCO X3 GT | Redmi | /devices/chopin.webp | verified
+rosemary | Redmi Note 10S | POCO M5s | Redmi | /devices/rosemary.webp | verified
+camellian | Redmi Note 10 5G | POCO M3 Pro 5G | Redmi | /devices/camellian.webp | verified
 camellia | POCO M3 Pro 5G variant |  | Redmi | public/devices/camellia.webp | missing
 xig02 | Redmi Note 10 JE |  | Redmi | public/devices/xig02.webp | missing
 creek | Redmi 15 4G |  | Redmi | public/devices/creek.webp | missing
@@ -139,24 +139,24 @@ lake | Redmi 14C | POCO C75, Redmi A3 Pro | Redmi | public/devices/lake.webp | m
 flame | Redmi 14C 5G | POCO M7 5G, Redmi 14R 5G | Redmi | /devices/flame.webp | verified
 moon | Redmi 13 | POCO M6 4G | Redmi | public/devices/moon.webp | missing
 breeze | Redmi 13 5G | POCO M6 Plus 5G | Redmi | /devices/breeze.webp | verified
-gale | Redmi 13C | POCO C65 | Redmi | public/devices/gale.webp | missing
-air | Redmi 13C 5G | POCO M6 5G | Redmi | public/devices/air.webp | missing
-fire | Redmi 12 |  | Redmi | public/devices/fire.webp | missing
+gale | Redmi 13C | POCO C65 | Redmi | /devices/gale.webp | verified
+air | Redmi 13C 5G | POCO M6 5G | Redmi | /devices/air.webp | verified
+fire | Redmi 12 |  | Redmi | /devices/fire.webp | verified
 sky | Redmi 12 5G | POCO M6 Pro 5G | Redmi | /devices/sky.webp | verified
-earth | Redmi 12C | POCO C55 | Redmi | public/devices/earth.webp | missing
-selene | Redmi 10 | Redmi 10 Prime | Redmi | public/devices/selene.webp | missing
-light | Redmi 10 5G | POCO M4 5G | Redmi | public/devices/light.webp | missing
-fog | Redmi 10C | Redmi 10 Power | Redmi | public/devices/fog.webp | missing
-dandelion | Redmi 10A |  | Redmi | public/devices/dandelion.webp | missing
+earth | Redmi 12C | POCO C55 | Redmi | /devices/earth.webp | verified
+selene | Redmi 10 | Redmi 10 Prime | Redmi | /devices/selene.webp | verified
+light | Redmi 10 5G | POCO M4 5G | Redmi | /devices/light.webp | verified
+fog | Redmi 10C | Redmi 10 Power | Redmi | /devices/fog.webp | verified
+dandelion | Redmi 10A |  | Redmi | /devices/dandelion.webp | verified
 klee | POCO X8 Pro | Redmi Turbo 5 | POCO | public/devices/klee.webp | missing
 dash | POCO X8 Pro Max | Redmi Turbo 5 Max | POCO | public/devices/dash.webp | missing
 moonstone | POCO X5 5G |  | POCO | /devices/moonstone.webp | verified
 vayu | POCO X3 Pro |  | POCO | /devices/vayu.webp | verified
 bhima | POCO X3 Pro variant |  | POCO | /devices/bhima.webp | verified
-surya | POCO X3 | POCO X3 NFC | POCO | public/devices/surya.webp | missing
-rock | POCO M5 |  | POCO | public/devices/rock.webp | missing
+surya | POCO X3 | POCO X3 NFC | POCO | /devices/surya.webp | verified
+rock | POCO M5 |  | POCO | /devices/rock.webp | verified
 evergreen | POCO M4 Pro 5G |  | POCO | public/devices/evergreen.webp | missing
-citrus | POCO M3 |  | POCO | public/devices/citrus.webp | missing
+citrus | POCO M3 |  | POCO | /devices/citrus.webp | verified
 arctic | POCO C81 | Redmi A7 Pro | POCO | public/devices/arctic.webp | missing
 warm | POCO C75 5G | Redmi A4 5G | POCO | public/devices/warm.webp | missing
 serenity | POCO C71 | Redmi A5 | POCO | public/devices/serenity.webp | missing
@@ -211,25 +211,11 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 --- Missing Image Codenames ---
 - pandora
 - popsicle
-- dijun
-- goya
-- chenfeng
-- daumier
-- psyche
-- mayfly
-- unicorn
 - mars
-- renoir
-- courbet
 - mona
-- zijin
 - yuechu
-- luming
 - odin
-- cetus
 - zizhan
-- ruyi
-- bixi
 - annibale
 - myron
 - dali
@@ -251,18 +237,10 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 - emerald
 - sea
 - ruby
-- pearl
-- spes
-- selenes
 - evergo
 - viva
 - veux
 - fleur
-- mojito
-- sweet
-- chopin
-- rosemary
-- camellian
 - camellia
 - xig02
 - creek
@@ -271,20 +249,9 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 - tornado
 - lake
 - moon
-- gale
-- air
-- fire
-- earth
-- selene
-- light
-- fog
-- dandelion
 - klee
 - dash
-- surya
-- rock
 - evergreen
-- citrus
 - arctic
 - warm
 - serenity
@@ -314,25 +281,11 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 --- Missing Image Names ---
 - Xiaomi 17 Pro
 - Xiaomi 17 Pro Max
-- Xiaomi 15S Pro
-- Xiaomi 15T
-- Xiaomi 14 Civi
-- Xiaomi 12 Pro Dimensity
-- Xiaomi 12X
-- Xiaomi 12S
-- Xiaomi 12S Pro
 - Xiaomi 11 Ultra
-- Xiaomi Mi 11 Lite 5G
-- Xiaomi Mi 11 Lite 4G
 - Xiaomi Civi
-- Xiaomi Civi 1S
 - Xiaomi Civi 3
-- Xiaomi Civi 5 Pro
 - Xiaomi MIX 4
-- Xiaomi MIX Fold
 - Xiaomi MIX Fold 2
-- Xiaomi MIX Flip
-- Xiaomi MIX Flip 2
 - Redmi K90
 - Redmi K90 Pro Max
 - Redmi K80 Ultra
@@ -354,18 +307,10 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 - Redmi Note 13 Pro 4G
 - Redmi Note 12S
 - Redmi Note 12 Pro
-- Redmi Note 12T Pro
-- Redmi Note 11
-- Redmi Note 11 4G
 - Redmi Note 11 5G
 - Redmi Note 11 Pro 4G
 - Redmi Note 11 Pro 5G
 - Redmi Note 11S
-- Redmi Note 10
-- Redmi Note 10 Pro
-- Redmi Note 10 Pro 5G
-- Redmi Note 10S
-- Redmi Note 10 5G
 - POCO M3 Pro 5G variant
 - Redmi Note 10 JE
 - Redmi 15 4G
@@ -374,20 +319,9 @@ yunluo | Redmi Pad |  | Pad | public/devices/yunluo.webp | missing
 - Redmi 15C 5G
 - Redmi 14C
 - Redmi 13
-- Redmi 13C
-- Redmi 13C 5G
-- Redmi 12
-- Redmi 12C
-- Redmi 10
-- Redmi 10 5G
-- Redmi 10C
-- Redmi 10A
 - POCO X8 Pro
 - POCO X8 Pro Max
-- POCO X3
-- POCO M5
 - POCO M4 Pro 5G
-- POCO M3
 - POCO C81
 - POCO C75 5G
 - POCO C71
