@@ -1,6 +1,6 @@
 ============================================================
  DeadZone Device Image Audit Report
- Generated: 2026-06-29T19:43:18.843Z
+ Generated: 2026-06-29T20:01:46.616Z
 ============================================================
 
 --- Summary ---
@@ -9,8 +9,8 @@ source entries: 215
 unique codenames: 172
 duplicate codenames: 0
 duplicate codenames merged: 9
-verified image count: 138
-placeholder count: 34
+verified image count: 154
+placeholder count: 18
 broken image files: 0
 unused image files: 26
 devices without codename: 0
@@ -96,10 +96,10 @@ kunzite | Redmi Note 15 5G |  | Redmi | /devices/kunzite.webp | verified
 charoite | Redmi Note 15 Pro 4G |  | Redmi | public/devices/charoite.webp | missing
 lapis | Redmi Note 15 Pro 5G |  | Redmi | /devices/lapis.webp | verified
 flourite | Redmi Note 15 Pro+ 5G |  | Redmi | /devices/flourite.webp | verified
-tanzanite | Redmi Note 14 4G |  | Redmi | public/devices/tanzanite.webp | missing
+tanzanite | Redmi Note 14 4G |  | Redmi | /devices/tanzanite.webp | verified
 beryl | Redmi Note 14 5G | POCO M7 Pro 5G | Redmi | /devices/beryl.webp | verified
 emerald-r | Redmi Note 14S 4G |  | Redmi | /devices/emerald-r.webp | verified
-obsidian | Redmi Note 14 Pro 4G |  | Redmi | public/devices/obsidian.webp | missing
+obsidian | Redmi Note 14 Pro 4G |  | Redmi | /devices/obsidian.webp | verified
 malachite | Redmi Note 14 Pro 5G | POCO X7 | Redmi | /devices/malachite.webp | verified
 amethyst | Redmi Note 14 Pro+ 5G |  | Redmi | /devices/amethyst.webp | verified
 sapphire | Redmi Note 13 4G |  | Redmi | /devices/sapphire.webp | verified
@@ -120,9 +120,9 @@ spes | Redmi Note 11 |  | Redmi | /devices/spes.webp | verified
 selenes | Redmi Note 11 4G |  | Redmi | /devices/selenes.webp | verified
 evergo | Redmi Note 11 5G |  | Redmi | public/devices/evergo.webp | missing
 viva | Redmi Note 11 Pro 4G |  | Redmi | /devices/viva.webp | verified
-veux | Redmi Note 11 Pro 5G | POCO X4 Pro 5G | Redmi | public/devices/veux.webp | missing
+veux | Redmi Note 11 Pro 5G | POCO X4 Pro 5G | Redmi | /devices/veux.webp | verified
 pissarro | Redmi Note 11 Pro+ 5G |  | Redmi | /devices/pissarro.webp | verified
-fleur | Redmi Note 11S | POCO M4 Pro 4G | Redmi | public/devices/fleur.webp | missing
+fleur | Redmi Note 11S | POCO M4 Pro 4G | Redmi | /devices/fleur.webp | verified
 xaga | Redmi Note 11T Pro | POCO X4 GT | Redmi | /devices/xaga.webp | verified
 mojito | Redmi Note 10 |  | Redmi | /devices/mojito.webp | verified
 sweet | Redmi Note 10 Pro |  | Redmi | /devices/sweet.webp | verified
@@ -130,10 +130,10 @@ chopin | Redmi Note 10 Pro 5G | POCO X3 GT | Redmi | /devices/chopin.webp | veri
 rosemary | Redmi Note 10S | POCO M5s | Redmi | /devices/rosemary.webp | verified
 camellian | Redmi Note 10 5G | POCO M3 Pro 5G | Redmi | /devices/camellian.webp | verified
 camellia | POCO M3 Pro 5G variant |  | Redmi | /devices/camellia.webp | verified
-xig02 | Redmi Note 10 JE |  | Redmi | public/devices/xig02.webp | missing
-creek | Redmi 15 4G |  | Redmi | public/devices/creek.webp | missing
-spring | Redmi 15 5G | Redmi Note 15R 5G | Redmi | public/devices/spring.webp | missing
-dew | Redmi 15C | POCO C85 | Redmi | public/devices/dew.webp | missing
+xig02 | Redmi Note 10 JE |  | Redmi | /devices/xig02.webp | verified
+creek | Redmi 15 4G |  | Redmi | /devices/creek.webp | verified
+spring | Redmi 15 5G | Redmi Note 15R 5G | Redmi | /devices/spring.webp | verified
+dew | Redmi 15C | POCO C85 | Redmi | /devices/dew.webp | verified
 tornado | Redmi 15C 5G |  | Redmi | public/devices/tornado.webp | missing
 lake | Redmi 14C | POCO C75, Redmi A3 Pro | Redmi | /devices/lake.webp | verified
 flame | Redmi 14C 5G | POCO M7 5G, Redmi 14R 5G | Redmi | /devices/flame.webp | verified
@@ -158,14 +158,14 @@ rock | POCO M5 |  | POCO | /devices/rock.webp | verified
 evergreen | POCO M4 Pro 5G |  | POCO | /devices/evergreen.webp | verified
 citrus | POCO M3 |  | POCO | /devices/citrus.webp | verified
 arctic | POCO C81 | Redmi A7 Pro | POCO | public/devices/arctic.webp | missing
-warm | POCO C75 5G | Redmi A4 5G | POCO | public/devices/warm.webp | missing
-serenity | POCO C71 | Redmi A5 | POCO | public/devices/serenity.webp | missing
+warm | POCO C75 5G | Redmi A4 5G | POCO | /devices/warm.webp | verified
+serenity | POCO C71 | Redmi A5 | POCO | /devices/serenity.webp | verified
 blue | POCO C61 | Redmi A3 | POCO | /devices/blue.webp | verified
 water | POCO C51 | Redmi A2+ | POCO | /devices/water.webp | verified
 ice | POCO C50 | Redmi A1+ | POCO | /devices/ice.webp | verified
 piano | Xiaomi Pad 8 Pro |  | Pad | /devices/piano.webp | verified
 yupei | Xiaomi Pad 8 |  | Pad | /devices/yupei.webp | verified
-jinghu | Xiaomi Pad 7 Ultra |  | Pad | public/devices/jinghu.webp | missing
+jinghu | Xiaomi Pad 7 Ultra |  | Pad | /devices/jinghu.webp | verified
 violin | Xiaomi Pad 7S Pro 12.5 |  | Pad | /devices/violin.webp | verified
 muyu | Xiaomi Pad 7 Pro |  | Pad | /devices/muyu.webp | verified
 uke | Xiaomi Pad 7 |  | Pad | /devices/uke.webp | verified
@@ -176,13 +176,13 @@ pipa | Xiaomi Pad 6 |  | Pad | /devices/pipa.webp | verified
 nabu | Xiaomi Pad 5 |  | Pad | /devices/nabu.webp | verified
 enuma | Xiaomi Pad 5 Pro 5G |  | Pad | public/devices/enuma.webp | missing
 elish | Xiaomi Pad 5 Pro Wi-Fi |  | Pad | public/devices/elish.webp | missing
-dagu | Xiaomi Pad 5 Pro 12.4 |  | Pad | public/devices/dagu.webp | missing
+dagu | Xiaomi Pad 5 Pro 12.4 |  | Pad | /devices/dagu.webp | verified
 turner | Redmi K Pad |  | Pad | /devices/turner.webp | verified
 yili | Redmi K Pad 2 |  | Pad | public/devices/yili.webp | missing
-taiko | Redmi Pad 2 |  | Pad | public/devices/taiko.webp | missing
-koto | Redmi Pad 2 4G |  | Pad | public/devices/koto.webp | missing
-flute | Redmi Pad 2 Pro |  | Pad | public/devices/flute.webp | missing
-organ | Redmi Pad 2 Pro 5G |  | Pad | public/devices/organ.webp | missing
+taiko | Redmi Pad 2 |  | Pad | /devices/taiko.webp | verified
+koto | Redmi Pad 2 4G |  | Pad | /devices/koto.webp | verified
+flute | Redmi Pad 2 Pro |  | Pad | /devices/flute.webp | verified
+organ | Redmi Pad 2 Pro 5G |  | Pad | /devices/organ.webp | verified
 guitar | Redmi Pad 2 SE |  | Pad | public/devices/guitar.webp | missing
 erhu | Redmi Pad 2 SE 4G |  | Pad | public/devices/erhu.webp | missing
 dizi | Redmi Pad Pro | POCO Pad | Pad | /devices/dizi.webp | verified
@@ -217,28 +217,12 @@ yunluo | Redmi Pad |  | Pad | /devices/yunluo.webp | verified
 - odin
 - zizhan
 - charoite
-- tanzanite
-- obsidian
 - evergo
-- veux
-- fleur
-- xig02
-- creek
-- spring
-- dew
 - tornado
 - arctic
-- warm
-- serenity
-- jinghu
 - enuma
 - elish
-- dagu
 - yili
-- taiko
-- koto
-- flute
-- organ
 - guitar
 - erhu
 - flare
@@ -253,28 +237,12 @@ yunluo | Redmi Pad |  | Pad | /devices/yunluo.webp | verified
 - Xiaomi MIX 4
 - Xiaomi MIX Fold 2
 - Redmi Note 15 Pro 4G
-- Redmi Note 14 4G
-- Redmi Note 14 Pro 4G
 - Redmi Note 11 5G
-- Redmi Note 11 Pro 5G
-- Redmi Note 11S
-- Redmi Note 10 JE
-- Redmi 15 4G
-- Redmi 15 5G
-- Redmi 15C
 - Redmi 15C 5G
 - POCO C81
-- POCO C75 5G
-- POCO C71
-- Xiaomi Pad 7 Ultra
 - Xiaomi Pad 5 Pro 5G
 - Xiaomi Pad 5 Pro Wi-Fi
-- Xiaomi Pad 5 Pro 12.4
 - Redmi K Pad 2
-- Redmi Pad 2
-- Redmi Pad 2 4G
-- Redmi Pad 2 Pro
-- Redmi Pad 2 Pro 5G
 - Redmi Pad 2 SE
 - Redmi Pad 2 SE 4G
 - Redmi Pad SE 8.7 WiFi
